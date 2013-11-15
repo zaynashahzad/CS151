@@ -9,9 +9,9 @@ import java.util.GregorianCalendar;
 public class Month {
 
     private GregorianCalendar calendar;
-    public final static int[] days = {
-        31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
-    };
+//    public final static int[] days = {
+//        31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+//    };
 
     public Month() {
         calendar = new GregorianCalendar();
@@ -40,26 +40,35 @@ public class Month {
      */
     public ArrayList<String> show() {
         ArrayList<String> arr = new ArrayList();
-        int month = calendar.get(GregorianCalendar.MONTH);
-        int blanks = 0;
-
         int current = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+
         calendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
-        blanks = calendar.get(GregorianCalendar.DAY_OF_WEEK) - 1;
 
-        for (int j = 0; j < blanks; j++) {
-            arr.add(" ");
+        /** append days from previous month */
+        int blanks = calendar.get(GregorianCalendar.DAY_OF_WEEK) - 1;
+        calendar.add(GregorianCalendar.MONTH, -1);
+        for (int i = calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - blanks + 1;
+             i <= calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+             i++) {
+            arr.add(String.valueOf(i));
         }
 
-        int numDays = days[month];
-        if (calendar.get(GregorianCalendar.YEAR) % 4 == 0 && month == 1) {
-            numDays = 29;
-        }
-
+        /** append days from current month */
+        calendar.add(GregorianCalendar.MONTH, 1);
+        int numDays = calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
         for (int i = 1; i <= numDays; i++) {
             arr.add(String.valueOf(i));
-
         }
+
+        /** append days from next month */
+        calendar.add(GregorianCalendar.MONTH, 1);
+        calendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
+        while (calendar.get(GregorianCalendar.DAY_OF_WEEK) != 1) {
+            arr.add(String.valueOf(calendar.get(GregorianCalendar.DAY_OF_MONTH)));
+            calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
+        }
+
+        calendar.add(GregorianCalendar.MONTH, -1);
         calendar.set(GregorianCalendar.DAY_OF_MONTH, current);
         return arr;
     }

@@ -1,7 +1,7 @@
-
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.*;
 
 /**
  * Controller class is the frontend (user interface) that will get all inputs
@@ -37,7 +36,7 @@ public final class Controller extends JFrame {
         "July", "August", "September", "October", "November", "December"
     };
     public final static String[] daysOfWeek = {
-        "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"
+        "S", "M", "T", "W", "T", "F", "S"
     };
 
     public Controller() {
@@ -99,7 +98,7 @@ public final class Controller extends JFrame {
         goToButton.addActionListener(newKeysListener('g'));
         keysPanel.add(goToButton);
 
-        JButton eventsButton = new JButton("Agenda");
+        JButton eventsButton = new JButton("Event list");
         eventsButton.addActionListener(newKeysListener('e'));
         keysPanel.add(eventsButton);
 
@@ -127,26 +126,31 @@ public final class Controller extends JFrame {
         monthCal.removeAll();
         leftTopLabel.setText(months[monthView.getCurMonth()] + " " + monthView.getCurYear());
 
+        /** prints week header */
         for (String s : daysOfWeek) {
-            monthCal.add(new JLabel(s));
+            monthCal.add(new JLabel(s, JLabel.CENTER));
         }
+
+        /** print days */
         ArrayList<String> daysArr = monthView.show();
 
         for (String s : daysArr) {
             if (!s.equals(" ")
                     && Integer.parseInt(s) == calendar.get(GregorianCalendar.DAY_OF_MONTH) && monthView.getCurMonth() == calendar.get(GregorianCalendar.MONTH) && monthView.getCurYear() == calendar.get(GregorianCalendar.YEAR)) {
-                JLabel tempLabel = new JLabel(s);
+                JLabel tempLabel = new JLabel(s, JLabel.CENTER);
                 tempLabel.setForeground(Color.red);
                 Font font = tempLabel.getFont();
                 tempLabel.setFont(new Font(font.getFontName(), Font.BOLD, font.getSize()));
                 daysLabels.add(tempLabel);
+
             } else {
-                daysLabels.add(new JLabel(s));
+                daysLabels.add(new JLabel(s, JLabel.CENTER));
             }
         }
         for (JLabel jl : daysLabels) {
             monthCal.add(jl);
         }
+
         monthPanel.repaint();
     }
 
@@ -282,8 +286,8 @@ public final class Controller extends JFrame {
         }
 
         public void eventsView() {
-            AgendaView eventsViewPan = new AgendaView(events);
-            /*
+            JPanel eventsViewPan = new JPanel();
+
             JTextArea showAllEvents = new JTextArea(30, 30);
             showAllEvents.setText(events.getAll());
             JScrollPane scroll = new JScrollPane(showAllEvents);
@@ -291,7 +295,7 @@ public final class Controller extends JFrame {
             scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             eventsViewPan.add(scroll);
             showAllEvents.setEditable(false);
-            */
+
             this.add(eventsViewPan);
         }
     }

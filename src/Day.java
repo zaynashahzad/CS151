@@ -1,4 +1,3 @@
-
 import java.util.GregorianCalendar;
 
 /**
@@ -10,12 +9,12 @@ class Day {
 
     GregorianCalendar calendar;
     EventsList eventManager;
-    public final static int[] days = {
-        31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
-    };
+//    public final static int[] days = {
+//        31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+//    };
 
     public Day(EventsList eventManager) {
-        // event manager is the one holding all the events in a map 
+        // event manager is t\he one holding all the events in a map
         calendar = new GregorianCalendar();
         this.eventManager = eventManager;
     }
@@ -29,7 +28,7 @@ class Day {
         int day = calendar.get(GregorianCalendar.DAY_OF_MONTH);
         int month = calendar.get(GregorianCalendar.MONTH);
         int year = calendar.get(GregorianCalendar.YEAR);
-        int dayOfWeek = calendar.get(GregorianCalendar.DAY_OF_WEEK) - 1;
+//        int dayOfWeek = calendar.get(GregorianCalendar.DAY_OF_WEEK) - 1;
 
         EventDate date = new EventDate(year, month, day);
         res = eventManager.getOne(date);

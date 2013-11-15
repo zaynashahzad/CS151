@@ -13,7 +13,7 @@ import java.util.TreeMap;
  */
 public class EventsList {
 
-    TreeMap<EventDate, ArrayList<Event>> eventMap = new TreeMap<>();
+    TreeMap<EventDate, ArrayList<Event>> eventMap = new TreeMap<EventDate, ArrayList<Event>>();
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
