@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 
 public class MonthView extends JFrame {
 
+
+
     public final static String[] daysOfWeek = {
         "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"
     };
