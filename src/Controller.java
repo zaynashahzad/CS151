@@ -99,7 +99,7 @@ public final class Controller extends JFrame {
         goToButton.addActionListener(newKeysListener('g'));
         keysPanel.add(goToButton);
 
-        JButton eventsButton = new JButton("Event list");
+        JButton eventsButton = new JButton("Agenda");
         eventsButton.addActionListener(newKeysListener('e'));
         keysPanel.add(eventsButton);
 
@@ -282,8 +282,8 @@ public final class Controller extends JFrame {
         }
 
         public void eventsView() {
-            JPanel eventsViewPan = new JPanel();
-
+            AgendaView eventsViewPan = new AgendaView(events);
+            /*
             JTextArea showAllEvents = new JTextArea(30, 30);
             showAllEvents.setText(events.getAll());
             JScrollPane scroll = new JScrollPane(showAllEvents);
@@ -291,7 +291,7 @@ public final class Controller extends JFrame {
             scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             eventsViewPan.add(scroll);
             showAllEvents.setEditable(false);
-
+            */
             this.add(eventsViewPan);
         }
     }
