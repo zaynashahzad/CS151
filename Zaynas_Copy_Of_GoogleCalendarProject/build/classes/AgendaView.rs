@@ -1,2 +1,0 @@
-AgendaView
-AgendaController

@@ -1,2 +1,0 @@
-WeekController
-WeekView

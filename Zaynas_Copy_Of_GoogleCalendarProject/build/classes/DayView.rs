@@ -1,2 +1,0 @@
-DayController
-DayView
