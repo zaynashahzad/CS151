@@ -4,6 +4,8 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -14,6 +16,7 @@ public class SmallMonthCalendar extends JPanel {
     private JPanel monthCal;
     private ArrayList<JLabel> daysLabels;
     private JLabel monthTitle;
+    private ArrayList<JLabel> weeksTitle;
 
     public final static String[] months = {
             "January", "February", "March", "April", "May", "June",
@@ -27,6 +30,16 @@ public class SmallMonthCalendar extends JPanel {
         monthCal.setLayout(new GridLayout(0, 7));
         daysLabels = new ArrayList();
         monthTitle = new JLabel();
+        weeksTitle = new ArrayList<JLabel>();
+
+
+        weeksTitle.add(new JLabel("S", JLabel.CENTER));
+        weeksTitle.add(new JLabel("M", JLabel.CENTER));
+        weeksTitle.add(new JLabel("T", JLabel.CENTER));
+        weeksTitle.add(new JLabel("W", JLabel.CENTER));
+        weeksTitle.add(new JLabel("T", JLabel.CENTER));
+        weeksTitle.add(new JLabel("F", JLabel.CENTER));
+        weeksTitle.add(new JLabel("S", JLabel.CENTER));
 
         setLayout(new BorderLayout());
         add(monthTitle, BorderLayout.NORTH);
@@ -41,13 +54,6 @@ public class SmallMonthCalendar extends JPanel {
         daysLabels.clear();
         monthCal.removeAll();
 
-        daysLabels.add(new JLabel("S", JLabel.CENTER));
-        daysLabels.add(new JLabel("M", JLabel.CENTER));
-        daysLabels.add(new JLabel("T", JLabel.CENTER));
-        daysLabels.add(new JLabel("W", JLabel.CENTER));
-        daysLabels.add(new JLabel("T", JLabel.CENTER));
-        daysLabels.add(new JLabel("F", JLabel.CENTER));
-        daysLabels.add(new JLabel("S", JLabel.CENTER));
 
         for (String s : days) {
             if (s.contains("*")) {
@@ -73,12 +79,16 @@ public class SmallMonthCalendar extends JPanel {
                 }
             }
         }
+        for (JLabel jl : weeksTitle) {
+            monthCal.add(jl);
+        }
+
         for (JLabel jl : daysLabels) {
             monthCal.add(jl);
         }
 
         monthTitle.setText(months[controller.getCurMonth()] + " " + controller.getCurYear());
-
+        addDaysLabelListener();
         monthCal.validate();
         monthCal.repaint();
     }
@@ -143,6 +153,42 @@ public class SmallMonthCalendar extends JPanel {
                     }
                 }
         );
+    }
+
+    /**
+     * Attaches mouse clicked listener to daysLabel.
+     */
+    public void addDaysLabelListener() {
+
+        JLabel prevDay = null;
+
+        int tempMonth = controller.getCurMonth();
+        if (!daysLabels.get(0).getText().equals("1")) {
+            tempMonth = (tempMonth - 1) % 12;
+            if (tempMonth == -1)
+                tempMonth = 11;
+        }
+
+        for (final JLabel jl : daysLabels) {
+            if (prevDay != null) {
+                if (Integer.parseInt(jl.getText()) < Integer.parseInt(prevDay.getText())) {
+                    tempMonth = (tempMonth + 1) % 12;
+                }
+            }
+            prevDay = jl;
+
+            final int tempMonthCopy = tempMonth;
+
+            jl.addMouseListener(
+                    new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            super.mouseClicked(e);
+                            System.out.println(jl.getText() + "/" + tempMonthCopy);
+                        }
+                    }
+            );
+        }
     }
 }
 

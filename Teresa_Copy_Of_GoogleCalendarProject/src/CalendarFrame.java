@@ -13,6 +13,8 @@ public class CalendarFrame extends JFrame {
         SmallMonthCalendar smallCal = new SmallMonthCalendar(controller);
         DayView dayview = new DayView();
 
+//        ArrayList<JLabel> daysLabel = new ArrayList<JLabel>();
+
         // leftPanel holds the small month calendar and "today", <, > buttons
         JPanel leftPanel = new JPanel();
         leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));

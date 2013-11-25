@@ -94,4 +94,12 @@ public class Controller {
     public GregorianCalendar getCalendar() {
         return calendar;
     }
+
+    public int getPrevMonth() {
+        return calendar.get(GregorianCalendar.MONTH) - 1;
+    }
+
+    public int getNextMonth() {
+        return calendar.get(GregorianCalendar.MONTH) + 1;
+    }
 }
