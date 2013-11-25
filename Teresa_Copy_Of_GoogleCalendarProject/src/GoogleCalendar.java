@@ -1,12 +1,10 @@
-
 import javax.swing.*;
 import java.awt.*;
-
 
 public class GoogleCalendar {
 
     public static void main(String[] args) {
-        Events events = new Events();
+//        Events events = new Events();
 
         CalendarFrame cf = new CalendarFrame();
 

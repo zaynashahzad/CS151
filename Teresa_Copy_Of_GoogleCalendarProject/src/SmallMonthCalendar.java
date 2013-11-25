@@ -1,14 +1,12 @@
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class SmallMonthCalendar extends JPanel {
 
@@ -16,6 +14,12 @@ public class SmallMonthCalendar extends JPanel {
     private GregorianCalendar calendar;
     private JPanel monthCal;
     private ArrayList<JLabel> daysLabels;
+    private JLabel monthTitle;
+
+    public final static String[] months = {
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+    };
 
     SmallMonthCalendar(Controller c) {
         controller = c;
@@ -23,14 +27,20 @@ public class SmallMonthCalendar extends JPanel {
         monthCal = new JPanel();
         monthCal.setLayout(new GridLayout(0, 7));
         daysLabels = new ArrayList();
+        monthTitle = new JLabel();
 
-        add(monthCal);
+        setLayout(new BorderLayout());
+        add(monthTitle, BorderLayout.NORTH);
+        add(monthCal, BorderLayout.CENTER);
         showSmallMonthCal();
     }
 
     private void showSmallMonthCal() {
         ArrayList<String> days = showSmallCalendar();
         GregorianCalendar todaysDate = new GregorianCalendar();
+
+        daysLabels.clear();
+        monthCal.removeAll();
 
         daysLabels.add(new JLabel("S", JLabel.CENTER));
         daysLabels.add(new JLabel("M", JLabel.CENTER));
@@ -67,6 +77,11 @@ public class SmallMonthCalendar extends JPanel {
         for (JLabel jl : daysLabels) {
             monthCal.add(jl);
         }
+
+        monthTitle.setText(months[calendar.get(GregorianCalendar.MONTH)] + " " + calendar.get(GregorianCalendar.YEAR));
+
+        monthCal.validate();
+        monthCal.repaint();
     }
 
     private ArrayList<String> showSmallCalendar() {
@@ -81,8 +96,8 @@ public class SmallMonthCalendar extends JPanel {
         int blanks = calendar.get(GregorianCalendar.DAY_OF_WEEK) - 1;
         calendar.add(GregorianCalendar.MONTH, -1);
         for (int i = calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - blanks + 1;
-                i <= calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-                i++) {
+             i <= calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+             i++) {
             arr.add("*" + String.valueOf(i));
         }
 
@@ -100,7 +115,8 @@ public class SmallMonthCalendar extends JPanel {
          */
         calendar.add(GregorianCalendar.MONTH, 1);
         calendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
-        while (calendar.get(GregorianCalendar.DAY_OF_WEEK) != 1) {
+//        while (calendar.get(GregorianCalendar.DAY_OF_WEEK) != 1) {
+        while (arr.size() < 42) {
             arr.add("*" + String.valueOf(calendar.get(GregorianCalendar.DAY_OF_MONTH)));
             calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
         }
@@ -109,4 +125,49 @@ public class SmallMonthCalendar extends JPanel {
         calendar.set(GregorianCalendar.DAY_OF_MONTH, current);
         return arr;
     }
+
+    /**
+     * Increments the current calendar by one month
+     */
+    private void next() {
+        calendar.add(GregorianCalendar.MONTH, 1);
+        System.out.println(calendar.get(GregorianCalendar.MONTH));
+    }
+
+    /**
+     * Decrements the current calendar by one month
+     */
+    private void prev() {
+        calendar.add(GregorianCalendar.MONTH, -1);
+        System.out.println(calendar.get(GregorianCalendar.MONTH));
+    }
+
+    private void today() {
+        calendar.set(GregorianCalendar.YEAR, Calendar.getInstance().get(GregorianCalendar.YEAR));
+        calendar.set(GregorianCalendar.MONTH, Calendar.getInstance().get(GregorianCalendar.MONTH));
+        System.out.println(calendar.get(GregorianCalendar.MONTH));
+    }
+
+    public void addActionListener(final JButton button) {
+        button.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (button.getText().equals("Today")) {
+                            today();
+                        }
+                        else if (button.getText().equals("<<")) {
+                            prev();
+                        }
+                        else {
+                            next();
+                        }
+                        showSmallMonthCal();
+                    }
+                }
+        );
+    }
 }
+
+
+
