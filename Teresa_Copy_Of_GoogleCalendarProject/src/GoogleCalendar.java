@@ -9,8 +9,11 @@ public class GoogleCalendar {
         CalendarFrame cf = new CalendarFrame();
 
         cf.setExtendedState(Frame.MAXIMIZED_BOTH);
-        cf.setLayout(new GridLayout(1, 1));
+//        cf.pack();
+//        cf.setLayout(new GridLayout(1, 1));
+//        cf.setLayout(new BorderLayout());
         cf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cf.setVisible(true);
+//        cf.setResizable(false);
     }
 }

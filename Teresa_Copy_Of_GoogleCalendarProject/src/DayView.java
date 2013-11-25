@@ -13,6 +13,7 @@ public class DayView  extends JPanel implements ChangeListener{
     }
 
 }
+
 class DayController extends Controller{
     
 }

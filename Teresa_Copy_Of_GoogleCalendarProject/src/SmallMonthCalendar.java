@@ -5,13 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class SmallMonthCalendar extends JPanel {
 
     private Controller controller;
-    private GregorianCalendar calendar;
+//    private GregorianCalendar calendar;
     private JPanel monthCal;
     private ArrayList<JLabel> daysLabels;
     private JLabel monthTitle;
@@ -23,7 +22,7 @@ public class SmallMonthCalendar extends JPanel {
 
     SmallMonthCalendar(Controller c) {
         controller = c;
-        calendar = new GregorianCalendar();
+//        calendar = new GregorianCalendar();
         monthCal = new JPanel();
         monthCal.setLayout(new GridLayout(0, 7));
         daysLabels = new ArrayList();
@@ -60,8 +59,8 @@ public class SmallMonthCalendar extends JPanel {
             } else {
 
                 if (Integer.parseInt(s) == todaysDate.get(GregorianCalendar.DAY_OF_MONTH)
-                        && todaysDate.get(GregorianCalendar.MONTH) == calendar.get(GregorianCalendar.MONTH)
-                        && todaysDate.get(GregorianCalendar.YEAR) == calendar.get(GregorianCalendar.YEAR)) {
+                        && todaysDate.get(GregorianCalendar.MONTH) == controller.getCurMonth()
+                        && todaysDate.get(GregorianCalendar.YEAR) == controller.getCurYear()) {
                     JLabel tempLabel = new JLabel(s, JLabel.CENTER);
                     Font font = tempLabel.getFont();
                     tempLabel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), new EtchedBorder()));
@@ -78,7 +77,7 @@ public class SmallMonthCalendar extends JPanel {
             monthCal.add(jl);
         }
 
-        monthTitle.setText(months[calendar.get(GregorianCalendar.MONTH)] + " " + calendar.get(GregorianCalendar.YEAR));
+        monthTitle.setText(months[controller.getCurMonth()] + " " + controller.getCurYear());
 
         monthCal.validate();
         monthCal.repaint();
@@ -87,7 +86,8 @@ public class SmallMonthCalendar extends JPanel {
     private ArrayList<String> showSmallCalendar() {
 
         ArrayList<String> arr = new ArrayList();
-        int current = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+        int current = controller.getCurDay();
+        GregorianCalendar calendar = controller.getCalendar();
         calendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
 
         /**
@@ -115,7 +115,6 @@ public class SmallMonthCalendar extends JPanel {
          */
         calendar.add(GregorianCalendar.MONTH, 1);
         calendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
-//        while (calendar.get(GregorianCalendar.DAY_OF_WEEK) != 1) {
         while (arr.size() < 42) {
             arr.add("*" + String.valueOf(calendar.get(GregorianCalendar.DAY_OF_MONTH)));
             calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
@@ -126,41 +125,19 @@ public class SmallMonthCalendar extends JPanel {
         return arr;
     }
 
-    /**
-     * Increments the current calendar by one month
-     */
-    private void next() {
-        calendar.add(GregorianCalendar.MONTH, 1);
-        System.out.println(calendar.get(GregorianCalendar.MONTH));
-    }
-
-    /**
-     * Decrements the current calendar by one month
-     */
-    private void prev() {
-        calendar.add(GregorianCalendar.MONTH, -1);
-        System.out.println(calendar.get(GregorianCalendar.MONTH));
-    }
-
-    private void today() {
-        calendar.set(GregorianCalendar.YEAR, Calendar.getInstance().get(GregorianCalendar.YEAR));
-        calendar.set(GregorianCalendar.MONTH, Calendar.getInstance().get(GregorianCalendar.MONTH));
-        System.out.println(calendar.get(GregorianCalendar.MONTH));
-    }
-
     public void addActionListener(final JButton button) {
         button.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (button.getText().equals("Today")) {
-                            today();
+                            controller.todayDate();
                         }
                         else if (button.getText().equals("<<")) {
-                            prev();
+                            controller.prevMonth();
                         }
                         else {
-                            next();
+                            controller.nextMonth();
                         }
                         showSmallMonthCal();
                     }
