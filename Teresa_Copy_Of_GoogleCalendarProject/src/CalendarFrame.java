@@ -11,7 +11,7 @@ public class CalendarFrame extends JFrame {
         events = new Events();
 
         SmallMonthCalendar smallCal = new SmallMonthCalendar(controller);
-        DayView dayview = new DayView();
+
 
 //        ArrayList<JLabel> daysLabel = new ArrayList<JLabel>();
 
@@ -51,6 +51,8 @@ public class CalendarFrame extends JFrame {
 //        rightButtons.add(new JButton("Day"));
         JButton dayButton = new JButton("Day");
         rightButtons.add(dayButton);
+        DayView dayview = new DayView();
+
 
         rightButtons.add(new JButton("Week"));
         rightButtons.add(new JButton("Month"));

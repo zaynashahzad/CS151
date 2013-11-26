@@ -185,6 +185,7 @@ public class SmallMonthCalendar extends JPanel {
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
                             System.out.println(jl.getText() + "/" + tempMonthCopy);
+                            System.out.println(controller.getCurrentView());
                         }
                     }
             );
