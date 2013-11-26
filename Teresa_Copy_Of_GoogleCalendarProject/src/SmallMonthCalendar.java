@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +7,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class SmallMonthCalendar extends JPanel {
+public class SmallMonthCalendar extends JPanel {    //model and controller of small month calendar
 
     private Controller controller;
-//    private GregorianCalendar calendar;
     private JPanel monthCal;
     private ArrayList<JLabel> daysLabels;
     private JLabel monthTitle;
@@ -25,7 +22,6 @@ public class SmallMonthCalendar extends JPanel {
 
     SmallMonthCalendar(Controller c) {
         controller = c;
-//        calendar = new GregorianCalendar();
         monthCal = new JPanel();
         monthCal.setLayout(new GridLayout(0, 7));
         daysLabels = new ArrayList();
@@ -69,7 +65,7 @@ public class SmallMonthCalendar extends JPanel {
                         && todaysDate.get(GregorianCalendar.YEAR) == controller.getCurYear()) {
                     JLabel tempLabel = new JLabel(s, JLabel.CENTER);
                     Font font = tempLabel.getFont();
-                    tempLabel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), new EtchedBorder()));
+                    tempLabel.setBorder(BorderFactory.createLineBorder(Color.black));
                     daysLabels.add(tempLabel);
 
                 } else {
@@ -84,6 +80,8 @@ public class SmallMonthCalendar extends JPanel {
         }
 
         for (JLabel jl : daysLabels) {
+            jl.setOpaque(true);
+            jl.setBackground(Color.white);
             monthCal.add(jl);
         }
 
@@ -186,6 +184,15 @@ public class SmallMonthCalendar extends JPanel {
                             super.mouseClicked(e);
                             System.out.println(jl.getText() + "/" + tempMonthCopy);
                             System.out.println(controller.getCurrentView());
+                        }
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                            jl.setBackground(new Color(222, 222, 222));
+                            jl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        }
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                            jl.setBackground(Color.white);
                         }
                     }
             );

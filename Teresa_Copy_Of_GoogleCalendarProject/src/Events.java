@@ -1,11 +1,11 @@
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-public class Events {
+public class Events {   //model
 
     private TreeMap<Date, ArrayList<DayEvents>> eventsList;
     private ArrayList<ChangeListener> listeners;

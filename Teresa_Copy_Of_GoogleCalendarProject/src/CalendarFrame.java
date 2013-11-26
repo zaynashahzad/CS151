@@ -44,6 +44,7 @@ public class CalendarFrame extends JFrame {
         // rightPanel holds day, week, month, agenda views and the current view, file
         JPanel rightPanel = new JPanel();
         rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        rightPanel.setLayout(new BorderLayout());
 
         JPanel rightButtons = new JPanel();
         rightButtons.setLayout(new GridLayout(1,5));
@@ -51,7 +52,8 @@ public class CalendarFrame extends JFrame {
 //        rightButtons.add(new JButton("Day"));
         JButton dayButton = new JButton("Day");
         rightButtons.add(dayButton);
-        DayView dayview = new DayView();
+        DayView dayview = new DayView(dayButton);
+        DayController dayController = new DayController(dayview);
 
 
         rightButtons.add(new JButton("Week"));

@@ -1,4 +1,3 @@
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -6,6 +5,10 @@ public class Controller {
 
     private char currentView;
     private GregorianCalendar calendar;
+
+    public final static String[] dayOfWeek = {
+            "", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+    };
 
     Controller() {
         // default day view
@@ -95,11 +98,8 @@ public class Controller {
         return calendar;
     }
 
-    public int getPrevMonth() {
-        return calendar.get(GregorianCalendar.MONTH) - 1;
-    }
-
-    public int getNextMonth() {
-        return calendar.get(GregorianCalendar.MONTH) + 1;
+    public String getDayOfWeek() {
+        System.out.println(calendar.get(GregorianCalendar.DAY_OF_WEEK));
+        return dayOfWeek[calendar.get(GregorianCalendar.DAY_OF_WEEK)];
     }
 }
