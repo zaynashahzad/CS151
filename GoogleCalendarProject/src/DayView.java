@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,21 +46,41 @@ public class DayView  extends JFrame implements ChangeListener{
     private void setRightTable(ArrayList<DayEvents> list) {
         Object[][] obj = new Object[24][1];
         Object[] temp = {""};
-        rightTable = new JTable(obj, temp);
+
+        if (list != null) {
+            final int[] hrs = new int[24];
+            for (int i = 0; i < 24; i++)
+                hrs[i] = 0;
+            for (DayEvents de : list) {
+                int startHr = de.getStartHour();
+                int endHr = de.getEndHour();
+
+                obj[startHr][0] = de.getName();
+
+                while (startHr <= endHr)
+                    hrs[startHr++] = 1;
+            }
+
+            rightTable = new JTable(obj, temp) {
+                @Override
+                public Component prepareRenderer(TableCellRenderer renderer, int Index_row, int Index_col) {
+
+                    Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
+                    if (hrs[Index_row] == 1)
+                        comp.setBackground(new Color(135, 206, 250));
+                    else
+                        comp.setBackground(Color.white);
+                    return comp;
+                }
+            };
+        }
+        else
+            rightTable = new JTable(obj, temp);
+
         rightTable.setTableHeader(null);
         rightTable.setRowHeight(50);
         rightTable.setGridColor(Color.lightGray);
-
-        if (list != null) {
-            for (DayEvents dv : list) {
-                int startHr = dv.getStartHour();
-                int endHr = dv.getEndHour();
-
-
-            }
-        }
-
-//        rightTable.setEnabled(false);
+        rightTable.setEnabled(false);
     }
 
 
@@ -96,21 +117,16 @@ class DayController extends Controller{ //with listeners
     private Events events;
 
     DayController(DayView dayView, Events events) {
-
-//        this.calendar = controller.getCalendar();
         this.events = events;
 
         this.dayView = dayView;
         dayView.setDateTitle(getDayOfWeek() + " " + (getCurMonth() + 1) + "/" + getCurDay());
-//        prevMonth();
-        prevDay();prevDay();prevDay();
-        System.out.println((getCurMonth() + 1) + "/" + getCurDay() + " " + getCurYear() + getDayOfWeek());
+//        System.out.println((getCurMonth() + 1) + "/" + getCurDay() + " " + getCurYear() + getDayOfWeek());
         Date date = new Date(2013, 10, 27);
 
         ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
         dayView.displayDayView(dayEvents);
 
-//        dayView.displayDayView(null);
         for (DayEvents de : dayEvents)
             System.out.println(de.getName() + " " + de.getStartHour());
     }
