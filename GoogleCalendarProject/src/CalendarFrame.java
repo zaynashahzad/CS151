@@ -6,7 +6,7 @@ public class CalendarFrame extends JFrame {
 
     private Controller controller;
     private Events events;
-    private JPanel curView; 
+    private JFrame curView; 
 
     public CalendarFrame() {
         controller = new Controller();
