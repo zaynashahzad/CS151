@@ -5,7 +5,7 @@
  * Time: 11:57 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface GeneralController {
+public interface ViewController {
     void repaintCurrentView();
     void viewNext();
     void viewPrev();
