@@ -41,8 +41,7 @@ public class DayView  extends JFrame implements ChangeListener{
         Object[] temp = {"", ""};
         table = new JTable(obj, temp);
         table.setTableHeader(null);
-//        table.setFillsViewportHeight(true);
-        table.setBorder(BorderFactory.createLineBorder(Color.black));
+        table.setRowHeight(50);
 
         hoursPanel = new JPanel();
         hoursPanel.setLayout(new FlowLayout());
