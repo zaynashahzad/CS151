@@ -50,7 +50,7 @@ public class CalendarFrame extends JFrame {
         rightButtons.setLayout(new GridLayout(1,5));
 
 //        rightButtons.add(new JButton("Day"));
-        JButton dayButton = new JButton("Day");
+        JButton dayButton = new JButton("Here");
         rightButtons.add(dayButton);
         DayView dayview = new DayView(dayButton);
         DayController dayController = new DayController(dayview);
@@ -62,7 +62,7 @@ public class CalendarFrame extends JFrame {
         rightButtons.add(new JButton("From File"));
 
         rightPanel.add(rightButtons, BorderLayout.NORTH);
-        rightPanel.add(dayview, BorderLayout.CENTER);
+        rightPanel.add(dayview.getContentPane(), BorderLayout.CENTER);
 
         setLayout(new GridLayout(1, 1));
         add(leftPanel);
