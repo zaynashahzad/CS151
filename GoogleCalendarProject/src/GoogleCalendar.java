@@ -1,12 +1,10 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
 
 public class GoogleCalendar {
 
     public static void main(String[] args) {
-        // the
         System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 
 //        Events events = new Events();

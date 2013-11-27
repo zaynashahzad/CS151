@@ -5,15 +5,23 @@ public class Controller {
 
     private char currentView;
     private GregorianCalendar calendar;
+    private Events events;
 
     public final static String[] dayOfWeek = {
-            "", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+            "", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
     };
+
+    Controller(Events events) {
+        this.events = events;
+        calendar = new GregorianCalendar();
+        currentView = 'd';
+    }
 
     Controller() {
         // default day view
         calendar = new GregorianCalendar();
         currentView = 'd';
+        this.events = new Events();
     }
 
     public GregorianCalendar getCal(){
@@ -101,5 +109,9 @@ public class Controller {
     public String getDayOfWeek() {
         System.out.println(calendar.get(GregorianCalendar.DAY_OF_WEEK));
         return dayOfWeek[calendar.get(GregorianCalendar.DAY_OF_WEEK)];
+    }
+
+    public Events getEvents() {
+        return events;
     }
 }

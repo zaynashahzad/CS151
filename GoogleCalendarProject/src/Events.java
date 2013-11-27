@@ -1,9 +1,6 @@
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Events {   //model
 
@@ -64,5 +61,21 @@ public class Events {   //model
         } else {
             return false;
         }
+    }
+
+    /***
+     *
+     * @param date
+     * @return Sorted event list on given date
+     */
+    public ArrayList<DayEvents> getEventsForDate(Date date) {
+        ArrayList<DayEvents> dayEvents = eventsList.get(date);
+        Collections.sort(dayEvents, new Comparator<DayEvents>() {
+            @Override
+            public int compare(DayEvents o1, DayEvents o2) {
+                return o1.getStartHour() - o2.getStartHour();
+            }
+        });
+        return dayEvents;
     }
 }
