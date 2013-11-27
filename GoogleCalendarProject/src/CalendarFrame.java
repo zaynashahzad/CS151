@@ -6,7 +6,11 @@ public class CalendarFrame extends JFrame {
 
     private Controller controller;
     private Events events;
+<<<<<<< HEAD
     private JFrame curView; 
+=======
+    private JFrame curView;
+>>>>>>> caaec21526410714c7f691d816cca7fe1101f5d8
 
     public CalendarFrame() {
         controller = new Controller();
@@ -51,7 +55,7 @@ public class CalendarFrame extends JFrame {
         rightButtons.setLayout(new GridLayout(1,5));
 
 //        rightButtons.add(new JButton("Day"));
-        JButton dayButton = new JButton("Here");
+        JButton dayButton = new JButton("Day");
         rightButtons.add(dayButton);
         curView = new DayView(dayButton);
         DayView dayview = (DayView)curView;
