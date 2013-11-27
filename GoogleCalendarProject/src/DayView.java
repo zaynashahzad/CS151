@@ -42,6 +42,10 @@ public class DayView  extends JFrame implements ChangeListener{
         table = new JTable(obj, temp);
         table.setTableHeader(null);
         table.setRowHeight(50);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        for (int i = 0; i < 24; i++) {
+            table.getColumnModel().getColumn(0).setPreferredWidth(50);
+//        }
 
         hoursPanel = new JPanel();
         hoursPanel.setLayout(new FlowLayout());
