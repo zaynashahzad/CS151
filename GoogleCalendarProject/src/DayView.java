@@ -2,67 +2,55 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.util.ArrayList;
 
 
 public class DayView  extends JFrame implements ChangeListener{
 
     JLabel dateTitle;
-    ArrayList hoursLabel; // showing events
-//    JList<JLabel> hoursTitle; // showing each hour
-    DayController dayController;
-    JPanel hoursPanel; //contains hourLabel
-    JPanel hoursTitlePanel;
+//    DayController dayController;
     JScrollPane scrollPane;
-    String[] title = {
+    JTable leftTable, rightTable;
+    JPanel panel;
+    public static final String[] title = {
             "12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am",
             "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
     };
-    JTable table;
+
 
     public DayView(JButton dayButton) {
 
         dateTitle = new JLabel();
-        hoursLabel = new ArrayList<JLabel>();
+        panel = new JPanel(new BorderLayout());
+        scrollPane = new JScrollPane(panel);
 
-////        hoursTitlePanel = new JPanel();
-//        hoursTitle = new JList(title);
-//        hoursTitle.setVisibleRowCount(12);
-//        for (int i = 0; i < 24; i++) {
-//            JLabel tempLable = new JLabel(title[i]);
-////            hoursTitle.add(tempLable);
-//        }
-
-        Object[][] obj = new Object[24][2];
+        Object[][] obj = new Object[24][1];
+        Object[][] obj1 = new Object[24][1];
         for (int i = 0; i < 24; i++) {
             obj[i][0] = title[i];
-            obj[i][1] = new String("none");
+            obj1[i][0] = "none";
         }
-        Object[] temp = {"", ""};
-        table = new JTable(obj, temp);
-        table.setTableHeader(null);
-        table.setRowHeight(50);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        for (int i = 0; i < 24; i++) {
-            table.getColumnModel().getColumn(0).setPreferredWidth(50);
-//        }
-
-        hoursPanel = new JPanel();
-        hoursPanel.setLayout(new FlowLayout());
+        Object[] temp = {""};
+        leftTable = new JTable(obj, temp);
+        leftTable.setTableHeader(null);
+        leftTable.setRowHeight(50);
+        leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        leftTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+        leftTable.setGridColor(Color.lightGray);
+        leftTable.setEnabled(false);
 
 
+        rightTable = new JTable(obj1, temp);
+        rightTable.setTableHeader(null);
+        rightTable.setRowHeight(50);
+        rightTable.setGridColor(Color.lightGray);
 
-        scrollPane = new JScrollPane(table,
-                ScrollPaneLayout.VERTICAL_SCROLLBAR_ALWAYS,
-                ScrollPaneLayout.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//        scrollPane.setVisibleR
-//        scrollPane.setViewportView(hoursPanel);
         this.setLayout(new BorderLayout());
+        displayDayView();
     }
 
 
     public void displayDayView() {
-        hoursPanel.removeAll();
+//        hoursPanel.removeAll();
 //        scrollPane.removeAll();
 
 //        for (JLabel jl : hoursTitle) {
@@ -71,6 +59,10 @@ public class DayView  extends JFrame implements ChangeListener{
 ////            scrollPane.add(jl);
 //
 //        }
+        panel.removeAll();
+
+        panel.add(leftTable, BorderLayout.WEST);
+        panel.add(rightTable, BorderLayout.CENTER);
 
         this.add(dateTitle, BorderLayout.NORTH);
         this.add(scrollPane, BorderLayout.CENTER);
