@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Date;
 
 public class CalendarFrame extends JFrame {
 
@@ -10,9 +11,9 @@ public class CalendarFrame extends JFrame {
     public CalendarFrame() {
         controller = new Controller();
         events = new Events();
+        testEvents();
 
         SmallMonthCalendar smallCal = new SmallMonthCalendar(controller);
-
 
 //        ArrayList<JLabel> daysLabel = new ArrayList<JLabel>();
 
@@ -70,5 +71,39 @@ public class CalendarFrame extends JFrame {
 
     }
 
+    /*
+     * For testing purposes only, populate
+     * the events treemap with events to display in calendar.
+     */
+    private void testEvents() {
+
+        // year is from 0 to 8099. Month is from 0 to 11. Day is from 1 to 31
+        Date date = new Date(2013, 10, 26);
+        DayEvents tempEvent = new DayEvents("Dentist Appointment", 800, 1000, date);
+        events.addEvent(date, tempEvent);
+        
+        tempEvent = new DayEvents("Take cat to the vet", 1300, 1400, date);
+        events.addEvent(date, tempEvent);
+        
+        tempEvent = new DayEvents("Zayna's surprise party", 1500, 1700, date);
+        events.addEvent(date, tempEvent);
+        
+        tempEvent = new DayEvents("Submit physics report", 1900, 2200, date);
+        events.addEvent(date, tempEvent);
+
+        date = new Date(2013, 10, 30);
+        tempEvent = new DayEvents("Concert w/ Robert", 1100, 1300, date);
+        events.addEvent(date, tempEvent);
+        
+        date = new Date(2013, 11, 25);
+        tempEvent = new DayEvents("Christmas Party", 1600, 2000, date);
+        events.addEvent(date, tempEvent);
+
+        date = new Date(2014, 1, 14);
+        tempEvent = new DayEvents("Valentine's Day Dinner with Teresa", 1600, 1700, date);
+        events.addEvent(date, tempEvent);
+        
+    }
+    
     
 }
