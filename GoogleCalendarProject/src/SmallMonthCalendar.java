@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class SmallMonthCalendar extends JPanel {    //model and controller of small month calendar
@@ -14,13 +15,14 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
     private ArrayList<JLabel> daysLabels;
     private JLabel monthTitle;
     private ArrayList<JLabel> weeksTitle;
+    private Events events;
 
     public final static String[] months = {
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
     };
 
-    SmallMonthCalendar(Controller c) {
+    SmallMonthCalendar(Controller c, Events events) {
         controller = c;
         monthCal = new JPanel();
         monthCal.setLayout(new GridLayout(0, 7));
@@ -182,7 +184,9 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
                             System.out.println(jl.getText() + "/" + tempMonthCopy);
-                            System.out.println(controller.getCurrentView());
+//                            System.out.println(controller.getCurrentView());
+                            Date date = new Date(controller.getCurYear(), tempMonthCopy, Integer.parseInt(jl.getText()));
+
                         }
                         @Override
                         public void mouseEntered(MouseEvent e) {

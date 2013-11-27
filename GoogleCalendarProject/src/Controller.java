@@ -1,7 +1,7 @@
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Controller {
+public class Controller implements GeneralController{
 
     private char currentView;
     private GregorianCalendar calendar;
@@ -35,6 +35,7 @@ public class Controller {
 
     public void setCurrentView(char c) {
         currentView = c;
+
     }
 
     /**
@@ -114,4 +115,6 @@ public class Controller {
     public Events getEvents() {
         return events;
     }
+
+    //repaintCurrentView()
 }

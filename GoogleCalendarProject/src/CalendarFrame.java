@@ -14,7 +14,7 @@ public class CalendarFrame extends JFrame {
         testEvents();
         controller = new Controller(events);
 
-        SmallMonthCalendar smallCal = new SmallMonthCalendar(controller);
+        SmallMonthCalendar smallCal = new SmallMonthCalendar(controller, events);
 
 //        ArrayList<JLabel> daysLabel = new ArrayList<JLabel>();
 

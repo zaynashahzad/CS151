@@ -17,6 +17,8 @@ public class DayView  extends JFrame implements ChangeListener{
             "12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am",
             "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
     };
+//    public static final Color[] colors = {new Color(135, 206, 250), new Color(255, 138, 202)};
+
 
     public DayView(JButton dayButton) {
 
@@ -35,7 +37,7 @@ public class DayView  extends JFrame implements ChangeListener{
         Object[] temp = {""};
         leftTable = new JTable(obj, temp);
         leftTable.setTableHeader(null);
-        leftTable.setRowHeight(50);
+        leftTable.setRowHeight(40);
         leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         leftTable.getColumnModel().getColumn(0).setPreferredWidth(50);
         leftTable.setGridColor(Color.lightGray);
@@ -64,7 +66,6 @@ public class DayView  extends JFrame implements ChangeListener{
             rightTable = new JTable(obj, temp) {
                 @Override
                 public Component prepareRenderer(TableCellRenderer renderer, int Index_row, int Index_col) {
-
                     Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
                     if (hrs[Index_row] == 1)
                         comp.setBackground(new Color(135, 206, 250));
@@ -78,7 +79,7 @@ public class DayView  extends JFrame implements ChangeListener{
             rightTable = new JTable(obj, temp);
 
         rightTable.setTableHeader(null);
-        rightTable.setRowHeight(50);
+        rightTable.setRowHeight(40);
         rightTable.setGridColor(Color.lightGray);
         rightTable.setEnabled(false);
     }
@@ -130,6 +131,4 @@ class DayController extends Controller{ //with listeners
         for (DayEvents de : dayEvents)
             System.out.println(de.getName() + " " + de.getStartHour());
     }
-
-    
 }
