@@ -5,6 +5,7 @@ public class CalendarFrame extends JFrame {
 
     private Controller controller;
     private Events events;
+    private JPanel curView; 
 
     public CalendarFrame() {
         controller = new Controller();
@@ -20,7 +21,6 @@ public class CalendarFrame extends JFrame {
         leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         leftPanel.setLayout(new BorderLayout());
         leftPanel.setPreferredSize(new Dimension(200, 200));
-
 
         JPanel leftButtons = new JPanel();
         leftButtons.setLayout(new GridLayout(1, 3));
@@ -52,10 +52,10 @@ public class CalendarFrame extends JFrame {
 //        rightButtons.add(new JButton("Day"));
         JButton dayButton = new JButton("Day");
         rightButtons.add(dayButton);
-        DayView dayview = new DayView(dayButton);
+        curView = new DayView(dayButton);
+        DayView dayview = (DayView)curView;
         DayController dayController = new DayController(dayview);
-
-
+        
         rightButtons.add(new JButton("Week"));
         rightButtons.add(new JButton("Month"));
         rightButtons.add(new JButton("Agenda"));
@@ -70,4 +70,5 @@ public class CalendarFrame extends JFrame {
 
     }
 
+    
 }
