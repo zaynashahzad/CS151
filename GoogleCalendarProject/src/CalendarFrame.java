@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Date;
@@ -6,7 +7,7 @@ public class CalendarFrame extends JFrame {
 
     private Controller controller;
     private Events events; // model
-    private JFrame curView; 
+    private JFrame curView;
 
     public CalendarFrame() {
 
@@ -49,22 +50,24 @@ public class CalendarFrame extends JFrame {
         rightPanel.setLayout(new BorderLayout());
 
         JPanel rightButtons = new JPanel();
-        rightButtons.setLayout(new GridLayout(1,5));
+        rightButtons.setLayout(new GridLayout(1, 5));
 
 //        rightButtons.add(new JButton("Day"));
         JButton dayButton = new JButton("Day");
         rightButtons.add(dayButton);
-        curView = new MonthView();
-     //   DayView dayview = (DayView)curView;
-    //    DayController dayController = new DayController(dayview, events);
-        
+        //  curView = new MonthView();
+        curView = new DayView();
+
+        DayView dayview = (DayView) curView;
+        DayController dayController = new DayController(dayview, events);
+
         rightButtons.add(new JButton("Week"));
         rightButtons.add(new JButton("Month"));
         rightButtons.add(new JButton("Agenda"));
         rightButtons.add(new JButton("From File"));
 
         rightPanel.add(rightButtons, BorderLayout.NORTH);
-        rightPanel.add(new MonthView().getContentPane(), BorderLayout.CENTER);
+        rightPanel.add(curView.getContentPane(), BorderLayout.CENTER);
 
         setLayout(new GridLayout(1, 1));
         add(leftPanel);
@@ -94,7 +97,7 @@ public class CalendarFrame extends JFrame {
         date = new Date(2013, 10, 30);
         tempEvent = new DayEvents("Concert w/ Robert", 11, 13, date);
         events.addEvent(date, tempEvent);
-        
+
         date = new Date(2013, 11, 25);
         tempEvent = new DayEvents("Christmas Party", 16, 20, date);
         events.addEvent(date, tempEvent);
@@ -103,5 +106,4 @@ public class CalendarFrame extends JFrame {
         tempEvent = new DayEvents("Valentine's Day Dinner with Teresa", 16, 17, date);
         events.addEvent(date, tempEvent);
     }
-    
 }

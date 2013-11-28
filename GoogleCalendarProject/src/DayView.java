@@ -131,17 +131,4 @@ class DayController extends Controller{ //with listeners
         for (DayEvents de : dayEvents)
             System.out.println(de.getName() + " " + de.getStartHour());
     }
-<<<<<<< Updated upstream
-=======
-
-    /*
-    public setDate(String str){
-       int month = str.substring(month);
-       int day = ....;
-       
-       
-        
-    }
-    */
->>>>>>> Stashed changes
 }
