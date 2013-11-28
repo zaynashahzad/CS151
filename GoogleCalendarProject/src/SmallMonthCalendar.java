@@ -183,6 +183,14 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
+                            if (controller.getCurrentView() == 'd'){
+                                DayView dayview = new DayView();
+                               //  dayview.setDateTitle(jl.getText()) + "/" + tempMonthCopy);
+                            }else if (controller.getCurrentView() == 'w'){
+                                
+                            }
+                            
+                            
                             System.out.println(jl.getText() + "/" + tempMonthCopy);
 //                            System.out.println(controller.getCurrentView());
                             Date date = new Date(controller.getCurYear(), tempMonthCopy, Integer.parseInt(jl.getText()));

@@ -20,7 +20,7 @@ public class DayView  extends JFrame implements ChangeListener{
 //    public static final Color[] colors = {new Color(135, 206, 250), new Color(255, 138, 202)};
 
 
-    public DayView(JButton dayButton) {
+    public DayView() {
 
         dateTitle = new JLabel();
         panel = new JPanel(new BorderLayout());
@@ -131,4 +131,17 @@ class DayController extends Controller{ //with listeners
         for (DayEvents de : dayEvents)
             System.out.println(de.getName() + " " + de.getStartHour());
     }
+<<<<<<< Updated upstream
+=======
+
+    /*
+    public setDate(String str){
+       int month = str.substring(month);
+       int day = ....;
+       
+       
+        
+    }
+    */
+>>>>>>> Stashed changes
 }

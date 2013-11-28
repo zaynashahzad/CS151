@@ -54,9 +54,9 @@ public class CalendarFrame extends JFrame {
 //        rightButtons.add(new JButton("Day"));
         JButton dayButton = new JButton("Day");
         rightButtons.add(dayButton);
-        curView = new DayView(dayButton);
-        DayView dayview = (DayView)curView;
-        DayController dayController = new DayController(dayview, events);
+        curView = new MonthView();
+     //   DayView dayview = (DayView)curView;
+    //    DayController dayController = new DayController(dayview, events);
         
         rightButtons.add(new JButton("Week"));
         rightButtons.add(new JButton("Month"));
@@ -64,12 +64,11 @@ public class CalendarFrame extends JFrame {
         rightButtons.add(new JButton("From File"));
 
         rightPanel.add(rightButtons, BorderLayout.NORTH);
-        rightPanel.add(dayview.getContentPane(), BorderLayout.CENTER);
+        rightPanel.add(new MonthView().getContentPane(), BorderLayout.CENTER);
 
         setLayout(new GridLayout(1, 1));
         add(leftPanel);
         add(rightPanel);
-
     }
 
     /*
@@ -103,8 +102,6 @@ public class CalendarFrame extends JFrame {
         date = new Date(2014, 1, 14);
         tempEvent = new DayEvents("Valentine's Day Dinner with Teresa", 16, 17, date);
         events.addEvent(date, tempEvent);
-        
     }
-    
     
 }
