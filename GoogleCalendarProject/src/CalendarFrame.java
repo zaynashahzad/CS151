@@ -23,7 +23,8 @@ public class CalendarFrame extends JFrame {
         JPanel leftPanel = new JPanel();
         leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         leftPanel.setLayout(new BorderLayout());
-        leftPanel.setPreferredSize(new Dimension(200, 200));
+        leftPanel.setPreferredSize(new Dimension(300, 300));
+        leftPanel.setMaximumSize(new Dimension(300, 300));
 
         JPanel leftButtons = new JPanel();
         leftButtons.setLayout(new GridLayout(1, 3));
@@ -69,9 +70,9 @@ public class CalendarFrame extends JFrame {
         rightPanel.add(rightButtons, BorderLayout.NORTH);
         rightPanel.add(curView.getContentPane(), BorderLayout.CENTER);
 
-        setLayout(new GridLayout(1, 1));
-        add(leftPanel);
-        add(rightPanel);
+        setLayout(new BorderLayout());
+        add(leftPanel, BorderLayout.WEST);
+        add(rightPanel, BorderLayout.CENTER);
     }
 
     /*
