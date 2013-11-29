@@ -21,7 +21,8 @@ public class DayView extends JPanel implements ChangeListener {
 //    public static final Color[] colors = {new Color(135, 206, 250), new Color(255, 138, 202)};
 
     public DayView(Events events) {
-        //   DayController dayController = new DayController(this, events);
+
+
 
         dateTitle = new JLabel();
         panel = new JPanel(new BorderLayout());
@@ -29,6 +30,19 @@ public class DayView extends JPanel implements ChangeListener {
 
         this.setLayout(new BorderLayout());
         displayDayView(null);
+
+        dayController = new DayController(events);
+
+        setDateTitle(dayController.getDayOfWeek() + " " + (dayController.getCurMonth() + 1) + "/" + dayController.getCurDay());
+        Date date = new Date(2013, 10, 27);
+
+        ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
+        displayDayView(dayEvents);
+
+        for (DayEvents de : dayEvents) {
+            System.out.println(de.getName() + " " + de.getStartHour());
+        }
+
     }
 
     private void setLeftTable() {
@@ -89,7 +103,7 @@ public class DayView extends JPanel implements ChangeListener {
         rightTable.setEnabled(false);
     }
 
-    public void displayDayView(ArrayList<DayEvents> list) {
+    private void displayDayView(ArrayList<DayEvents> list) {
         panel.removeAll();
 
         setLeftTable();
@@ -104,7 +118,7 @@ public class DayView extends JPanel implements ChangeListener {
         this.repaint();
     }
 
-    public void setDateTitle(String date) {
+    private void setDateTitle(String date) {
         this.dateTitle.setText(date);
     }
 
@@ -117,19 +131,7 @@ class DayController extends Controller { //with listeners
     DayView dayView;
     private Events events;
 
-    DayController(DayView dayView, Events events) {
+    DayController(Events events) {
         this.events = events;
-
-        this.dayView = dayView;
-        dayView.setDateTitle(getDayOfWeek() + " " + (getCurMonth() + 1) + "/" + getCurDay());
-//        System.out.println((getCurMonth() + 1) + "/" + getCurDay() + " " + getCurYear() + getDayOfWeek());
-        Date date = new Date(2013, 10, 27);
-
-        ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
-        dayView.displayDayView(dayEvents);
-
-        for (DayEvents de : dayEvents) {
-            System.out.println(de.getName() + " " + de.getStartHour());
-        }
     }
 }
