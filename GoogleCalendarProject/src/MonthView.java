@@ -1,29 +1,39 @@
 
+<<<<<<< HEAD
 import javax.swing.*;
+=======
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+>>>>>>> d85684405bb2e0999541f76b4493e57964babf9d
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class MonthView extends JFrame implements ChangeListener {
+public class MonthView extends JPanel implements ChangeListener {
 
     private ArrayList<JLabel> weeksTitle;
     private MonthController controller;
     private JPanel monthCal;
-    private JLabel[][] daysLabels;
     private JLabel monthTitle;
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     };
 
-    public MonthView() {
+    public MonthView( Events events) {
         this.setVisible(true);
         controller = new MonthController();
         weeksTitle = new ArrayList<JLabel>();
         monthCal = new JPanel();
-        daysLabels = new JLabel[31][5];
         monthTitle = new JLabel();
 
         monthCal.setLayout(new GridLayout(0, 7));
@@ -47,21 +57,42 @@ public class MonthView extends JFrame implements ChangeListener {
         ArrayList<String> days = controller.showCalendar();
         GregorianCalendar todaysDate = new GregorianCalendar();
 
-        daysLabels = new JLabel[31][5];
+
         monthCal.removeAll();
 
-        for (String s : days) {
-            JPanel tempPanel = new JPanel();
-            
-               
-        
-        }
         for (JLabel jl : weeksTitle) {
             monthCal.add(jl);
         }
 
-    
-        monthTitle.setText(months[controller.getCurMonth() -1] + " " + controller.getCurYear());
+        for (String s : days) {
+
+
+            JPanel tempPanel = new JPanel();
+
+            JLabel label1 = new JLabel(s);
+            JLabel label2 = new JLabel();
+            JLabel label3 = new JLabel();
+            JLabel label4 = new JLabel();
+
+            if (!s.equals(" ")) {
+                if (Integer.parseInt(s) == todaysDate.get(GregorianCalendar.DAY_OF_MONTH)
+                        && todaysDate.get(GregorianCalendar.MONTH) == controller.getCurMonth()
+                        && todaysDate.get(GregorianCalendar.YEAR) == controller.getCurYear()) {
+                    tempPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+
+                }
+            }
+
+
+            tempPanel.add(label1);
+            tempPanel.add(label2);
+            tempPanel.add(label3);
+            tempPanel.add(label4);
+
+            monthCal.add(tempPanel);
+        }
+
+        monthTitle.setText(months[controller.getCurMonth() - 1] + " " + controller.getCurYear());
         monthCal.validate();
         monthCal.repaint();
     }
@@ -83,7 +114,14 @@ class MonthController extends Controller {
          * add blanks to line up day of week
          */
         int blanks = calendar.get(GregorianCalendar.DAY_OF_WEEK) - 1;
-       
+        calendar.add(GregorianCalendar.MONTH, -1);
+        for (int i = calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - blanks + 1;
+                i <= calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+                i++) {
+            arr.add(" ");
+        }
+
+
         /**
          * append days from current month
          */
@@ -92,6 +130,19 @@ class MonthController extends Controller {
         for (int i = 1; i <= numDays; i++) {
             arr.add(String.valueOf(i));
         }
+        /**
+         * append days from next month
+         */
+        calendar.add(GregorianCalendar.MONTH, 1);
+        calendar.set(GregorianCalendar.DAY_OF_MONTH, 1);
+        while (arr.size() < 42) {
+            arr.add(" ");
+            calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
+        }
+
+        calendar.add(GregorianCalendar.MONTH, -1);
+        calendar.set(GregorianCalendar.DAY_OF_MONTH, current);
+
 
         return arr;
     }

@@ -1,18 +1,21 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Date;
 
 public class CalendarFrame extends JFrame {
 
     private Controller controller;
     private Events events; // model
-    private JFrame curView;
+    private JPanel curView;
 
     public CalendarFrame() {
 
         events = new Events();
         testEvents();
+        curView = new DayView(events);
         controller = new Controller(events);
 
         SmallMonthCalendar smallCal = new SmallMonthCalendar(controller, events);
@@ -46,29 +49,81 @@ public class CalendarFrame extends JFrame {
         leftPanel.add(smallCal, BorderLayout.CENTER);
 
         // rightPanel holds day, week, month, agenda views and the current view, file
-        JPanel rightPanel = new JPanel();
+        final JPanel rightPanel = new JPanel();
         rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         rightPanel.setLayout(new BorderLayout());
 
-        JPanel rightButtons = new JPanel();
+        final JPanel rightButtons = new JPanel();
         rightButtons.setLayout(new GridLayout(1, 5));
 
-//        rightButtons.add(new JButton("Day"));
         JButton dayButton = new JButton("Day");
+        dayButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                 curView = new DayView(events);
+                rightPanel.removeAll();
+                rightPanel.invalidate();
+                rightPanel.add(rightButtons, BorderLayout.NORTH);
+                rightPanel.add(curView, BorderLayout.CENTER);
+                rightPanel.validate();
+                rightPanel.repaint();
+            }
+        });
         rightButtons.add(dayButton);
-        //  curView = new MonthView();
-        curView = new DayView();
 
-        DayView dayview = (DayView) curView;
-        DayController dayController = new DayController(dayview, events);
+        JButton weekButton = new JButton("Week");
+        weekButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                            curView = new WeekView(events);
+                rightPanel.removeAll();
+                rightPanel.invalidate();
+                rightPanel.add(rightButtons, BorderLayout.NORTH);
+                rightPanel.add(curView, BorderLayout.CENTER);
+                rightPanel.validate();
+                rightPanel.repaint();
+            }
+        });
+        rightButtons.add(weekButton);
 
-        rightButtons.add(new JButton("Week"));
-        rightButtons.add(new JButton("Month"));
-        rightButtons.add(new JButton("Agenda"));
-        rightButtons.add(new JButton("From File"));
+        JButton monthButton = new JButton("Month");
+        monthButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                curView = new MonthView(events);
+                rightPanel.removeAll();
+                rightPanel.invalidate();
+                rightPanel.add(rightButtons, BorderLayout.NORTH);
+                rightPanel.add(curView, BorderLayout.CENTER);
+                rightPanel.validate();
+                rightPanel.repaint();
+            }
+        });
+        rightButtons.add(monthButton);
+
+        JButton agendaButton = new JButton("Agenda");
+        agendaButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                             curView = new AgendaView(events);
+                rightPanel.removeAll();
+                rightPanel.invalidate();
+                rightPanel.add(rightButtons, BorderLayout.NORTH);
+                rightPanel.add(curView, BorderLayout.CENTER);
+                rightPanel.validate();
+                rightPanel.repaint();
+            }
+        });
+
+        rightButtons.add(agendaButton);
+
+        JButton fromFileButton = new JButton("From File");
+        fromFileButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // something happens here.
+            }
+        });
+        rightButtons.add(weekButton);
+        rightButtons.add(fromFileButton);
 
         rightPanel.add(rightButtons, BorderLayout.NORTH);
-        rightPanel.add(curView.getContentPane(), BorderLayout.CENTER);
+        rightPanel.add(curView, BorderLayout.CENTER);
 
         setLayout(new BorderLayout());
         add(leftPanel, BorderLayout.WEST);
