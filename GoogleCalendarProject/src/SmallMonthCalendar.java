@@ -28,6 +28,11 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         monthCal.setLayout(new GridLayout(0, 7));
         daysLabels = new ArrayList();
         monthTitle = new JLabel();
+        JLabel leftArrow = new JLabel();
+        JLabel rightArrow = new JLabel();
+        JButton createEvent = new JButton("Create");
+        
+
         weeksTitle = new ArrayList<JLabel>();
 
         weeksTitle.add(new JLabel("S", JLabel.CENTER));

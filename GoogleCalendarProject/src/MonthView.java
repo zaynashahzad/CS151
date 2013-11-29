@@ -6,9 +6,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 >>>>>>> d85684405bb2e0999541f76b4493e57964babf9d
@@ -29,7 +29,7 @@ public class MonthView extends JPanel implements ChangeListener {
         "July", "August", "September", "October", "November", "December"
     };
 
-    public MonthView( Events events) {
+    public MonthView(Events events) {
         this.setVisible(true);
         controller = new MonthController();
         weeksTitle = new ArrayList<JLabel>();
@@ -53,10 +53,11 @@ public class MonthView extends JPanel implements ChangeListener {
     }
 
     private void showMonthCal() {
-
+        ArrayList<DayEvents> eventsForOneDay = new ArrayList<DayEvents>();
         ArrayList<String> days = controller.showCalendar();
         GregorianCalendar todaysDate = new GregorianCalendar();
 
+        GregorianCalendar cal = controller.getCalendar();
 
         monthCal.removeAll();
 
@@ -66,13 +67,13 @@ public class MonthView extends JPanel implements ChangeListener {
 
         for (String s : days) {
 
-
             JPanel tempPanel = new JPanel();
 
             JLabel label1 = new JLabel(s);
-            JLabel label2 = new JLabel();
-            JLabel label3 = new JLabel();
-            JLabel label4 = new JLabel();
+            JLabel[] eventLabels = new JLabel[3];
+            for (int i = 0; i < eventLabels.length; i++) {
+                eventLabels[i] = new JLabel();
+            }
 
             if (!s.equals(" ")) {
                 if (Integer.parseInt(s) == todaysDate.get(GregorianCalendar.DAY_OF_MONTH)
@@ -81,13 +82,21 @@ public class MonthView extends JPanel implements ChangeListener {
                     tempPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
                 }
+                Date d = new Date(cal.get(GregorianCalendar.YEAR), cal.get(GregorianCalendar.MONTH), Integer.parseInt(s));
+                eventsForOneDay = controller.getEvents().getEventsForDate(d);
+
+            }
+
+            if (eventsForOneDay.size() >= 3){
+                
+            }
+            
+            tempPanel.add(label1);
+            for (int i = 0; i < eventLabels.length; i++) {
+                tempPanel.add(eventLabels[i]);
             }
 
 
-            tempPanel.add(label1);
-            tempPanel.add(label2);
-            tempPanel.add(label3);
-            tempPanel.add(label4);
 
             monthCal.add(tempPanel);
         }

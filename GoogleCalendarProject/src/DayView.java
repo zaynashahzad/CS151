@@ -22,8 +22,6 @@ public class DayView extends JPanel implements ChangeListener {
 
     public DayView(Events events) {
 
-
-
         dateTitle = new JLabel();
         panel = new JPanel(new BorderLayout());
         scrollPane = new JScrollPane(panel);
@@ -38,10 +36,6 @@ public class DayView extends JPanel implements ChangeListener {
 
         ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
         displayDayView(dayEvents);
-
-        for (DayEvents de : dayEvents) {
-            System.out.println(de.getName() + " " + de.getStartHour());
-        }
 
     }
 
