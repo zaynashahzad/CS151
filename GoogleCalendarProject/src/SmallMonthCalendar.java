@@ -184,7 +184,7 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
                             if (controller.getCurrentView() == 'd'){
-                                DayView dayview = new DayView();
+                                DayView dayview = new DayView(events);
                                //  dayview.setDateTitle(jl.getText()) + "/" + tempMonthCopy);
                             }else if (controller.getCurrentView() == 'w'){
                                 
