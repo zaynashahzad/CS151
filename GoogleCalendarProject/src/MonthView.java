@@ -1,20 +1,13 @@
 
-<<<<<<< HEAD
-import javax.swing.*;
-=======
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
->>>>>>> d85684405bb2e0999541f76b4493e57964babf9d
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
