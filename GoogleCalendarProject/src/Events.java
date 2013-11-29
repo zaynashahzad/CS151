@@ -1,3 +1,4 @@
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.util.*;
@@ -6,7 +7,6 @@ public class Events {   //model
 
     private TreeMap<Date, ArrayList<DayEvents>> eventsList;
     private ArrayList<ChangeListener> listeners;
-    
 
     public Events() {
         eventsList = new TreeMap();
@@ -16,8 +16,6 @@ public class Events {   //model
     // TODO: 
     // get cal month, day, year
     // set cal month, day, year, etc
-    
-    
     public TreeMap<Date, ArrayList<DayEvents>> getTree() {
         return (TreeMap) eventsList.clone();
     }
@@ -63,19 +61,23 @@ public class Events {   //model
         }
     }
 
-    /***
+    /**
+     * *
      *
      * @param date
      * @return Sorted event list on given date
      */
     public ArrayList<DayEvents> getEventsForDate(Date date) {
-        ArrayList<DayEvents> dayEvents = eventsList.get(date);
-        Collections.sort(dayEvents, new Comparator<DayEvents>() {
-            @Override
-            public int compare(DayEvents o1, DayEvents o2) {
-                return o1.getStartHour() - o2.getStartHour();
-            }
-        });
+        ArrayList<DayEvents> dayEvents = null ;
+        dayEvents = eventsList.get(date);
+        if (dayEvents!= null) {
+            Collections.sort(dayEvents, new Comparator<DayEvents>() {
+                @Override
+                public int compare(DayEvents o1, DayEvents o2) {
+                    return o1.getStartHour() - o2.getStartHour();
+                }
+            });
+        }
         return dayEvents;
     }
 }

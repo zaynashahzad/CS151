@@ -32,6 +32,8 @@ public class DayView extends JPanel implements ChangeListener {
         dayController = new DayController(events);
 
         setDateTitle(dayController.getDayOfWeek() + " " + (dayController.getCurMonth() + 1) + "/" + dayController.getCurDay());
+       
+        //TODO:  we probably don't want this date hardcoded... we want the current date's events
         Date date = new Date(2013, 10, 27);
 
         ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
