@@ -124,4 +124,7 @@ public class Controller implements ViewController {
 
     @Override
     public void viewPrev() {}
+
+    @Override
+    public void viewToday() {}
 }

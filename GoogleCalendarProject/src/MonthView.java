@@ -1,16 +1,10 @@
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class MonthView extends JFrame implements ChangeListener {
 
@@ -27,7 +21,7 @@ public class MonthView extends JFrame implements ChangeListener {
     public MonthView() {
         this.setVisible(true);
         controller = new MonthController();
-        weeksTitle = new ArrayList<>();
+        weeksTitle = new ArrayList<JLabel>();
         monthCal = new JPanel();
         daysLabels = new JLabel[31][5];
         monthTitle = new JLabel();

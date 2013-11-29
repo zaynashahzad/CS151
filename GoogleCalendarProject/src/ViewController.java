@@ -9,4 +9,5 @@ public interface ViewController {
     void repaintCurrentView();
     void viewNext();
     void viewPrev();
+    void viewToday();
 }
