@@ -14,14 +14,22 @@ public class CalendarFrame extends JFrame {
     private DayView dayView;
     private WeekView weekView;
     private MonthView monthView;
+    private AgendaView agendaView;
 
     public CalendarFrame() {
+        testEvents();
 
         events = new Events();
-        testEvents();
         dayView = new DayView(events);
         weekView = new WeekView(events);
         monthView = new MonthView(events);
+        agendaView = new AgendaView(events);
+        
+        events.registerListener(dayView);
+        events.registerListener(weekView);
+        events.registerListener(monthView);
+        events.registerListener(agendaView);
+        
         controller = new Controller(events);
         curView = dayView;
 
@@ -125,7 +133,7 @@ public class CalendarFrame extends JFrame {
         JButton agendaButton = new JButton("Agenda");
         agendaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                             curView = new AgendaView(events);
+                curView = new AgendaView(events);
                 rightPanel.removeAll();
                 rightPanel.invalidate();
                 rightPanel.add(buttonsPanel, BorderLayout.NORTH);
@@ -161,7 +169,7 @@ public class CalendarFrame extends JFrame {
     private void testEvents() {
 
         // year is from 0 to 8099. Month is from 0 to 11. Day is from 1 to 31
-        Date date = new Date(2013-1900, 10, 29);
+        Date date = new Date(2013 - 1900, 10, 29);
         DayEvents tempEvent = new DayEvents("Dentist Appointment", 8, 10, date);
         events.addEvent(date, tempEvent);
 
@@ -177,15 +185,15 @@ public class CalendarFrame extends JFrame {
 //        tempEvent = new DayEvents("Test duplicate", 11, 12, date);
 //        events.addEvent(date, tempEvent);
 
-        date = new Date(2013-1900, 10, 30);
+        date = new Date(2013 - 1900, 10, 30);
         tempEvent = new DayEvents("Concert w/ Robert", 12, 13, date);
         events.addEvent(date, tempEvent);
 
-        date = new Date(2013-1900, 11, 25);
+        date = new Date(2013 - 1900, 11, 25);
         tempEvent = new DayEvents("Christmas Party", 16, 20, date);
         events.addEvent(date, tempEvent);
 
-        date = new Date(2014-1900, 0, 1);
+        date = new Date(2014 - 1900, 0, 1);
         tempEvent = new DayEvents("Valentine's Day Dinner with Teresa", 16, 17, date);
         events.addEvent(date, tempEvent);
     }

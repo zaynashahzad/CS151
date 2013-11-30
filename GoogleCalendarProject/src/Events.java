@@ -12,7 +12,6 @@ public class Events {   //model
         eventsList = new TreeMap();
         listeners = new ArrayList();
     }
-
    
     public TreeMap<Date, ArrayList<DayEvents>> getTree() {
         return (TreeMap) eventsList.clone();

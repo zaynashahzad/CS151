@@ -108,7 +108,9 @@ class CreateEvent extends JFrame implements ActionListener {
         DayEvents newEvent = new DayEvents(eventName, eventStartHour, eventEndHour, eventDate);
 
         if (events.addEvent(eventDate, newEvent)) {
-            System.out.println("Success");
+            errorMsg.setText("Success! New event created!");
+            this.setVisible(false);
+            this.dispose();
         } else {
             errorMsg.setText("A conflict exists! Try again!");
         }
