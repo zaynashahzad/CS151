@@ -13,9 +13,7 @@ public class Events {   //model
         listeners = new ArrayList();
     }
 
-    // TODO: 
-    // get cal month, day, year
-    // set cal month, day, year, etc
+   
     public TreeMap<Date, ArrayList<DayEvents>> getTree() {
         return (TreeMap) eventsList.clone();
     }

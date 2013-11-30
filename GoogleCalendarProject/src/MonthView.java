@@ -12,7 +12,8 @@ import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class MonthView extends JPanel implements ChangeListener {
+
+public class MonthView extends JPanel implements ChangeListener, CalendarView {
 
     private ArrayList<JLabel> weeksTitle;
     private Events events;
@@ -130,8 +131,20 @@ public class MonthView extends JPanel implements ChangeListener {
 
     public void stateChanged(ChangeEvent e) {
     }
-}
 
+    public void showNext() {
+
+    }
+
+    public void showPrev() {
+
+    
+    }
+
+    public void showToday() {
+
+    }
+}
 class MonthController extends Controller {
 
     public ArrayList<String> showCalendar() {

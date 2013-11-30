@@ -1,7 +1,9 @@
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -12,19 +14,26 @@ import javax.swing.border.EmptyBorder;
 
 class CreateEvent extends JFrame implements ActionListener {
 
-    CreateEvent(Events event) {
+    private Events events;
+    private JPanel innerPanel;
+    private JTextField eventNameTf;
+    private JComboBox monthsPicker, daysPicker, yearsPicker;
+    private JComboBox startHourPicker, endHourPicker;
+    private JLabel errorMsg;
 
-        JPanel innerPanel = new JPanel();
+    CreateEvent(Events event) {
+        events = event;
+        innerPanel = new JPanel();
         innerPanel.setLayout(new GridLayout(0, 1));
-        JLabel errorMsg = new JLabel("Enter all details below");
+        JLabel instrucLabel = new JLabel("Enter all details below");
 
         JLabel eventNameLab = new JLabel("Event Name");
-        JTextField eventNameTf = new JTextField();
+        eventNameTf = new JTextField();
 
         JLabel eventDateLab = new JLabel("Event Date");
 
-        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Oct", "Nov", "Dec"};
-        JComboBox monthsPicker = new JComboBox(months);
+        String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        monthsPicker = new JComboBox(months);
         monthsPicker.setSelectedIndex(0);
 
         String[] days = new String[31];
@@ -32,15 +41,15 @@ class CreateEvent extends JFrame implements ActionListener {
             days[i] = (i + 1) + "";
         }
 
-        JComboBox daysPicker = new JComboBox(days);
+        daysPicker = new JComboBox(days);
         daysPicker.setSelectedIndex(0);
 
         String[] years = new String[120];
         for (int i = 0; i < years.length; i++) {
-            years[i] = (i + 1900) + " ";
+            years[i] = (i + 1900) + "";
         }
 
-        JComboBox yearsPicker = new JComboBox(years);
+        yearsPicker = new JComboBox(years);
         yearsPicker.setSelectedIndex(years.length - 6);
 
 
@@ -52,16 +61,19 @@ class CreateEvent extends JFrame implements ActionListener {
         JLabel startHourLab = new JLabel("Start Hour");
         JLabel endHourLab = new JLabel("End Hour");
 
-
-        JComboBox startHourPicker = new JComboBox(hours);
+        startHourPicker = new JComboBox(hours);
         startHourPicker.setSelectedIndex(0);
 
-        JComboBox endHourPicker = new JComboBox(hours);
+        endHourPicker = new JComboBox(hours);
         endHourPicker.setSelectedIndex(0);
 
-        JButton submitButton = new JButton("Submit!");
+        errorMsg = new JLabel();
+        errorMsg.setForeground(Color.red);
 
-        innerPanel.add(errorMsg);
+        JButton submitButton = new JButton("Submit!");
+        submitButton.addActionListener(this);
+
+        innerPanel.add(instrucLabel);
         innerPanel.add(eventNameLab);
         innerPanel.add(eventNameTf);
         innerPanel.add(eventDateLab);
@@ -72,18 +84,35 @@ class CreateEvent extends JFrame implements ActionListener {
         innerPanel.add(startHourPicker);
         innerPanel.add(endHourLab);
         innerPanel.add(endHourPicker);
+        innerPanel.add(errorMsg);
         innerPanel.add(submitButton);
 
         // create some padding
-        innerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        innerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         add(innerPanel);
         setVisible(true);
 
     }
 
     public void actionPerformed(ActionEvent e) {
-        // when the person hits submit, check for conflicts.
-        // if successful, close window and add new events to model
-        // if unsuccessful, keep open and get them to enter details
+        errorMsg.setText("");
+        String eventName = eventNameTf.getText();
+        int eventYear = Integer.parseInt((String) yearsPicker.getSelectedItem()) - 1900;
+        int eventMon = Integer.parseInt((String) monthsPicker.getSelectedItem()) - 1;
+        int eventDay = Integer.parseInt((String) daysPicker.getSelectedItem());
+
+        Date eventDate = new Date(eventYear, eventMon, eventDay);
+        int eventStartHour = Integer.parseInt((String) startHourPicker.getSelectedItem());
+        int eventEndHour = Integer.parseInt((String) endHourPicker.getSelectedItem());
+
+        DayEvents newEvent = new DayEvents(eventName, eventStartHour, eventEndHour, eventDate);
+
+        if (events.addEvent(eventDate, newEvent)) {
+            System.out.println("Success");
+        } else {
+            errorMsg.setText("A conflict exists! Re-enter event details!");
+        }
+
+
     }
 }

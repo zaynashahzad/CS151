@@ -54,7 +54,7 @@ public class WeekView extends JPanel implements ChangeListener, CalendarView {
         boolean hasEvents = false;
         Calendar cal = weekController.getCalendar();
         Date curDate = weekController.getDate();
-        cal.set(GregorianCalendar.DAY_OF_WEEK, 1);
+       // cal.set(GregorianCalendar.DAY_OF_WEEK, 1);
 
         final int[][] hrs = new int[24][7];
         for (int i = 0; i < 7; i++) {
