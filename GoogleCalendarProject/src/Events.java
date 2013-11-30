@@ -77,7 +77,15 @@ public class Events {   //model
      */
     public ArrayList<DayEvents> getEventsForDate(Date date) {
         ArrayList<DayEvents> dayEvents = null ;
-        dayEvents = eventsList.get(date);
+        
+        
+        for (Date d: eventsList.keySet()){
+            if (d.equals(date)){
+               dayEvents = eventsList.get(d);
+            }
+        }
+        
+   //     dayEvents = eventsList.get(date);
         if (dayEvents!= null) {
             Collections.sort(dayEvents, new Comparator<DayEvents>() {
                 @Override

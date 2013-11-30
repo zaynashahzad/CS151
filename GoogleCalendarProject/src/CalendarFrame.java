@@ -136,7 +136,7 @@ public class CalendarFrame extends JFrame {
     private void testEvents() {
 
         // year is from 0 to 8099. Month is from 0 to 11. Day is from 1 to 31
-        Date date = new Date(2013, 10, 29);
+        Date date = new Date(2013-1900, 10, 29);
         DayEvents tempEvent = new DayEvents("Dentist Appointment", 8, 10, date);
         events.addEvent(date, tempEvent);
 
@@ -152,15 +152,15 @@ public class CalendarFrame extends JFrame {
 //        tempEvent = new DayEvents("Test duplicate", 11, 12, date);
 //        events.addEvent(date, tempEvent);
 
-        date = new Date(2013, 10, 30);
+        date = new Date(2013-1900, 10, 30);
         tempEvent = new DayEvents("Concert w/ Robert", 12, 13, date);
         events.addEvent(date, tempEvent);
 
-        date = new Date(2013, 11, 25);
+        date = new Date(2013-1900, 11, 25);
         tempEvent = new DayEvents("Christmas Party", 16, 20, date);
         events.addEvent(date, tempEvent);
 
-        date = new Date(2014, 1, 14);
+        date = new Date(2014-1900, 1, 14);
         tempEvent = new DayEvents("Valentine's Day Dinner with Teresa", 16, 17, date);
         events.addEvent(date, tempEvent);
     }

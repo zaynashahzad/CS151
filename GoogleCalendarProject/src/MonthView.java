@@ -48,6 +48,10 @@ public class MonthView extends JPanel implements ChangeListener {
     }
 
     private void showMonthCal() {
+        final Color[] colors = {new Color(135, 150, 255), new Color(150, 206, 250)};
+
+        int colorToUse = 0;
+        final int STRLEN_DEFAULT = 15;
         ArrayList<DayEvents> eventsForOneDay = new ArrayList<DayEvents>();
         ArrayList<String> days = controller.showCalendar();
         GregorianCalendar todaysDate = new GregorianCalendar();
@@ -63,14 +67,16 @@ public class MonthView extends JPanel implements ChangeListener {
         for (String s : days) {
 
             JPanel tempPanel = new JPanel();
+            tempPanel.setLayout(new GridLayout(0,1));
 
             JLabel label1 = new JLabel(s);
             JLabel[] eventLabels = new JLabel[3];
             for (int i = 0; i < eventLabels.length; i++) {
-                eventLabels[i] = new JLabel();
+                eventLabels[i] = new JLabel("", JLabel.LEFT);
             }
 
             if (!s.equals(" ")) {
+                colorToUse++;
                 if (Integer.parseInt(s) == todaysDate.get(GregorianCalendar.DAY_OF_MONTH)
                         && todaysDate.get(GregorianCalendar.MONTH) == controller.getCurMonth()
                         && todaysDate.get(GregorianCalendar.YEAR) == controller.getCurYear()) {
@@ -81,14 +87,20 @@ public class MonthView extends JPanel implements ChangeListener {
 
                 eventsForOneDay = events.getEventsForDate(d);
                 if (eventsForOneDay != null && eventsForOneDay.size() > 0) {
-                                        
+
                     if (eventsForOneDay.size() >= 3) {
                         for (int i = 0; i < eventLabels.length; i++) {
                             eventLabels[i].setText(eventsForOneDay.get(i).getName());
+                            eventLabels[i].setHorizontalTextPosition(JLabel.LEFT);
+                            eventLabels[i].setBackground(colors[colorToUse%2]);
+                            eventLabels[i].setOpaque(true);
                         }
                     } else {
                         for (int i = 0; i < eventsForOneDay.size(); i++) {
                             eventLabels[i].setText(eventsForOneDay.get(i).getName());
+                            eventLabels[i].setHorizontalTextPosition(JLabel.LEFT);
+                            eventLabels[i].setBackground(colors[colorToUse%2]);
+                            eventLabels[i].setOpaque(true);
                         }
                     }
                 }
