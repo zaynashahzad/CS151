@@ -1,4 +1,5 @@
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Controller {
@@ -16,6 +17,7 @@ public class Controller {
         this.events = events;
         calendar = new GregorianCalendar();
         currentView = 'd';
+
 //        currentDate = new Date(getCurYear()-1900, (getCurMonth()), getCurDay());
     }
 
@@ -27,7 +29,7 @@ public class Controller {
 //        currentDate = new Date(getCurYear()-1900, (getCurMonth()), getCurDay());
     }
 
-    public GregorianCalendar getCal(){
+    public GregorianCalendar getCalendar(){
         return calendar;
     }
     
@@ -106,17 +108,31 @@ public class Controller {
         calendar.set(GregorianCalendar.DAY_OF_MONTH, day_of_month);
     }
 
-    public GregorianCalendar getCalendar() {
-        return calendar;
-    }
-
     public String getDayOfWeek() {
-        System.out.println(calendar.get(GregorianCalendar.DAY_OF_WEEK));
+//        System.out.println(calendar.get(GregorianCalendar.DAY_OF_WEEK));
         return dayOfWeek[calendar.get(GregorianCalendar.DAY_OF_WEEK)];
     }
 
     public Events getEvents() {
         return events;
+    }
+
+    public Date getDate() {
+        return new Date(getCurYear()-1900, (getCurMonth()), getCurDay());
+    }
+
+    public void prevWeek() {
+        System.out.println("pre" + calendar.get(GregorianCalendar.DAY_OF_MONTH));
+//        calendar.add(GregorianCalendar.DAY_OF_MONTH, -1);
+        for (int i = 0; i < 7; i++)
+            prevDay();
+        System.out.println("post" + calendar.get(GregorianCalendar.DAY_OF_MONTH));
+    }
+
+    public void nextWeek() {
+//        calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
+        for (int i = 0; i < 7; i++)
+            nextDay();
     }
 
 }

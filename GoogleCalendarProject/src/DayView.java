@@ -4,7 +4,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DayView extends JPanel implements ChangeListener, CalendarView {
 
@@ -18,7 +17,6 @@ public class DayView extends JPanel implements ChangeListener, CalendarView {
         "12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am",
         "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
     };
-//    public static final Color[] colors = {new Color(135, 206, 250), new Color(255, 138, 202)};
 
     public DayView(Events events) {
 
@@ -28,10 +26,7 @@ public class DayView extends JPanel implements ChangeListener, CalendarView {
         dayController = new DayController();
         this.events = events;
         this.setLayout(new BorderLayout());
-        showDayView(null);
-
-
-
+        showToday();
     }
 
     private void setLeftTable() {
@@ -47,7 +42,6 @@ public class DayView extends JPanel implements ChangeListener, CalendarView {
         leftTable.getColumnModel().getColumn(0).setPreferredWidth(50);
         leftTable.setGridColor(Color.lightGray);
         leftTable.setEnabled(false);
-
     }
 
     private void setRightTable(ArrayList<DayEvents> list) {
@@ -56,9 +50,6 @@ public class DayView extends JPanel implements ChangeListener, CalendarView {
 
         if (list != null) {
             final int[] hrs = new int[24];
-            for (int i = 0; i < 24; i++) {
-                hrs[i] = 0;
-            }
             for (DayEvents de : list) {
                 int startHr = de.getStartHour();
                 int endHr = de.getEndHour();
@@ -93,6 +84,7 @@ public class DayView extends JPanel implements ChangeListener, CalendarView {
     }
 
     private void showDayView(ArrayList<DayEvents> list) {
+        this.invalidate();
         panel.removeAll();
 
         setLeftTable();
@@ -112,30 +104,25 @@ public class DayView extends JPanel implements ChangeListener, CalendarView {
         this.dateTitle.setText(date);
     }
 
-    public void viewToday() {
-        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
-        showDayView(events.getEventsForDate(date));
-    }
-
     @Override
     public void showNext() {
         dayController.nextDay();
-        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
-        showDayView(events.getEventsForDate(date));
+//        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
+        showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
     @Override
     public void showPrev() {
         dayController.prevDay();
-        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
-        showDayView(events.getEventsForDate(date));
+//        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
+        showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
     @Override
     public void showToday() {
         dayController.todayDate();
-        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
-        showDayView(events.getEventsForDate(date));
+//        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
+        showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
     public void stateChanged(ChangeEvent e) {

@@ -11,17 +11,22 @@ public class CalendarFrame extends JFrame {
     private Events events; // model
     private JPanel curView;
     private CalendarView cur;
+    private DayView dayView;
+    private WeekView weekView;
+    private MonthView monthView;
 
     public CalendarFrame() {
 
         events = new Events();
         testEvents();
-        curView = new DayView(events);
+        dayView = new DayView(events);
+        weekView = new WeekView(events);
+        monthView = new MonthView(events);
         controller = new Controller(events);
+        curView = dayView;
 
         SmallMonthCalendar smallCal = new SmallMonthCalendar(controller, events);
 
-        // leftPanel holds the small month calendar and "today", <, > buttons
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BorderLayout());
 
@@ -76,11 +81,13 @@ public class CalendarFrame extends JFrame {
         JButton dayButton = new JButton("Day");
         dayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                curView = new DayView(events);
+                curView = dayView;
                 rightPanel.removeAll();
                 rightPanel.invalidate();
                 rightPanel.add(buttonsPanel, BorderLayout.NORTH);
                 rightPanel.add(curView, BorderLayout.CENTER);
+                CalendarView cv = (CalendarView) curView;
+                cv.showToday();
                 rightPanel.validate();
                 rightPanel.repaint();
             }
@@ -178,8 +185,9 @@ public class CalendarFrame extends JFrame {
         tempEvent = new DayEvents("Christmas Party", 16, 20, date);
         events.addEvent(date, tempEvent);
 
-        date = new Date(2014-1900, 1, 14);
+        date = new Date(2014-1900, 0, 1);
         tempEvent = new DayEvents("Valentine's Day Dinner with Teresa", 16, 17, date);
+        System.out.println(date);
         events.addEvent(date, tempEvent);
     }
 }
