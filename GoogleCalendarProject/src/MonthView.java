@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 public class MonthView extends JPanel implements ChangeListener {
 
     private ArrayList<JLabel> weeksTitle;
+    private Events events;
     private MonthController controller;
     private JPanel monthCal;
     private JLabel monthTitle;
@@ -23,6 +24,7 @@ public class MonthView extends JPanel implements ChangeListener {
     };
 
     public MonthView(Events events) {
+        this.events = events;
         this.setVisible(true);
         controller = new MonthController();
         weeksTitle = new ArrayList<JLabel>();
@@ -75,26 +77,33 @@ public class MonthView extends JPanel implements ChangeListener {
                     tempPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
                 }
-                Date d = new Date(cal.get(GregorianCalendar.YEAR), cal.get(GregorianCalendar.MONTH), Integer.parseInt(s));
-                eventsForOneDay = controller.getEvents().getEventsForDate(d);
+                Date d = new Date(cal.get(GregorianCalendar.YEAR) - 1900, cal.get(GregorianCalendar.MONTH), Integer.parseInt(s));
+
+                eventsForOneDay = events.getEventsForDate(d);
+                if (eventsForOneDay != null && eventsForOneDay.size() > 0) {
+                    if (eventsForOneDay.size() >= 3) {
+                        for (int i = 0; i < eventLabels.length; i++) {
+                            eventLabels[i].setText(eventsForOneDay.get(i).getName());
+                        }
+                    } else {
+                        for (int i = 0; i < eventsForOneDay.size(); i++) {
+                            eventLabels[i].setText(eventsForOneDay.get(i).getName());
+                        }
+                    }
+                }
 
             }
 
-            if (eventsForOneDay.size() >= 3){
-                
-            }
-            
             tempPanel.add(label1);
+
             for (int i = 0; i < eventLabels.length; i++) {
                 tempPanel.add(eventLabels[i]);
             }
 
-
-
             monthCal.add(tempPanel);
         }
 
-        monthTitle.setText(months[controller.getCurMonth() - 1] + " " + controller.getCurYear());
+        monthTitle.setText(months[controller.getCurMonth()] + " " + controller.getCurYear());
         monthCal.validate();
         monthCal.repaint();
     }
