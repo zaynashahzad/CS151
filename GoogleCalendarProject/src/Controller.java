@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 
 public class Controller implements ViewController {
 
+//    private Controller curViewController;
     private char currentView;
     private GregorianCalendar calendar;
     private Events events;
@@ -124,7 +125,9 @@ public class Controller implements ViewController {
     }
 
     @Override
-    public void repaintCurrentView() {}
+    public void repaintCurrentView(Date date) {
+
+    }
 
     @Override
     public void viewNext() {}

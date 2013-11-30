@@ -24,10 +24,9 @@ public class CalendarFrame extends JFrame {
 
         // leftPanel holds the small month calendar and "today", <, > buttons
         JPanel leftPanel = new JPanel();
-        leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+//        leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         leftPanel.setLayout(new BorderLayout());
-        leftPanel.setPreferredSize(new Dimension(300, 300));
-        leftPanel.setMaximumSize(new Dimension(300, 300));
+
 
         JPanel leftButtons = new JPanel();
         leftButtons.setLayout(new GridLayout(1, 3));
@@ -46,11 +45,15 @@ public class CalendarFrame extends JFrame {
         leftButtons.add(nextMonthButton);
 
         leftPanel.add(leftButtons, BorderLayout.NORTH);
-        leftPanel.add(smallCal, BorderLayout.CENTER);
+        JPanel tempPanel = new JPanel(new FlowLayout());
+        tempPanel.add(smallCal);
+        smallCal.setPreferredSize(new Dimension(200, 200));
+        leftPanel.setBackground(Color.white);
+        leftPanel.add(tempPanel, BorderLayout.CENTER);
 
         // rightPanel holds day, week, month, agenda views and the current view, file
         final JPanel rightPanel = new JPanel();
-        rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+//        rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         rightPanel.setLayout(new BorderLayout());
 
         final JPanel rightButtons = new JPanel();
@@ -59,7 +62,7 @@ public class CalendarFrame extends JFrame {
         JButton dayButton = new JButton("Day");
         dayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                 curView = new DayView(events);
+                curView = new DayView(events);
                 rightPanel.removeAll();
                 rightPanel.invalidate();
                 rightPanel.add(rightButtons, BorderLayout.NORTH);
@@ -150,8 +153,11 @@ public class CalendarFrame extends JFrame {
         tempEvent = new DayEvents("Zayna's surprise party", 15, 17, date);
         events.addEvent(date, tempEvent);
 
+//        tempEvent = new DayEvents("Test duplicate", 11, 12, date);
+//        events.addEvent(date, tempEvent);
+
         date = new Date(2013, 10, 30);
-        tempEvent = new DayEvents("Concert w/ Robert", 11, 13, date);
+        tempEvent = new DayEvents("Concert w/ Robert", 12, 13, date);
         events.addEvent(date, tempEvent);
 
         date = new Date(2013, 11, 25);

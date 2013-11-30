@@ -26,13 +26,21 @@ public class Events {   //model
 
     public boolean addEvent(Date date, DayEvents dayEvents) {
 
-        ArrayList<DayEvents> eventList;
+        if (dayEvents.getStartHour() > dayEvents.getEndHour()) { return false; } //invalid format
+
+        ArrayList <DayEvents> eventList;
+
+        int[] dayEventsHours = new int[24];
+        for (int i = dayEvents.getStartHour(); i <= dayEvents.getEndHour(); i++)
+            dayEventsHours[i] = 1;
 
         // if events for this date already exist, add to that arraylist.
         if (eventsList.containsKey(date)) {
             eventList = eventsList.get(date);
             for (DayEvents e : eventList) {
-                // check for conflicts here and return false
+                for (int i = e.getStartHour(); i <= e.getEndHour(); i++)
+                    if (dayEventsHours[i] == 1)
+                        return false;
             }
             eventList.add(dayEvents);
             updateAllListeners();
@@ -68,9 +76,6 @@ public class Events {   //model
      * @return Sorted event list on given date
      */
     public ArrayList<DayEvents> getEventsForDate(Date date) {
-//        ArrayList<DayEvents> dayEvents = eventsList.get(date);
-//        System.out.println(dayEvents);
-//        if (dayEvents != null) {
         ArrayList<DayEvents> dayEvents = null ;
         dayEvents = eventsList.get(date);
         if (dayEvents!= null) {
