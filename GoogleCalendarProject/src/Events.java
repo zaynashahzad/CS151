@@ -22,13 +22,16 @@ public class Events {   //model
         listeners.add(cl);
     }
 
-    public boolean addEvent(Date date, DayEvents dayEvents) {
-
+    public boolean addEvent(Date date, DayEvents dayEvents) {       
+                
         if (dayEvents.getStartHour() > dayEvents.getEndHour()) { return false; } //invalid format
 
         ArrayList <DayEvents> eventList;
 
         int[] dayEventsHours = new int[24];
+        for (int i = 0; i < dayEventsHours.length;i++){
+            dayEventsHours[i] = -1;
+        }
         for (int i = dayEvents.getStartHour(); i <= dayEvents.getEndHour(); i++)
             dayEventsHours[i] = 1;
 

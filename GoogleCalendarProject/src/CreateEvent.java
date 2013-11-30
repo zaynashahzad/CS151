@@ -110,7 +110,7 @@ class CreateEvent extends JFrame implements ActionListener {
         if (events.addEvent(eventDate, newEvent)) {
             System.out.println("Success");
         } else {
-            errorMsg.setText("A conflict exists! Re-enter event details!");
+            errorMsg.setText("A conflict exists! Try again!");
         }
 
 

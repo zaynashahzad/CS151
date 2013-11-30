@@ -28,4 +28,7 @@ public class DayEvents {
     public Date getDate(){
         return startDate;
     }
+    public String toString(){
+        return eventName + " " + startDate + " " + startHour + " " + endHour;
+    }
 }

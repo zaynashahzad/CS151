@@ -187,7 +187,6 @@ public class CalendarFrame extends JFrame {
 
         date = new Date(2014-1900, 0, 1);
         tempEvent = new DayEvents("Valentine's Day Dinner with Teresa", 16, 17, date);
-        System.out.println(date);
         events.addEvent(date, tempEvent);
     }
 }
