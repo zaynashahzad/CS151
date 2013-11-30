@@ -1,10 +1,9 @@
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Controller implements ViewController {
+public class Controller {
 
-//    private Controller curViewController;
+//    private Date currentDate;
     private char currentView;
     private GregorianCalendar calendar;
     private Events events;
@@ -17,6 +16,7 @@ public class Controller implements ViewController {
         this.events = events;
         calendar = new GregorianCalendar();
         currentView = 'd';
+//        currentDate = new Date(getCurYear()-1900, (getCurMonth()), getCurDay());
     }
 
     Controller() {
@@ -24,6 +24,7 @@ public class Controller implements ViewController {
         calendar = new GregorianCalendar();
         currentView = 'd';
         this.events = new Events();
+//        currentDate = new Date(getCurYear()-1900, (getCurMonth()), getCurDay());
     }
 
     public GregorianCalendar getCal(){
@@ -118,23 +119,4 @@ public class Controller implements ViewController {
         return events;
     }
 
-    public Date getCurrentDate() {
-        return new Date(calendar.get(GregorianCalendar.YEAR),
-                calendar.get(GregorianCalendar.MONTH),
-                calendar.get(GregorianCalendar.DAY_OF_MONTH));
-    }
-
-    @Override
-    public void repaintCurrentView(Date date) {
-
-    }
-
-    @Override
-    public void viewNext() {}
-
-    @Override
-    public void viewPrev() {}
-
-    @Override
-    public void viewToday() {}
 }

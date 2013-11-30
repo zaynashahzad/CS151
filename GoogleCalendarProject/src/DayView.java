@@ -131,6 +131,13 @@ public class DayView extends JPanel implements ChangeListener, CalendarView {
         showDayView(events.getEventsForDate(date));
     }
 
+    @Override
+    public void showToday() {
+        dayController.todayDate();
+        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
+        showDayView(events.getEventsForDate(date));
+    }
+
     public void stateChanged(ChangeEvent e) {
     }
 

@@ -18,15 +18,11 @@ public class CalendarFrame extends JFrame {
         testEvents();
         curView = new DayView(events);
         controller = new Controller(events);
-//        cur = (CalendarView) curView;
 
         SmallMonthCalendar smallCal = new SmallMonthCalendar(controller, events);
 
-//        ArrayList<JLabel> daysLabel = new ArrayList<JLabel>();
-
         // leftPanel holds the small month calendar and "today", <, > buttons
         JPanel leftPanel = new JPanel();
-//        leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         leftPanel.setLayout(new BorderLayout());
 
         JPanel tempPanel = new JPanel(new FlowLayout());
@@ -37,7 +33,6 @@ public class CalendarFrame extends JFrame {
 
         // rightPanel holds day, week, month, agenda views and the current view, file
         final JPanel rightPanel = new JPanel();
-//        rightPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         rightPanel.setLayout(new BorderLayout());
 
         final JPanel rightButtons = new JPanel();
@@ -47,6 +42,13 @@ public class CalendarFrame extends JFrame {
         leftButtons.setLayout(new GridLayout(1, 3));
 
         JButton todayButton = new JButton("Today");
+        todayButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CalendarView cv = (CalendarView) curView;
+                cv.showToday();
+            }
+        });
         JButton preMonthButton = new JButton("<<");
         preMonthButton.addActionListener(new ActionListener() {
             @Override

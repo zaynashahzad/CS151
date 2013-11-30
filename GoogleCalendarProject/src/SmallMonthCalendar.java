@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+//TODO: impletements CalendarView
+
 public class SmallMonthCalendar extends JPanel {    //model and controller of small month calendar
 
     private Controller controller;
@@ -170,9 +172,7 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (button.getText().equals("Today")) {
-                    controller.todayDate();
-                } else if (button.getText().equals("<<")) {
+                if (button.getText().equals("<<")) {
                     controller.prevMonth();
                 } else {
                     controller.nextMonth();
