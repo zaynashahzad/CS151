@@ -51,7 +51,7 @@ public class CalendarFrame extends JFrame {
         leftButtons.add(preMonthButton);
         leftButtons.add(nextMonthButton);
 
-        JPanel buttonsPanel = new JPanel(new BorderLayout());
+        final JPanel buttonsPanel = new JPanel(new BorderLayout());
         buttonsPanel.add(leftButtons, BorderLayout.WEST);
         buttonsPanel.add(rightButtons, BorderLayout.EAST);
 
@@ -61,7 +61,7 @@ public class CalendarFrame extends JFrame {
                 curView = new DayView(events);
                 rightPanel.removeAll();
                 rightPanel.invalidate();
-                rightPanel.add(rightButtons, BorderLayout.NORTH);
+                rightPanel.add(buttonsPanel, BorderLayout.NORTH);
                 rightPanel.add(curView, BorderLayout.CENTER);
                 rightPanel.validate();
                 rightPanel.repaint();
@@ -75,7 +75,7 @@ public class CalendarFrame extends JFrame {
                             curView = new WeekView(events);
                 rightPanel.removeAll();
                 rightPanel.invalidate();
-                rightPanel.add(rightButtons, BorderLayout.NORTH);
+                rightPanel.add(buttonsPanel, BorderLayout.NORTH);
                 rightPanel.add(curView, BorderLayout.CENTER);
                 rightPanel.validate();
                 rightPanel.repaint();
@@ -89,7 +89,7 @@ public class CalendarFrame extends JFrame {
                 curView = new MonthView(events);
                 rightPanel.removeAll();
                 rightPanel.invalidate();
-                rightPanel.add(rightButtons, BorderLayout.NORTH);
+                rightPanel.add(buttonsPanel, BorderLayout.NORTH);
                 rightPanel.add(curView, BorderLayout.CENTER);
                 rightPanel.validate();
                 rightPanel.repaint();
@@ -103,7 +103,7 @@ public class CalendarFrame extends JFrame {
                              curView = new AgendaView(events);
                 rightPanel.removeAll();
                 rightPanel.invalidate();
-                rightPanel.add(rightButtons, BorderLayout.NORTH);
+                rightPanel.add(buttonsPanel, BorderLayout.NORTH);
                 rightPanel.add(curView, BorderLayout.CENTER);
                 rightPanel.validate();
                 rightPanel.repaint();
