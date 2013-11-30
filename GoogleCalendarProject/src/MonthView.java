@@ -130,12 +130,18 @@ public class MonthView extends JPanel implements CalendarView {
 
 
     public void showNext() {
+        controller.nextMonth();
+        showMonthCal();
     }
 
     public void showPrev() {
+        controller.prevMonth();
+        showMonthCal();
     }
 
     public void showToday() {
+        controller.todayDate();
+        showMonthCal();
     }
 }
 
