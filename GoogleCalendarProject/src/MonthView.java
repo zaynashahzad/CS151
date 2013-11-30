@@ -1,6 +1,7 @@
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Date;
 import javax.swing.BorderFactory;
@@ -41,6 +42,8 @@ public class MonthView extends JPanel implements ChangeListener {
         weeksTitle.add(new JLabel("Fri", JLabel.CENTER));
         weeksTitle.add(new JLabel("Sat", JLabel.CENTER));
 
+        monthCal.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
+
         setLayout(new BorderLayout());
         add(monthTitle, BorderLayout.NORTH);
         add(monthCal, BorderLayout.CENTER);
@@ -48,9 +51,8 @@ public class MonthView extends JPanel implements ChangeListener {
     }
 
     private void showMonthCal() {
-        final Color[] colors = {new Color(135, 150, 255), new Color(150, 206, 250)};
+        final Color[] colors = {new Color(135, 205, 250)};
 
-        int colorToUse = 0;
         final int STRLEN_DEFAULT = 15;
         ArrayList<DayEvents> eventsForOneDay = new ArrayList<DayEvents>();
         ArrayList<String> days = controller.showCalendar();
@@ -67,7 +69,9 @@ public class MonthView extends JPanel implements ChangeListener {
         for (String s : days) {
 
             JPanel tempPanel = new JPanel();
-            tempPanel.setLayout(new GridLayout(0,1));
+            tempPanel.setLayout(new GridLayout(0, 1));
+            tempPanel.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
+
 
             JLabel label1 = new JLabel(s);
             JLabel[] eventLabels = new JLabel[3];
@@ -76,11 +80,10 @@ public class MonthView extends JPanel implements ChangeListener {
             }
 
             if (!s.equals(" ")) {
-                colorToUse++;
                 if (Integer.parseInt(s) == todaysDate.get(GregorianCalendar.DAY_OF_MONTH)
                         && todaysDate.get(GregorianCalendar.MONTH) == controller.getCurMonth()
                         && todaysDate.get(GregorianCalendar.YEAR) == controller.getCurYear()) {
-                    tempPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+                    label1.setFont(new Font(label1.getFont().getName(), Font.BOLD, (int)(label1.getFont().getSize() *1.2)));
 
                 }
                 Date d = new Date(cal.get(GregorianCalendar.YEAR) - 1900, cal.get(GregorianCalendar.MONTH), Integer.parseInt(s));
@@ -92,15 +95,19 @@ public class MonthView extends JPanel implements ChangeListener {
                         for (int i = 0; i < eventLabels.length; i++) {
                             eventLabels[i].setText(eventsForOneDay.get(i).getName());
                             eventLabels[i].setHorizontalTextPosition(JLabel.LEFT);
-                            eventLabels[i].setBackground(colors[colorToUse%2]);
+                            eventLabels[i].setBackground(colors[0]);
                             eventLabels[i].setOpaque(true);
+                            eventLabels[i].setBorder(BorderFactory.createLineBorder(Color.lightGray));
                         }
                     } else {
                         for (int i = 0; i < eventsForOneDay.size(); i++) {
                             eventLabels[i].setText(eventsForOneDay.get(i).getName());
                             eventLabels[i].setHorizontalTextPosition(JLabel.LEFT);
-                            eventLabels[i].setBackground(colors[colorToUse%2]);
+                            eventLabels[i].setBackground(colors[0]);
                             eventLabels[i].setOpaque(true);
+                            eventLabels[i].setBorder(BorderFactory.createLineBorder(Color.lightGray));
+
+
                         }
                     }
                 }
