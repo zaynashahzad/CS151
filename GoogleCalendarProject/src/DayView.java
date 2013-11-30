@@ -35,15 +35,8 @@ public class DayView extends JPanel implements ChangeListener {
         //TODO:  we probably don't want this date hardcoded... we want the current date's events
         Date date = new Date(2013, 10, 29);
 
-<<<<<<< HEAD
-        ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
-        if (dayEvents != null) {
-            displayDayView(dayEvents);
-        }
-=======
 //        ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
         displayDayView(events.getEventsForDate(date));
->>>>>>> c72d897b5f0ab83d83f10d99123f25007a2bc1e9
 
     }
 
