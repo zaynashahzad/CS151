@@ -1,3 +1,5 @@
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: maopeiyi
@@ -6,7 +8,7 @@
  * To change this template use File | Settings | File Templates.
  */
 public interface ViewController {
-    void repaintCurrentView();
+    void repaintCurrentView(Date date);
     void viewNext();
     void viewPrev();
     void viewToday();

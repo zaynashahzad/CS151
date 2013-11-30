@@ -1,0 +1,8 @@
+1. UML Diagram
+2. Use Cases
+3. Sequence Diagram
+4. Final Report
+5. JavaDoc
+6. One page of paper that includes answers for the following questions
+ - Which materials/key concepts from this course did you apply on the project?
+ - Which topics did you have to learn through self-study in order to complete the project?

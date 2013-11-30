@@ -16,6 +16,7 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
     private JLabel monthTitle;
     private ArrayList<JLabel> weeksTitle;
     private Events events;
+    private JButton leftArrow, rightArrow, createEvent;
 
     public final static String[] months = {
             "January", "February", "March", "April", "May", "June",
@@ -28,10 +29,20 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         monthCal.setLayout(new GridLayout(0, 7));
         daysLabels = new ArrayList();
         monthTitle = new JLabel();
-        JLabel leftArrow = new JLabel();
-        JLabel rightArrow = new JLabel();
-        JButton createEvent = new JButton("Create");
-        
+
+        leftArrow = new JButton("<<");
+        leftArrow.setBorder(null);
+        rightArrow = new JButton(">>");
+        rightArrow.setBorder(null);
+        createEvent = new JButton("CREATE");
+        createEvent.setForeground(Color.red);
+
+        addButtonActionListener(leftArrow);
+        addButtonActionListener(rightArrow);
+
+        JPanel lrPanel = new JPanel(new FlowLayout());
+        lrPanel.add(leftArrow);
+        lrPanel.add(rightArrow);
 
         weeksTitle = new ArrayList<JLabel>();
 
@@ -44,7 +55,13 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         weeksTitle.add(new JLabel("S", JLabel.CENTER));
 
         setLayout(new BorderLayout());
-        add(monthTitle, BorderLayout.NORTH);
+        JPanel topPanel = new JPanel(new BorderLayout());
+        JPanel tempPanel = new JPanel(new BorderLayout());
+        tempPanel.add(createEvent, BorderLayout.WEST);
+        topPanel.add(tempPanel, BorderLayout.NORTH);
+        topPanel.add(monthTitle, BorderLayout.WEST);
+        topPanel.add(lrPanel, BorderLayout.EAST);
+        add(topPanel, BorderLayout.NORTH);
         add(monthCal, BorderLayout.CENTER);
         showSmallMonthCal();
     }
@@ -139,7 +156,7 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         return arr;
     }
 
-    public void addActionListener(final JButton button) {
+    public void addButtonActionListener(final JButton button) {
         button.addActionListener(
                 new ActionListener() {
                     @Override
@@ -188,12 +205,12 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
-                            if (controller.getCurrentView() == 'd'){
-                                DayView dayview = new DayView(events);
-                               //  dayview.setDateTitle(jl.getText()) + "/" + tempMonthCopy);
-                            }else if (controller.getCurrentView() == 'w'){
-                                
-                            }
+//                            if (controller.getCurrentView() == 'd'){
+//                                DayView dayview = new DayView(events);
+//                               //  dayview.setDateTitle(jl.getText()) + "/" + tempMonthCopy);
+//                            }else if (controller.getCurrentView() == 'w'){
+//
+//                            }
                             
                             
                             System.out.println(jl.getText() + "/" + tempMonthCopy);

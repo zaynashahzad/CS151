@@ -1,8 +1,10 @@
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Controller implements ViewController {
 
+//    private Controller curViewController;
     private char currentView;
     private GregorianCalendar calendar;
     private Events events;
@@ -116,8 +118,16 @@ public class Controller implements ViewController {
         return events;
     }
 
+    public Date getCurrentDate() {
+        return new Date(calendar.get(GregorianCalendar.YEAR),
+                calendar.get(GregorianCalendar.MONTH),
+                calendar.get(GregorianCalendar.DAY_OF_MONTH));
+    }
+
     @Override
-    public void repaintCurrentView() {}
+    public void repaintCurrentView(Date date) {
+
+    }
 
     @Override
     public void viewNext() {}
