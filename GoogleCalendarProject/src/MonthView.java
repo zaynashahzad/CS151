@@ -42,7 +42,7 @@ public class MonthView extends JPanel implements ChangeListener {
         weeksTitle.add(new JLabel("Fri", JLabel.CENTER));
         weeksTitle.add(new JLabel("Sat", JLabel.CENTER));
 
-        monthCal.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
+        monthCal.setBorder(BorderFactory.createLineBorder(Color.gray));
 
         setLayout(new BorderLayout());
         add(monthTitle, BorderLayout.NORTH);
@@ -69,6 +69,7 @@ public class MonthView extends JPanel implements ChangeListener {
         for (String s : days) {
 
             JPanel tempPanel = new JPanel();
+            tempPanel.setBackground(Color.WHITE);
             tempPanel.setLayout(new GridLayout(0, 1));
             tempPanel.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
 
