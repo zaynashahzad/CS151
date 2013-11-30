@@ -6,13 +6,14 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DayView extends JPanel implements ChangeListener {
+public class DayView extends JPanel implements ChangeListener, CalendarView {
 
     JLabel dateTitle;
     JScrollPane scrollPane;
     JTable leftTable, rightTable;
     JPanel panel;
     DayController dayController;
+    Events events;
     public static final String[] title = {
         "12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am",
         "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
@@ -24,18 +25,12 @@ public class DayView extends JPanel implements ChangeListener {
         dateTitle = new JLabel();
         panel = new JPanel(new BorderLayout());
         scrollPane = new JScrollPane(panel);
-
+        dayController = new DayController();
+        this.events = events;
         this.setLayout(new BorderLayout());
-        displayDayView(null);
+        showDayView(null);
 
-        dayController = new DayController(events);
 
-        setDateTitle(dayController.getDayOfWeek() + " " + (dayController.getCurMonth() + 1) + "/" + dayController.getCurDay());
-
-        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
-
-//        ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
-        displayDayView(events.getEventsForDate(date));
 
     }
 
@@ -97,11 +92,12 @@ public class DayView extends JPanel implements ChangeListener {
         rightTable.setEnabled(false);
     }
 
-    private void displayDayView(ArrayList<DayEvents> list) {
+    private void showDayView(ArrayList<DayEvents> list) {
         panel.removeAll();
 
         setLeftTable();
         setRightTable(list);
+        setDateTitle(dayController.getDayOfWeek() + " " + (dayController.getCurMonth() + 1) + "/" + dayController.getCurDay());
 
         panel.add(leftTable, BorderLayout.WEST);
         panel.add(rightTable, BorderLayout.CENTER);
@@ -116,16 +112,32 @@ public class DayView extends JPanel implements ChangeListener {
         this.dateTitle.setText(date);
     }
 
+    public void viewToday() {
+        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
+        showDayView(events.getEventsForDate(date));
+    }
+
+    @Override
+    public void showNext() {
+        dayController.nextDay();
+        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
+        showDayView(events.getEventsForDate(date));
+    }
+
+    @Override
+    public void showPrev() {
+        dayController.prevDay();
+        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
+        showDayView(events.getEventsForDate(date));
+    }
+
     public void stateChanged(ChangeEvent e) {
     }
+
 }
 
 class DayController extends Controller { //with listeners
 
-    DayView dayView;
-    private Events events;
+    public DayController() {}
 
-    DayController(Events events) {
-        this.events = events;
-    }
 }

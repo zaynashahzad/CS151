@@ -10,6 +10,7 @@ public class CalendarFrame extends JFrame {
     private Controller controller;
     private Events events; // model
     private JPanel curView;
+    private CalendarView cur;
 
     public CalendarFrame() {
 
@@ -17,6 +18,7 @@ public class CalendarFrame extends JFrame {
         testEvents();
         curView = new DayView(events);
         controller = new Controller(events);
+//        cur = (CalendarView) curView;
 
         SmallMonthCalendar smallCal = new SmallMonthCalendar(controller, events);
 
@@ -46,7 +48,21 @@ public class CalendarFrame extends JFrame {
 
         JButton todayButton = new JButton("Today");
         JButton preMonthButton = new JButton("<<");
+        preMonthButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CalendarView cv = (CalendarView) curView;
+                cv.showPrev();
+            }
+        });
         JButton nextMonthButton = new JButton(">>");
+        nextMonthButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CalendarView cv = (CalendarView) curView;
+                cv.showNext();
+            }
+        });
         leftButtons.add(todayButton);
         leftButtons.add(preMonthButton);
         leftButtons.add(nextMonthButton);
@@ -72,7 +88,7 @@ public class CalendarFrame extends JFrame {
         JButton weekButton = new JButton("Week");
         weekButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                            curView = new WeekView(events);
+                curView = new WeekView(events);
                 rightPanel.removeAll();
                 rightPanel.invalidate();
                 rightPanel.add(buttonsPanel, BorderLayout.NORTH);
