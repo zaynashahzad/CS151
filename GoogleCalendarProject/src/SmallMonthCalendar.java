@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,13 +18,12 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
     private ArrayList<JLabel> weeksTitle;
     private Events events;
     private JButton leftArrow, rightArrow, createEvent;
-
     public final static String[] months = {
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
     };
 
-    SmallMonthCalendar(Controller c, Events events) {
+    SmallMonthCalendar(Controller c, final Events events) {
         controller = c;
         monthCal = new JPanel();
         monthCal.setLayout(new GridLayout(0, 7));
@@ -35,6 +35,15 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         rightArrow = new JButton(">>");
         rightArrow.setBorder(null);
         createEvent = new JButton("CREATE");
+
+        createEvent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CreateEvent ce = new CreateEvent(events);
+                ce.setSize(300,450);
+                ce.setVisible(true);
+            }
+        });
+
         createEvent.setForeground(Color.red);
 
         addButtonActionListener(leftArrow);
@@ -127,8 +136,8 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         int blanks = calendar.get(GregorianCalendar.DAY_OF_WEEK) - 1;
         calendar.add(GregorianCalendar.MONTH, -1);
         for (int i = calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) - blanks + 1;
-             i <= calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-             i++) {
+                i <= calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+                i++) {
             arr.add("*" + String.valueOf(i));
         }
 
@@ -156,24 +165,21 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         return arr;
     }
 
-    public void addButtonActionListener(final JButton button) {
+    private void addButtonActionListener(final JButton button) {
         button.addActionListener(
                 new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (button.getText().equals("Today")) {
-                            controller.todayDate();
-                        }
-                        else if (button.getText().equals("<<")) {
-                            controller.prevMonth();
-                        }
-                        else {
-                            controller.nextMonth();
-                        }
-                        showSmallMonthCal();
-                    }
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (button.getText().equals("Today")) {
+                    controller.todayDate();
+                } else if (button.getText().equals("<<")) {
+                    controller.prevMonth();
+                } else {
+                    controller.nextMonth();
                 }
-        );
+                showSmallMonthCal();
+            }
+        });
     }
 
     /**
@@ -186,8 +192,9 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         int tempMonth = controller.getCurMonth();
         if (!daysLabels.get(0).getText().equals("1")) {
             tempMonth = (tempMonth - 1) % 12;
-            if (tempMonth == -1)
+            if (tempMonth == -1) {
                 tempMonth = 11;
+            }
         }
 
         for (final JLabel jl : daysLabels) {
@@ -202,36 +209,34 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
 
             jl.addMouseListener(
                     new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            super.mouseClicked(e);
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
 //                            if (controller.getCurrentView() == 'd'){
 //                                DayView dayview = new DayView(events);
 //                               //  dayview.setDateTitle(jl.getText()) + "/" + tempMonthCopy);
 //                            }else if (controller.getCurrentView() == 'w'){
 //
 //                            }
-                            
-                            
-                            System.out.println(jl.getText() + "/" + tempMonthCopy);
-//                            System.out.println(controller.getCurrentView());
-                            Date date = new Date(controller.getCurYear(), tempMonthCopy, Integer.parseInt(jl.getText()));
 
-                        }
-                        @Override
-                        public void mouseEntered(MouseEvent e) {
-                            jl.setBackground(new Color(222, 222, 222));
-                            jl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                        }
-                        @Override
-                        public void mouseExited(MouseEvent e) {
-                            jl.setBackground(Color.white);
-                        }
-                    }
-            );
+
+                    System.out.println(jl.getText() + "/" + tempMonthCopy);
+//                            System.out.println(controller.getCurrentView());
+                    Date date = new Date(controller.getCurYear(), tempMonthCopy, Integer.parseInt(jl.getText()));
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    jl.setBackground(new Color(222, 222, 222));
+                    jl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    jl.setBackground(Color.white);
+                }
+            });
         }
     }
 }
-
-
-
