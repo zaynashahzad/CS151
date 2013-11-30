@@ -137,7 +137,7 @@ public class CalendarFrame extends JFrame {
     private void testEvents() {
 
         // year is from 0 to 8099. Month is from 0 to 11. Day is from 1 to 31
-        Date date = new Date(2013, 10, 27);
+        Date date = new Date(2013, 10, 29);
         DayEvents tempEvent = new DayEvents("Dentist Appointment", 8, 10, date);
         events.addEvent(date, tempEvent);
 //

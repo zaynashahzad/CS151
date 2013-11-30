@@ -1,4 +1,5 @@
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Controller implements ViewController {
@@ -114,6 +115,12 @@ public class Controller implements ViewController {
 
     public Events getEvents() {
         return events;
+    }
+
+    public Date getCurrentDate() {
+        return new Date(calendar.get(GregorianCalendar.YEAR),
+                calendar.get(GregorianCalendar.MONTH),
+                calendar.get(GregorianCalendar.DAY_OF_MONTH));
     }
 
     @Override

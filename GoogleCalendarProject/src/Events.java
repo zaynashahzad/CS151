@@ -70,12 +70,15 @@ public class Events {   //model
      */
     public ArrayList<DayEvents> getEventsForDate(Date date) {
         ArrayList<DayEvents> dayEvents = eventsList.get(date);
-        Collections.sort(dayEvents, new Comparator<DayEvents>() {
-            @Override
-            public int compare(DayEvents o1, DayEvents o2) {
-                return o1.getStartHour() - o2.getStartHour();
-            }
-        });
+        System.out.println(dayEvents);
+        if (dayEvents != null) {
+            Collections.sort(dayEvents, new Comparator<DayEvents>() {
+                @Override
+                public int compare(DayEvents o1, DayEvents o2) {
+                    return o1.getStartHour() - o2.getStartHour();
+                }
+            });
+        }
         return dayEvents;
     }
 }

@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -34,8 +33,8 @@ public class DayView extends JPanel implements ChangeListener {
         setDateTitle(dayController.getDayOfWeek() + " " + (dayController.getCurMonth() + 1) + "/" + dayController.getCurDay());
         Date date = new Date(2013, 10, 27);
 
-        ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
-        displayDayView(dayEvents);
+//        ArrayList<DayEvents> dayEvents = events.getEventsForDate(date);
+        displayDayView(events.getEventsForDate(date));
 
     }
 
