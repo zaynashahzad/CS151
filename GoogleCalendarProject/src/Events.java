@@ -68,15 +68,12 @@ public class Events {   //model
      * @return Sorted event list on given date
      */
     public ArrayList<DayEvents> getEventsForDate(Date date) {
-<<<<<<< HEAD
-        ArrayList<DayEvents> dayEvents = eventsList.get(date);
-        System.out.println(dayEvents);
-        if (dayEvents != null) {
-=======
+//        ArrayList<DayEvents> dayEvents = eventsList.get(date);
+//        System.out.println(dayEvents);
+//        if (dayEvents != null) {
         ArrayList<DayEvents> dayEvents = null ;
         dayEvents = eventsList.get(date);
         if (dayEvents!= null) {
->>>>>>> 65e14d2e29a677ab21b0d4391129c2d2900033f6
             Collections.sort(dayEvents, new Comparator<DayEvents>() {
                 @Override
                 public int compare(DayEvents o1, DayEvents o2) {
