@@ -54,7 +54,7 @@ public class CalendarFrame extends JFrame {
                 cv.showToday();
             }
         });
-        JButton preMonthButton = new JButton("<<");
+        JButton preMonthButton = new JButton("<");
         preMonthButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,7 +62,7 @@ public class CalendarFrame extends JFrame {
                 cv.showPrev();
             }
         });
-        JButton nextMonthButton = new JButton(">>");
+        JButton nextMonthButton = new JButton(">");
         nextMonthButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

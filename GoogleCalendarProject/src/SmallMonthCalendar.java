@@ -32,9 +32,9 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         daysLabels = new ArrayList();
         monthTitle = new JLabel();
 
-        leftArrow = new JButton("<<");
+        leftArrow = new JButton("<");
         leftArrow.setBorder(null);
-        rightArrow = new JButton(">>");
+        rightArrow = new JButton(">");
         rightArrow.setBorder(null);
         createEvent = new JButton("CREATE");
 
