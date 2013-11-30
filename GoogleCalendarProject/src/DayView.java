@@ -5,7 +5,7 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class DayView extends JPanel implements ChangeListener, CalendarView {
+public class DayView extends JPanel implements CalendarView {
 
     JLabel dateTitle;
     JScrollPane scrollPane;
@@ -125,7 +125,8 @@ public class DayView extends JPanel implements ChangeListener, CalendarView {
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
-    public void stateChanged(ChangeEvent e) {
+    public void show() {
+        showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
 }

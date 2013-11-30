@@ -4,8 +4,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-public class CalendarFrame extends JFrame {
+public class CalendarFrame extends JFrame implements ChangeListener {
 
     private Controller controller;
     private Events events; // model
@@ -15,21 +17,21 @@ public class CalendarFrame extends JFrame {
     private WeekView weekView;
     private MonthView monthView;
     private AgendaView agendaView;
+    final JPanel rightPanel, buttonsPanel;
 
     public CalendarFrame() {
-        testEvents();
 
         events = new Events();
+        testEvents();
+
         dayView = new DayView(events);
         weekView = new WeekView(events);
         monthView = new MonthView(events);
         agendaView = new AgendaView(events);
-        
-        events.registerListener(dayView);
-        events.registerListener(weekView);
-        events.registerListener(monthView);
-        events.registerListener(agendaView);
-        
+
+        events.registerListener(this);
+
+
         controller = new Controller(events);
         curView = dayView;
 
@@ -45,7 +47,7 @@ public class CalendarFrame extends JFrame {
         leftPanel.add(tempPanel, BorderLayout.CENTER);
 
         // rightPanel holds day, week, month, agenda views and the current view, file
-        final JPanel rightPanel = new JPanel();
+        rightPanel = new JPanel();
         rightPanel.setLayout(new BorderLayout());
 
         final JPanel rightButtons = new JPanel();
@@ -82,7 +84,7 @@ public class CalendarFrame extends JFrame {
         leftButtons.add(preMonthButton);
         leftButtons.add(nextMonthButton);
 
-        final JPanel buttonsPanel = new JPanel(new BorderLayout());
+        buttonsPanel = new JPanel(new BorderLayout());
         buttonsPanel.add(leftButtons, BorderLayout.WEST);
         buttonsPanel.add(rightButtons, BorderLayout.EAST);
 
@@ -196,5 +198,18 @@ public class CalendarFrame extends JFrame {
         date = new Date(2014 - 1900, 0, 1);
         tempEvent = new DayEvents("Valentine's Day Dinner with Teresa", 16, 17, date);
         events.addEvent(date, tempEvent);
+    }
+
+    public void stateChanged(ChangeEvent e) {
+
+        rightPanel.removeAll();
+        rightPanel.invalidate();
+        rightPanel.add(buttonsPanel, BorderLayout.NORTH);
+        rightPanel.add(curView, BorderLayout.CENTER);
+        CalendarView cv = (CalendarView) curView;
+        cv.showToday();
+        rightPanel.validate();
+        rightPanel.repaint();
+
     }
 }

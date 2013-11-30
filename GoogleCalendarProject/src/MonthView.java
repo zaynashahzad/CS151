@@ -12,8 +12,7 @@ import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-
-public class MonthView extends JPanel implements ChangeListener, CalendarView {
+public class MonthView extends JPanel implements CalendarView {
 
     private ArrayList<JLabel> weeksTitle;
     private Events events;
@@ -85,7 +84,7 @@ public class MonthView extends JPanel implements ChangeListener, CalendarView {
                 if (Integer.parseInt(s) == todaysDate.get(GregorianCalendar.DAY_OF_MONTH)
                         && todaysDate.get(GregorianCalendar.MONTH) == controller.getCurMonth()
                         && todaysDate.get(GregorianCalendar.YEAR) == controller.getCurYear()) {
-                    label1.setFont(new Font(label1.getFont().getName(), Font.BOLD, (int)(label1.getFont().getSize() *1.2)));
+                    label1.setFont(new Font(label1.getFont().getName(), Font.BOLD, (int) (label1.getFont().getSize() * 1.2)));
 
                 }
                 Date d = new Date(cal.get(GregorianCalendar.YEAR) - 1900, cal.get(GregorianCalendar.MONTH), Integer.parseInt(s));
@@ -129,22 +128,17 @@ public class MonthView extends JPanel implements ChangeListener, CalendarView {
         monthCal.repaint();
     }
 
-    public void stateChanged(ChangeEvent e) {
-    }
 
     public void showNext() {
-
     }
 
     public void showPrev() {
-
-    
     }
 
     public void showToday() {
-
     }
 }
+
 class MonthController extends Controller {
 
     public ArrayList<String> showCalendar() {
