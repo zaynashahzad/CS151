@@ -81,6 +81,7 @@ public class MonthView extends JPanel implements ChangeListener {
 
                 eventsForOneDay = events.getEventsForDate(d);
                 if (eventsForOneDay != null && eventsForOneDay.size() > 0) {
+                                        
                     if (eventsForOneDay.size() >= 3) {
                         for (int i = 0; i < eventLabels.length; i++) {
                             eventLabels[i].setText(eventsForOneDay.get(i).getName());
@@ -91,7 +92,6 @@ public class MonthView extends JPanel implements ChangeListener {
                         }
                     }
                 }
-
             }
 
             tempPanel.add(label1);
