@@ -34,7 +34,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         curView = dayView;
         controller.setCurView(dayView);
         
-        SmallMonthCalendar smallCal = new SmallMonthCalendar(controller, events);
+        final SmallMonthCalendar smallCal = new SmallMonthCalendar(controller, events);
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BorderLayout());
         
@@ -58,6 +58,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         todayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                smallCal.showToday();
                 controller.getCurView().showToday();
             }
         });

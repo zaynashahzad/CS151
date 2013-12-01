@@ -72,7 +72,7 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         showSmallMonthCal();
     }
 
-    private void showSmallMonthCal() {
+    public void showSmallMonthCal() {
         ArrayList<String> days = showSmallCalendar();
         GregorianCalendar todaysDate = new GregorianCalendar();
 
@@ -175,6 +175,11 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
                 showSmallMonthCal();
             }
         });
+    }
+    
+    public void showToday(){
+        controller.todayDate();
+         showSmallMonthCal();
     }
 
     /**
