@@ -17,9 +17,10 @@ public class CalendarFrame extends JFrame {
     private AgendaView agendaView;
 
     public CalendarFrame() {
-        testEvents();
+
 
         events = new Events();
+        testEvents();
         dayView = new DayView(events);
         weekView = new WeekView(events);
         monthView = new MonthView(events);

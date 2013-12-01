@@ -107,21 +107,18 @@ public class DayView extends JPanel implements ChangeListener, CalendarView {
     @Override
     public void showNext() {
         dayController.nextDay();
-//        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
     @Override
     public void showPrev() {
         dayController.prevDay();
-//        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
     @Override
     public void showToday() {
         dayController.todayDate();
-//        Date date = new Date(dayController.getCurYear()-1900, (dayController.getCurMonth()), dayController.getCurDay());
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
 

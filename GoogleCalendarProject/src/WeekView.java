@@ -60,8 +60,8 @@ public class WeekView extends JPanel implements ChangeListener, CalendarView {
         for (int i = 0; i < 7; i++) {
             ArrayList<DayEvents> list = events.getEventsForDate(weekController.getDate());
             if (list != null)
+                hasEvents = true;
                 for (DayEvents de : list) {
-                    hasEvents = true;
                     int startHr = de.getStartHour();
                     int endHr = de.getEndHour();
                     obj[startHr][i] = de.getName();
