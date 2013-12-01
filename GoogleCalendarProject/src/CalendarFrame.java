@@ -31,7 +31,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
 
         events.registerListener(this);
 
-
         controller = new Controller(events);
         curView = dayView;
 
@@ -201,7 +200,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
     }
 
     public void stateChanged(ChangeEvent e) {
-
         rightPanel.removeAll();
         rightPanel.invalidate();
         rightPanel.add(buttonsPanel, BorderLayout.NORTH);
@@ -210,6 +208,5 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         cv.show();
         rightPanel.validate();
         rightPanel.repaint();
-
     }
 }
