@@ -1,20 +1,13 @@
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 
-public class AgendaView extends JPanel implements ChangeListener, CalendarView{
+public class AgendaView extends JPanel implements CalendarView{
 
     public AgendaView(Events events){
         
     }
     
-
-    public void stateChanged(ChangeEvent e) {
-
-    }
 
     @Override
     public void showNext() {

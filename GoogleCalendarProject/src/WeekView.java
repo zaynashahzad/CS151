@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class WeekView extends JPanel implements ChangeListener, CalendarView {
+public class WeekView extends JPanel implements  CalendarView {
 
     JPanel panel, headerPanel;
     JTable leftTable, rightTable;
@@ -115,8 +115,6 @@ public class WeekView extends JPanel implements ChangeListener, CalendarView {
         this.repaint();
     }
 
-    public void stateChanged(ChangeEvent e) {
-    }
 
     @Override
     public void showNext() {
