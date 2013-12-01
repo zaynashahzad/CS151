@@ -5,8 +5,7 @@ import java.util.GregorianCalendar;
 
 public class Controller {
 
-//    private Date currentDate;
-    private char currentView;
+    private CalendarView curView;
     private GregorianCalendar calendar;
     private Events events;
 
@@ -17,31 +16,24 @@ public class Controller {
     Controller(Events events) {
         this.events = events;
         calendar = new GregorianCalendar();
-        currentView = 'd';
-
-//        currentDate = new Date(getCurYear()-1900, (getCurMonth()), getCurDay());
     }
 
     Controller() {
         // default day view
         calendar = new GregorianCalendar();
-        currentView = 'd';
         this.events = new Events();
-//        currentDate = new Date(getCurYear()-1900, (getCurMonth()), getCurDay());
     }
 
     public GregorianCalendar getCalendar(){
         return calendar;
     }
     
-    
-    public char getCurrentView() {
-        return currentView;
+    public void setCurView(CalendarView cv) {
+        this.curView = cv;
     }
 
-    public void setCurrentView(char c) {
-        currentView = c;
-
+    public CalendarView getCurView() {
+        return this.curView;
     }
 
     /**
@@ -123,21 +115,31 @@ public class Controller {
     }
 
     public void prevWeek() {
-        System.out.println("pre" + calendar.get(GregorianCalendar.DAY_OF_MONTH));
-//        calendar.add(GregorianCalendar.DAY_OF_MONTH, -1);
         for (int i = 0; i < 7; i++)
             prevDay();
-        System.out.println("post" + calendar.get(GregorianCalendar.DAY_OF_MONTH));
     }
 
     public void nextWeek() {
-//        calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
         for (int i = 0; i < 7; i++)
             nextDay();
     }
 
+<<<<<<< HEAD
     
     public void createRecurringEvents(){
     }
     
+=======
+    public void setDayOfMonth(int day) {
+        calendar.set(GregorianCalendar.DAY_OF_MONTH, day);
+    }
+
+    public void setMonth(int month) {
+        calendar.set(GregorianCalendar.MONTH, month);
+    }
+
+    public void setYear(int year) {
+        calendar.set(GregorianCalendar.YEAR, year);
+    }
+>>>>>>> f46d4abc2ad72e7dc42ca1d14b1729ab1dd26ce7
 }

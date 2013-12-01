@@ -4,7 +4,6 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class WeekView extends JPanel implements CalendarView {
@@ -132,7 +131,14 @@ public class WeekView extends JPanel implements CalendarView {
     }
 
     @Override
+<<<<<<< HEAD
+    public void showView(int year, int month, int day) {
+        weekController.setMonth(month);
+        weekController.setCurDay(day);
+        weekController.setYear(year);
+=======
     public void show() {
+>>>>>>> 412311cdef794b1511e5508c507eb8c628702f45
         showWeekView();
     }
 }
@@ -145,9 +151,4 @@ class WeekController extends Controller {
         this.calendar = super.getCalendar();
     }
 
-    public void setDate(Date date) {
-        calendar.set(GregorianCalendar.YEAR, date.getYear() - 1900);
-        calendar.set(GregorianCalendar.MONTH, date.getMonth());
-        calendar.set(GregorianCalendar.DAY_OF_MONTH, date.getDate());
-    }
 }

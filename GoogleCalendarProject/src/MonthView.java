@@ -134,7 +134,14 @@ public class MonthView extends JPanel implements CalendarView {
         showMonthCal();
     }
 
+<<<<<<< HEAD
+    public void showView(int year, int month, int day) {
+        controller.setYear(year);
+        controller.setMonth(month);
+        controller.setCurDay(day);
+=======
     public void show() {
+>>>>>>> 412311cdef794b1511e5508c507eb8c628702f45
         showMonthCal();
     }
 }

@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 //TODO: impletements CalendarView
@@ -17,7 +15,6 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
     private ArrayList<JLabel> daysLabels;
     private JLabel monthTitle;
     private ArrayList<JLabel> weeksTitle;
-    private Events events;
     private JButton leftArrow, rightArrow, createEvent;
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
@@ -187,42 +184,38 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
     public void addDaysLabelListener() {
 
         JLabel prevDay = null;
-
         int tempMonth = controller.getCurMonth();
+        int tempYear = controller.getCurYear();
+
         if (!daysLabels.get(0).getText().equals("1")) {
             tempMonth = (tempMonth - 1) % 12;
             if (tempMonth == -1) {
                 tempMonth = 11;
             }
         }
+        else {
+            if (controller.getCurMonth() == 0)
+                tempYear--;
+        }
 
         for (final JLabel jl : daysLabels) {
             if (prevDay != null) {
                 if (Integer.parseInt(jl.getText()) < Integer.parseInt(prevDay.getText())) {
                     tempMonth = (tempMonth + 1) % 12;
+                    if (tempMonth == 0)  //changing from Dec to Jan
+                        tempYear++;
                 }
             }
             prevDay = jl;
 
-            final int tempMonthCopy = tempMonth;
 
+            final int tempMonthCopy = tempMonth;
+            final int tempYearCopy = tempYear;
             jl.addMouseListener(
                     new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    super.mouseClicked(e);
-//                            if (controller.getCurrentView() == 'd'){
-//                                DayView dayview = new DayView(events);
-//                               //  dayview.setDateTitle(jl.getText()) + "/" + tempMonthCopy);
-//                            }else if (controller.getCurrentView() == 'w'){
-//
-//                            }
-
-
-                    System.out.println(jl.getText() + "/" + tempMonthCopy);
-//                            System.out.println(controller.getCurrentView());
-                    Date date = new Date(controller.getCurYear(), tempMonthCopy, Integer.parseInt(jl.getText()));
-
+                    controller.getCurView().showView(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
                 }
 
                 @Override
