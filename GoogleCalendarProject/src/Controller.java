@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -123,6 +124,12 @@ public class Controller {
             nextDay();
     }
 
+<<<<<<< HEAD
+    
+    public void createRecurringEvents(){
+    }
+    
+=======
     public void setDayOfMonth(int day) {
         calendar.set(GregorianCalendar.DAY_OF_MONTH, day);
     }
@@ -134,4 +141,5 @@ public class Controller {
     public void setYear(int year) {
         calendar.set(GregorianCalendar.YEAR, year);
     }
+>>>>>>> f46d4abc2ad72e7dc42ca1d14b1729ab1dd26ce7
 }
