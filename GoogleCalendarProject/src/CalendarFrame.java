@@ -207,7 +207,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         rightPanel.add(buttonsPanel, BorderLayout.NORTH);
         rightPanel.add(curView, BorderLayout.CENTER);
         CalendarView cv = (CalendarView) curView;
-        cv.showToday();
+        cv.show();
         rightPanel.validate();
         rightPanel.repaint();
 

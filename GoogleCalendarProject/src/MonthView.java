@@ -100,7 +100,6 @@ public class MonthView extends JPanel implements CalendarView {
                             eventLabels[i].setOpaque(true);
                             eventLabels[i].setBorder(BorderFactory.createLineBorder(Color.lightGray));
 
-
                         }
                     }
                 }
@@ -120,7 +119,6 @@ public class MonthView extends JPanel implements CalendarView {
         monthCal.repaint();
     }
 
-
     public void showNext() {
         controller.nextMonth();
         showMonthCal();
@@ -133,6 +131,10 @@ public class MonthView extends JPanel implements CalendarView {
 
     public void showToday() {
         controller.todayDate();
+        showMonthCal();
+    }
+
+    public void show() {
         showMonthCal();
     }
 }

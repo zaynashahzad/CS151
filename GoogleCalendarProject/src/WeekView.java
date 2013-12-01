@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
@@ -6,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class WeekView extends JPanel implements  CalendarView {
+public class WeekView extends JPanel implements CalendarView {
 
     JPanel panel, headerPanel;
     JTable leftTable, rightTable;
@@ -14,8 +15,8 @@ public class WeekView extends JPanel implements  CalendarView {
     Events events;
     WeekController weekController;
     public static final String[] title = {
-            "12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am",
-            "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
+        "12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am",
+        "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
     };
 
     public WeekView(Events events) {
@@ -62,7 +63,7 @@ public class WeekView extends JPanel implements  CalendarView {
                     int startHr = de.getStartHour();
                     int endHr = de.getEndHour();
                     obj[startHr][i] = de.getName();
-                    while(startHr <= endHr) {
+                    while (startHr <= endHr) {
                         hrs[startHr++][i] = 1;
                     }
                 }
@@ -112,7 +113,6 @@ public class WeekView extends JPanel implements  CalendarView {
         this.repaint();
     }
 
-
     @Override
     public void showNext() {
         weekController.nextWeek();
@@ -128,6 +128,11 @@ public class WeekView extends JPanel implements  CalendarView {
     @Override
     public void showToday() {
         weekController.todayDate();
+        showWeekView();
+    }
+
+    @Override
+    public void show() {
         showWeekView();
     }
 }
