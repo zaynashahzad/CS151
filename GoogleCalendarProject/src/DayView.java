@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
@@ -122,7 +120,11 @@ public class DayView extends JPanel implements CalendarView {
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
-    public void show() {
+    @Override
+    public void showView(int year, int month, int day) {
+        dayController.setMonth(month);
+        dayController.setDayOfMonth(day);
+        dayController.setYear(year);
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
 

@@ -9,5 +9,5 @@ public interface CalendarView {
     public void showNext();
     public void showPrev();
     public void showToday();
-    public void show();
+    public void showView(int year, int month, int day);
 }
