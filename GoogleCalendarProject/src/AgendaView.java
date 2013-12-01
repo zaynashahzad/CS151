@@ -128,5 +128,10 @@ public class AgendaView extends JPanel implements ChangeListener, CalendarView {
     public void showToday() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void showView(int year, int month, int day) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
