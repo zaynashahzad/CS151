@@ -172,10 +172,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
             }
         });
         rightButtons.add(fromFileButton);
-<<<<<<< HEAD
-=======
-        
->>>>>>> 9076ede8df26bfd629f9ddd908306243082dfaaf
+
         rightPanel.add(buttonsPanel, BorderLayout.NORTH);
         rightPanel.add(curView, BorderLayout.CENTER);
         
