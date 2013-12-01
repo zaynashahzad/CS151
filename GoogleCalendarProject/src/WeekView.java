@@ -88,7 +88,7 @@ public class WeekView extends JPanel implements  CalendarView {
         } else {
             rightTable = new JTable(obj, header);
         }
-
+        rightTable.getTableHeader().setFont(new Font(rightTable.getFont().getFontName(), rightTable.getFont().getStyle(), rightTable.getFont().getSize() + 3));
         rightTable.setRowHeight(40);
         rightTable.setGridColor(Color.lightGray);
         rightTable.setEnabled(false);

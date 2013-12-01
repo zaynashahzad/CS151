@@ -1,15 +1,8 @@
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.util.Date;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class MonthView extends JPanel implements CalendarView {
@@ -72,7 +65,6 @@ public class MonthView extends JPanel implements CalendarView {
             tempPanel.setBackground(Color.WHITE);
             tempPanel.setLayout(new GridLayout(0, 1));
             tempPanel.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220)));
-
 
             JLabel label1 = new JLabel(s);
             JLabel[] eventLabels = new JLabel[3];
