@@ -1,1 +1,10 @@
 Math Class;2014;1;2;MWF;17;18;
+Programming Class;2014;1;2;S;14;15;
+Dance Practice;2014;1;2;TH;10;14;
+Doc Appointment;2014;1;2;TH;10;14;
+French Class;2010;5;7;FSA;17;18;
+Cooking Class;2014;8;9;F;9;12;
+Soccer Practice;2018;1;2;SA;17;18;
+Driver's Education;2014;9;10;WFASHMT;20;21;
+Volunteer Work;2009;1;2;MW;17;18;
+Karate;1999;1;2;W;17;18;
