@@ -208,17 +208,10 @@ public class CalendarFrame extends JFrame implements ChangeListener {
     }
 
     public void stateChanged(ChangeEvent e) {
-<<<<<<< HEAD
-=======
-
-//        curView = (JPanel) controller.getCurView();
->>>>>>> f46d4abc2ad72e7dc42ca1d14b1729ab1dd26ce7
         rightPanel.removeAll();
         rightPanel.invalidate();
         rightPanel.add(buttonsPanel, BorderLayout.NORTH);
         rightPanel.add(curView, BorderLayout.CENTER);
-//        CalendarView cv = (CalendarView) curView;
-//        cv.showView();
         rightPanel.validate();
         rightPanel.repaint();
     }
