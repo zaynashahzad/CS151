@@ -1,11 +1,11 @@
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class CalendarFrame extends JFrame implements ChangeListener {
 
@@ -20,17 +20,10 @@ public class CalendarFrame extends JFrame implements ChangeListener {
     final JPanel rightPanel, buttonsPanel;
 
     public CalendarFrame() {
-<<<<<<< HEAD
-
-
-        events = new Events();
-        testEvents();
-=======
 
         events = new Events();
         testEvents();
 
->>>>>>> 2ba0dc0b54f0a4a621375ebbca9545a8afb2236d
         dayView = new DayView(events);
         weekView = new WeekView(events);
         monthView = new MonthView(events);

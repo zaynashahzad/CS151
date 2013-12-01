@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,7 +17,6 @@ public class WeekView extends JPanel implements  CalendarView {
             "12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am",
             "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
     };
-    public static final String[] dayOfWeek = {"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
     public WeekView(Events events) {
 
@@ -49,17 +46,17 @@ public class WeekView extends JPanel implements  CalendarView {
     private void setRightTable() {
         Object[][] obj = new Object[24][7];
         String[] header = new String[7];
-
-        //set current date to sunday
         boolean hasEvents = false;
+
         Calendar cal = weekController.getCalendar();
-        Date curDate = weekController.getDate();
-       cal.set(GregorianCalendar.DAY_OF_WEEK, 1);
+        for (int i = cal.get(GregorianCalendar.DAY_OF_WEEK); i > 1; i--) {
+            weekController.prevDay();
+        }
 
         final int[][] hrs = new int[24][7];
         for (int i = 0; i < 7; i++) {
             ArrayList<DayEvents> list = events.getEventsForDate(weekController.getDate());
-            if (list != null)
+            if (list != null) {
                 hasEvents = true;
                 for (DayEvents de : list) {
                     int startHr = de.getStartHour();
@@ -69,9 +66,11 @@ public class WeekView extends JPanel implements  CalendarView {
                         hrs[startHr++][i] = 1;
                     }
                 }
+            }
             header[i] = new String(weekController.getDayOfWeek().substring(0, 3) + " " + weekController.getCurDay() + "/" + (weekController.getCurMonth() + 1));
             weekController.nextDay();
         }
+        weekController.prevDay();
 
         if (hasEvents) {
             rightTable = new JTable(obj, header) {
@@ -89,8 +88,6 @@ public class WeekView extends JPanel implements  CalendarView {
         } else {
             rightTable = new JTable(obj, header);
         }
-
-        weekController.setDate(curDate);
 
         rightTable.setRowHeight(40);
         rightTable.setGridColor(Color.lightGray);
@@ -138,7 +135,6 @@ public class WeekView extends JPanel implements  CalendarView {
 class WeekController extends Controller {
 
     Calendar calendar;
-    private Calendar currentFirstDayOfWeek;
 
     public WeekController() {
         this.calendar = super.getCalendar();
