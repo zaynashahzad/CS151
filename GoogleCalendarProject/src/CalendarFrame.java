@@ -10,9 +10,8 @@ import java.util.Date;
 public class CalendarFrame extends JFrame implements ChangeListener {
 
     private Controller controller;
-    private Events events; // model
+    private Events events;
     private JPanel curView;
-//    private CalendarView cur;
     private DayView dayView;
     private WeekView weekView;
     private MonthView monthView;
@@ -59,7 +58,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         todayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                CalendarView cv = (CalendarView) curView;
                 controller.getCurView().showToday();
             }
         });
@@ -67,7 +65,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         preMonthButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                CalendarView cv = (CalendarView) curView;
                 controller.getCurView().showPrev();
             }
         });
@@ -75,7 +72,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         nextMonthButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                CalendarView cv = (CalendarView) curView;
                 controller.getCurView().showNext();
             }
         });
@@ -120,7 +116,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         JButton monthButton = new JButton("Month");
         monthButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                curView = new MonthView(events);
                 curView = monthView;
                 controller.setCurView(monthView);
                 rightPanel.removeAll();
@@ -136,7 +131,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         JButton agendaButton = new JButton("Agenda");
         agendaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                curView = new AgendaView(events);
                 curView = agendaView;
                 controller.setCurView(agendaView);
                 rightPanel.removeAll();
@@ -156,15 +150,14 @@ public class CalendarFrame extends JFrame implements ChangeListener {
                 // something happens here.
             }
         });
-        rightButtons.add(weekButton);
         rightButtons.add(fromFileButton);
-
         rightPanel.add(buttonsPanel, BorderLayout.NORTH);
         rightPanel.add(curView, BorderLayout.CENTER);
 
         setLayout(new BorderLayout());
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.CENTER);
+        setTitle("Google Calendar");
     }
 
     /*

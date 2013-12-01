@@ -23,13 +23,11 @@ public class AgendaView extends JPanel implements CalendarView{
     public void showToday() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
-    public void show() {
+    public void showView(int year, int month, int day) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public void showView(int year, int month, int day) {}
 
 }
 class AgendaController extends Controller{

@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-//TODO: impletements CalendarView
 public class SmallMonthCalendar extends JPanel {    //model and controller of small month calendar
 
     private Controller controller;
@@ -207,7 +206,6 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
                 }
             }
             prevDay = jl;
-
 
             final int tempMonthCopy = tempMonth;
             final int tempYearCopy = tempYear;
