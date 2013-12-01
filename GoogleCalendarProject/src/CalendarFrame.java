@@ -217,8 +217,8 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         tempEvent = new DayEvents("Test Last day of the Year", 1, 17, date);
         events.addEvent(date, tempEvent);
         
-        date = new Date(2014 - 1900, 0, 1);
-        tempEvent = new DayEvents("Valentine's Day Dinner with Teresa", 16, 17, date);
+        date = new Date(2014 - 1900, 3, 14);
+        tempEvent = new DayEvents("Dinner with Teresa", 16, 17, date);
         events.addEvent(date, tempEvent);
     }
     

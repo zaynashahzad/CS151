@@ -129,7 +129,6 @@ public class Controller {
     }
     
     public void createRecurringEvents(String fileName) {
-        
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(fileName));
