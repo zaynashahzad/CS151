@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class AgendaView extends JFrame implements ActionListener, CalendarView {
+public class AgendaView extends JPanel implements CalendarView {
 
     Border blackline = BorderFactory.createLineBorder(Color.black);
     JLabel dayTitle;
@@ -33,14 +33,6 @@ public class AgendaView extends JFrame implements ActionListener, CalendarView {
         "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
     };
 
-//    private Events events;
-    private JPanel innerPanel;
-//    private JTextField eventNameTf;
-    private JComboBox startMonthsPicker, startDaysPicker, startYearPicker;
-    private JComboBox endMonthPicker, endDayPicker, endYearPicker;
-//    private JComboBox startHourPicker, endHourPicker;
-    private JLabel errorMsg;
-
     public AgendaView(Events event) {
 //        eventTree = x.getTree();
 //        dayTitle = new JLabel();
@@ -52,65 +44,93 @@ public class AgendaView extends JFrame implements ActionListener, CalendarView {
 //        this.setLayout(new BorderLayout());
 //        setUpAgenda();
         events = event;
-        innerPanel  = new JPanel(new GridLayout(1, 9));
+        AgendaViewFrame newFrame = new AgendaViewFrame();
 
-//        JLabel instructionLabel = new JLabel("Select events period");
-        JLabel toLabel = new JLabel("to");
+    }
 
-        String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-        startMonthsPicker = new JComboBox(months);
-        startMonthsPicker.setSelectedIndex(0);
-        endMonthPicker = new JComboBox(months);
-        endMonthPicker.setSelectedIndex(0);
+    class AgendaViewFrame extends JFrame implements ActionListener {
 
-        String[] days = new String[31];
-        for (int i = 0; i < days.length; i++) {
-            days[i] = (i + 1) + "";
+        private JPanel innerPanel;
+        private JComboBox startMonthsPicker, startDaysPicker, startYearPicker;
+        private JComboBox endMonthPicker, endDayPicker, endYearPicker;
+        private JLabel errorMsg;
+
+        AgendaViewFrame() {
+            innerPanel  = new JPanel(new GridLayout(1, 9));
+
+            JLabel toLabel = new JLabel("to");
+
+            String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+            startMonthsPicker = new JComboBox(months);
+            startMonthsPicker.setSelectedIndex(0);
+            endMonthPicker = new JComboBox(months);
+            endMonthPicker.setSelectedIndex(0);
+
+            String[] days = new String[31];
+            for (int i = 0; i < days.length; i++) {
+                days[i] = (i + 1) + "";
+            }
+            startDaysPicker = new JComboBox(days);
+            startDaysPicker.setSelectedIndex(0);
+            endDayPicker = new JComboBox(days);
+            endDayPicker.setSelectedIndex(0);
+
+            String[] years = new String[120];
+            for (int i = 0; i < years.length; i++) {
+                years[i] = (i + 1900) + "";
+            }
+            startYearPicker = new JComboBox(years);
+            startYearPicker.setSelectedIndex(years.length - 6);
+            endYearPicker = new JComboBox(years);
+            endYearPicker.setSelectedIndex(years.length - 6);
+
+            errorMsg = new JLabel("error", JLabel.CENTER);
+            errorMsg.setForeground(Color.red);
+
+            JButton submitButton = new JButton("Search");
+            submitButton.addActionListener(this);
+
+            innerPanel.add(startMonthsPicker);
+            innerPanel.add(startDaysPicker);
+            innerPanel.add(startYearPicker);
+            innerPanel.add(toLabel);
+            innerPanel.add(endMonthPicker);
+            innerPanel.add(endDayPicker);
+            innerPanel.add(endYearPicker);
+            innerPanel.add(submitButton);
+
+            this.setLayout(new BorderLayout());
+            innerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+            add(innerPanel, BorderLayout.CENTER);
+            add(errorMsg, BorderLayout.SOUTH);
+            setTitle("Select agenda period");
+            pack();
+            setVisible(true);
         }
-        startDaysPicker = new JComboBox(days);
-        startDaysPicker.setSelectedIndex(0);
-        endDayPicker = new JComboBox(days);
-        endDayPicker.setSelectedIndex(0);
 
-        String[] years = new String[120];
-        for (int i = 0; i < years.length; i++) {
-            years[i] = (i + 1900) + "";
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            errorMsg.setText("");
+    //        String eventName = eventNameTf.getText();
+            int eventYear = Integer.parseInt((String) startYearPicker.getSelectedItem()) - 1900;
+            int eventMon = Integer.parseInt((String) startMonthsPicker.getSelectedItem()) - 1;
+            int eventDay = Integer.parseInt((String) startDaysPicker.getSelectedItem());
+
+            Date eventDate = new Date(eventYear, eventMon, eventDay);
+    //        int eventStartHour = Integer.parseInt((String) startHourPicker.getSelectedItem());
+    //        int eventEndHour = Integer.parseInt((String) endHourPicker.getSelectedItem());
+
+    //        DayEvents newEvent = new DayEvents(eventName, eventStartHour, eventEndHour, eventDate);
+
+    //        if (events.addEvent(eventDate, newEvent)) {
+    //            errorMsg.setText("Success! New event created!");
+    //            this.setVisible(false);
+    //            this.dispose();
+    //        } else {
+    //            errorMsg.setText("A conflict exists! Try again!");
+    //        }
+
         }
-        startYearPicker = new JComboBox(years);
-        startYearPicker.setSelectedIndex(years.length - 6);
-        endYearPicker = new JComboBox(years);
-        endYearPicker.setSelectedIndex(years.length - 6);
-
-        errorMsg = new JLabel("error", JLabel.CENTER);
-        errorMsg.setForeground(Color.red);
-
-        JButton submitButton = new JButton("Search");
-        submitButton.addActionListener(this);
-
-//        innerPanel.add(instrucLabel);
-//        innerPanel.add(eventNameLab);
-//        innerPanel.add(eventNameTf);
-//        innerPanel.add(instructionLabel);
-        innerPanel.add(startMonthsPicker);
-        innerPanel.add(startDaysPicker);
-        innerPanel.add(startYearPicker);
-        innerPanel.add(toLabel);
-        innerPanel.add(endMonthPicker);
-        innerPanel.add(endDayPicker);
-        innerPanel.add(endYearPicker);
-        innerPanel.add(submitButton);
-
-        // create some padding
-        this.setLayout(new BorderLayout());
-
-        innerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        add(innerPanel, BorderLayout.CENTER);
-        add(errorMsg, BorderLayout.SOUTH);
-
-//        setSize(1000, 100);
-        setTitle("Select agenda period");
-        pack();
-        setVisible(true);
     }
 
 //    private void setUpAgenda() {
@@ -179,26 +199,5 @@ public class AgendaView extends JFrame implements ActionListener, CalendarView {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-//        errorMsg.setText("");
-//        String eventName = eventNameTf.getText();
-        int eventYear = Integer.parseInt((String) startYearPicker.getSelectedItem()) - 1900;
-        int eventMon = Integer.parseInt((String) startMonthsPicker.getSelectedItem()) - 1;
-        int eventDay = Integer.parseInt((String) startDaysPicker.getSelectedItem());
 
-        Date eventDate = new Date(eventYear, eventMon, eventDay);
-//        int eventStartHour = Integer.parseInt((String) startHourPicker.getSelectedItem());
-//        int eventEndHour = Integer.parseInt((String) endHourPicker.getSelectedItem());
-
-//        DayEvents newEvent = new DayEvents(eventName, eventStartHour, eventEndHour, eventDate);
-
-//        if (events.addEvent(eventDate, newEvent)) {
-//            errorMsg.setText("Success! New event created!");
-//            this.setVisible(false);
-//            this.dispose();
-//        } else {
-//            errorMsg.setText("A conflict exists! Try again!");
-//        }
-    }
 }
