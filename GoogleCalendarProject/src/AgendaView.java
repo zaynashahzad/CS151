@@ -11,7 +11,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.TreeMap;
 
 public class AgendaView extends JPanel implements CalendarView {
 
@@ -44,7 +46,7 @@ public class AgendaView extends JPanel implements CalendarView {
 //        this.setLayout(new BorderLayout());
 //        setUpAgenda();
         events = event;
-        AgendaViewFrame newFrame = new AgendaViewFrame();
+        AgendaViewFrame newFrame = new AgendaViewFrame(events);
 
     }
 
@@ -54,8 +56,11 @@ public class AgendaView extends JPanel implements CalendarView {
         private JComboBox startMonthsPicker, startDaysPicker, startYearPicker;
         private JComboBox endMonthPicker, endDayPicker, endYearPicker;
         private JLabel errorMsg;
+        private Events events;
 
-        AgendaViewFrame() {
+        AgendaViewFrame(Events event) {
+
+            this.events = event;
             innerPanel  = new JPanel(new GridLayout(1, 9));
 
             JLabel toLabel = new JLabel("to");
@@ -108,15 +113,33 @@ public class AgendaView extends JPanel implements CalendarView {
             setVisible(true);
         }
 
+        private boolean validateInputDates(int sYear, int sMonth, int sDay, int eYear, int eMonth, int eDay) {
+            if (sYear > eYear)
+                return false;
+            else if (sMonth > eMonth)
+                return false;
+            else if (sDay > eDay)
+                return false;
+            else
+                return true;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             errorMsg.setText("");
     //        String eventName = eventNameTf.getText();
-            int eventYear = Integer.parseInt((String) startYearPicker.getSelectedItem()) - 1900;
-            int eventMon = Integer.parseInt((String) startMonthsPicker.getSelectedItem()) - 1;
-            int eventDay = Integer.parseInt((String) startDaysPicker.getSelectedItem());
+            int startYear = Integer.parseInt((String) startYearPicker.getSelectedItem()) - 1900;
+            int startMonth = Integer.parseInt((String) startMonthsPicker.getSelectedItem()) - 1;
+            int startDay = Integer.parseInt((String) startDaysPicker.getSelectedItem());
+            int endYear = Integer.parseInt((String) endYearPicker.getSelectedItem()) - 1900;
+            int endMonth = Integer.parseInt((String) endMonthPicker.getSelectedItem()) - 1;
+            int endDay = Integer.parseInt((String) endDayPicker.getSelectedItem());
 
-            Date eventDate = new Date(eventYear, eventMon, eventDay);
+            System.out.println(startMonth + "/" + startDay + " " + startYear + " to " + endMonth + "/" + endDay + " " + endYear);
+
+
+
+//            Date eventDate = new Date(eventYear, eventMon, eventDay);
     //        int eventStartHour = Integer.parseInt((String) startHourPicker.getSelectedItem());
     //        int eventEndHour = Integer.parseInt((String) endHourPicker.getSelectedItem());
 
