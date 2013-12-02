@@ -42,7 +42,7 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
         createEvent.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CreateEvent ce = new CreateEvent(events);
-                ce.setSize(250, 350);
+                ce.setSize(250, 400);
                 ce.setVisible(true);
             }
         });
@@ -84,7 +84,6 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
 
         daysLabels.clear();
         monthCal.removeAll();
-
 
         for (String s : days) {
             if (s.contains("*")) {

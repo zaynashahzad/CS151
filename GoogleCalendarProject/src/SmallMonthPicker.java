@@ -21,6 +21,7 @@ public class SmallMonthPicker extends JPanel implements SmallCalendarInterface {
     private ArrayList<JLabel> weeksTitle;
     private JButton leftArrow, rightArrow;
     private int savedDay, savedMonth, savedYear;
+    
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"

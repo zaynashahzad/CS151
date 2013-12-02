@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,8 +30,7 @@ class CreateEvent extends JFrame implements ActionListener {
     CreateEvent(Events event) {
         events = event;
         innerPanel = new JPanel();
-        innerPanel.setLayout(new GridLayout(0, 1));
-        JLabel instrucLabel = new JLabel("Enter all details below");
+        innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
 
         JLabel eventNameLab = new JLabel("Event Name");
         eventNameTf = new JTextField();
@@ -61,7 +61,6 @@ class CreateEvent extends JFrame implements ActionListener {
         JButton submitButton = new JButton("Submit!");
         submitButton.addActionListener(this);
 
-        innerPanel.add(instrucLabel);
         innerPanel.add(eventNameLab);
         innerPanel.add(eventNameTf);
         innerPanel.add(eventDateLab);
