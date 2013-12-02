@@ -130,7 +130,7 @@ public class DayView extends JPanel implements CalendarView {
 
 }
 
-class DayController extends Controller { //with listeners
+class DayController extends Controller {
 
     public DayController() {}
 

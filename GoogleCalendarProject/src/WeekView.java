@@ -139,12 +139,8 @@ public class WeekView extends JPanel implements CalendarView {
     }
 }
 
-class WeekController extends Controller {
+class WeekController extends Controller{
 
-    Calendar calendar;
-
-    public WeekController() {
-        this.calendar = super.getCalendar();
-    }
+    public WeekController() {}
 
 }
