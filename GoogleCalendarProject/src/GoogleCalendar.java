@@ -1,8 +1,10 @@
+
 /**
- * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser
- * CS 151 - Object Oriented Design
- * Google Calendar Project
- * Due: December 2, 2013
+ * COPYRIGHT (C) 2013. All Rights Reserved. A google calendar implementation.
+ * Solves CS151 Google Calendar Project
+ *
+ * @author Peiyi Mao, Zayna Shahzad, Robert Buser
+ * @version 1.01 2013/12/02
  */
 import javax.swing.*;
 import java.awt.*;
