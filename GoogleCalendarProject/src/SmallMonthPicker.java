@@ -1,8 +1,7 @@
+
 /**
- * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser
- * CS 151 - Object Oriented Design
- * Google Calendar Project
- * Due: December 2, 2013
+ * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser CS 151 - Object Oriented
+ * Design Google Calendar Project Due: December 2, 2013
  */
 import javax.swing.*;
 import java.awt.*;
@@ -13,21 +12,26 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface{    //model and controller of small month calendar
+public class SmallMonthPicker extends JPanel implements SmallCalendarInterface {    //model and controller of small month calendar
 
     private Controller controller;
     private JPanel monthCal;
     private ArrayList<JLabel> daysLabels;
     private JLabel monthTitle;
     private ArrayList<JLabel> weeksTitle;
-    private JButton leftArrow, rightArrow, createEvent;
+    private JButton leftArrow, rightArrow;
+    private int savedDay, savedMonth, savedYear;
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     };
 
-    SmallMonthCalendar(Controller c, final Events events) {
-        controller = c;
+    SmallMonthPicker() {
+        controller = new Controller();
+        savedDay = controller.getCurDay();
+        savedMonth = controller.getCurMonth();
+        savedYear = controller.getCurYear() - 1900;
+
         monthCal = new JPanel();
         monthCal.setLayout(new GridLayout(0, 7));
         daysLabels = new ArrayList();
@@ -37,17 +41,6 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
         leftArrow.setBorder(null);
         rightArrow = new JButton(">");
         rightArrow.setBorder(null);
-        createEvent = new JButton("CREATE");
-
-        createEvent.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CreateEvent ce = new CreateEvent(events);
-                ce.setSize(250, 350);
-                ce.setVisible(true);
-            }
-        });
-
-        createEvent.setForeground(Color.red);
 
         addButtonActionListener(leftArrow);
         addButtonActionListener(rightArrow);
@@ -69,13 +62,25 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
         setLayout(new BorderLayout());
         JPanel topPanel = new JPanel(new BorderLayout());
         JPanel tempPanel = new JPanel(new BorderLayout());
-        tempPanel.add(createEvent, BorderLayout.WEST);
         topPanel.add(tempPanel, BorderLayout.NORTH);
         topPanel.add(monthTitle, BorderLayout.WEST);
         topPanel.add(lrPanel, BorderLayout.EAST);
         add(topPanel, BorderLayout.NORTH);
         add(monthCal, BorderLayout.CENTER);
         showSmallMonthCal();
+        setSize(300,300);
+    }
+
+    public int getDay() {
+        return savedDay;
+    }
+
+    public int getMonth() {
+        return savedMonth;
+    }
+
+    public int getYear() {
+        return savedYear;
     }
 
     public void showSmallMonthCal() {
@@ -84,7 +89,6 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
 
         daysLabels.clear();
         monthCal.removeAll();
-
 
         for (String s : days) {
             if (s.contains("*")) {
@@ -182,10 +186,10 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
             }
         });
     }
-    
-    public void showToday(){
+
+    public void showToday() {
         controller.todayDate();
-         showSmallMonthCal();
+        showSmallMonthCal();
     }
 
     /**
@@ -203,18 +207,20 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
             if (tempMonth == -1) {
                 tempMonth = 11;
             }
-        }
-        else {
-            if (controller.getCurMonth() == 0)
+        } else {
+            if (controller.getCurMonth() == 0) {
                 tempYear--;
+            }
         }
 
         for (final JLabel jl : daysLabels) {
             if (prevDay != null) {
                 if (Integer.parseInt(jl.getText()) < Integer.parseInt(prevDay.getText())) {
                     tempMonth = (tempMonth + 1) % 12;
-                    if (tempMonth == 0)  //changing from Dec to Jan
+                    if (tempMonth == 0) //changing from Dec to Jan
+                    {
                         tempYear++;
+                    }
                 }
             }
             prevDay = jl;
@@ -225,7 +231,7 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
                     new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    controller.getCurView().showView(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
+                    //controller.getCurView().showView(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
                 }
 
                 @Override

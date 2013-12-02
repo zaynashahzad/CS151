@@ -22,9 +22,9 @@ class CreateEvent extends JFrame implements ActionListener {
     private Events events;
     private JPanel innerPanel;
     private JTextField eventNameTf;
-    private JComboBox monthsPicker, daysPicker, yearsPicker;
     private JComboBox startHourPicker, endHourPicker;
     private JLabel errorMsg;
+    SmallMonthPicker datePicker ;
 
     CreateEvent(Events event) {
         events = event;
@@ -37,25 +37,6 @@ class CreateEvent extends JFrame implements ActionListener {
 
         JLabel eventDateLab = new JLabel("Event Date");
 
-        String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-        monthsPicker = new JComboBox(months);
-        monthsPicker.setSelectedIndex(0);
-
-        String[] days = new String[31];
-        for (int i = 0; i < days.length; i++) {
-            days[i] = (i + 1) + "";
-        }
-
-        daysPicker = new JComboBox(days);
-        daysPicker.setSelectedIndex(0);
-
-        String[] years = new String[120];
-        for (int i = 0; i < years.length; i++) {
-            years[i] = (i + 1900) + "";
-        }
-
-        yearsPicker = new JComboBox(years);
-        yearsPicker.setSelectedIndex(years.length - 6);
 
 
         String[] hours = {"00", "01", "02", "03", "04", "05", "06", "07", "08",
@@ -75,6 +56,8 @@ class CreateEvent extends JFrame implements ActionListener {
         errorMsg = new JLabel();
         errorMsg.setForeground(Color.red);
 
+        datePicker = new SmallMonthPicker();
+        
         JButton submitButton = new JButton("Submit!");
         submitButton.addActionListener(this);
 
@@ -82,9 +65,7 @@ class CreateEvent extends JFrame implements ActionListener {
         innerPanel.add(eventNameLab);
         innerPanel.add(eventNameTf);
         innerPanel.add(eventDateLab);
-        innerPanel.add(monthsPicker);
-        innerPanel.add(daysPicker);
-        innerPanel.add(yearsPicker);
+        innerPanel.add(datePicker);
         innerPanel.add(startHourLab);
         innerPanel.add(startHourPicker);
         innerPanel.add(endHourLab);
@@ -102,9 +83,9 @@ class CreateEvent extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         errorMsg.setText("");
         String eventName = eventNameTf.getText();
-        int eventYear = Integer.parseInt((String) yearsPicker.getSelectedItem()) - 1900;
-        int eventMon = Integer.parseInt((String) monthsPicker.getSelectedItem()) - 1;
-        int eventDay = Integer.parseInt((String) daysPicker.getSelectedItem());
+        int eventYear = datePicker.getYear() - 1900;
+        int eventMon = datePicker.getMonth() - 1;
+        int eventDay = datePicker.getDay();
 
         Date eventDate = new Date(eventYear, eventMon, eventDay);
         int eventStartHour = Integer.parseInt((String) startHourPicker.getSelectedItem());
