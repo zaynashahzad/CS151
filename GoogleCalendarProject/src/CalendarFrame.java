@@ -31,7 +31,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         dayView = new DayView(events);
         weekView = new WeekView(events);
         monthView = new MonthView(events);
-        agendaView = new AgendaView(events);
+//        agendaView = new AgendaView(events);
         
         events.registerListener(this);
         
@@ -137,8 +137,9 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         JButton agendaButton = new JButton("Agenda");
         agendaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                curView = agendaView;
-                controller.setCurView(agendaView);
+//                curView = agendaView;
+//                controller.setCurView(agendaView);
+                AgendaView av = new AgendaView(events);
                 rightPanel.removeAll();
                 rightPanel.invalidate();
                 rightPanel.add(buttonsPanel, BorderLayout.NORTH);
