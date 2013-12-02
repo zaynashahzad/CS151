@@ -198,7 +198,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
     private void testEvents() {
 
         // year is from 0 to 8099. Month is from 0 to 11. Day is from 1 to 31
-        Date date = new Date(2013 - 1900, 10, 29);
+        Date date = new Date(2013 - 1900, 11, 3);
         DayEvents tempEvent = new DayEvents("Dentist Appointment", 8, 10, date);
         events.addEvent(date, tempEvent);
 
@@ -237,11 +237,15 @@ public class CalendarFrame extends JFrame implements ChangeListener {
     }
 
     public void stateChanged(ChangeEvent e) {
+        controller.getCurView().showNext();
+        controller.getCurView().showPrev();
+        // NEED THIS TO WORK. :(
         rightPanel.removeAll();
         rightPanel.invalidate();
         rightPanel.add(buttonsPanel, BorderLayout.NORTH);
         rightPanel.add(curView, BorderLayout.CENTER);
         rightPanel.validate();
         rightPanel.repaint();
+        this.repaint();
     }
 }
