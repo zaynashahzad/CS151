@@ -1,8 +1,7 @@
+
 /**
- * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser
- * CS 151 - Object Oriented Design
- * Google Calendar Project
- * Due: December 2, 2013
+ * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser CS 151 - Object Oriented
+ * Design Google Calendar Project Due: December 2, 2013
  */
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
@@ -17,20 +16,22 @@ public class DayView extends JPanel implements CalendarView {
     JPanel panel;
     DayController dayController;
     Events events;
+    ColorInterface color;
     public static final String[] title = {
         "12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am",
         "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
     };
 
     public DayView(Events events) {
-
         dateTitle = new JLabel();
+        color = new DayColorConcrete();
         panel = new JPanel(new BorderLayout());
         scrollPane = new JScrollPane(panel);
         dayController = new DayController();
         this.events = events;
         this.setLayout(new BorderLayout());
         showToday();
+
     }
 
     private void setLeftTable() {
@@ -70,7 +71,7 @@ public class DayView extends JPanel implements CalendarView {
                 public Component prepareRenderer(TableCellRenderer renderer, int Index_row, int Index_col) {
                     Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
                     if (hrs[Index_row] == 1) {
-                        comp.setBackground(new Color(135, 206, 250));
+                        comp.setBackground(color.getColor());
                     } else {
                         comp.setBackground(Color.white);
                     }
@@ -133,11 +134,10 @@ public class DayView extends JPanel implements CalendarView {
         dayController.setYear(year);
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
-
 }
 
 class DayController extends Controller {
 
-    public DayController() {}
-
+    public DayController() {
+    }
 }

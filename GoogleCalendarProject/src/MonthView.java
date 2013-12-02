@@ -17,6 +17,7 @@ public class MonthView extends JPanel implements CalendarView {
     private MonthController controller;
     private JPanel monthCal;
     private JLabel monthTitle;
+    private ColorInterface color; 
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -24,6 +25,7 @@ public class MonthView extends JPanel implements CalendarView {
 
     public MonthView(Events events) {
         this.events = events;
+        color = new MonthColorConcrete();
         this.setVisible(true);
         controller = new MonthController();
         weeksTitle = new ArrayList<JLabel>();
@@ -49,7 +51,6 @@ public class MonthView extends JPanel implements CalendarView {
     }
 
     private void showMonthCal() {
-        final Color[] colors = {new Color(135, 205, 250)};
 
         final int STRLEN_DEFAULT = 15;
         ArrayList<DayEvents> eventsForOneDay = new ArrayList<DayEvents>();
@@ -93,7 +94,7 @@ public class MonthView extends JPanel implements CalendarView {
                         for (int i = 0; i < eventLabels.length; i++) {
                             eventLabels[i].setText(eventsForOneDay.get(i).getName());
                             eventLabels[i].setHorizontalTextPosition(JLabel.LEFT);
-                            eventLabels[i].setBackground(colors[0]);
+                            eventLabels[i].setBackground(color.getColor());
                             eventLabels[i].setOpaque(true);
                             eventLabels[i].setBorder(BorderFactory.createLineBorder(Color.lightGray));
                         }
@@ -101,7 +102,7 @@ public class MonthView extends JPanel implements CalendarView {
                         for (int i = 0; i < eventsForOneDay.size(); i++) {
                             eventLabels[i].setText(eventsForOneDay.get(i).getName());
                             eventLabels[i].setHorizontalTextPosition(JLabel.LEFT);
-                            eventLabels[i].setBackground(colors[0]);
+                            eventLabels[i].setBackground(color.getColor());
                             eventLabels[i].setOpaque(true);
                             eventLabels[i].setBorder(BorderFactory.createLineBorder(Color.lightGray));
 
