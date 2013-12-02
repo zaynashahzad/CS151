@@ -1,3 +1,9 @@
+/**
+ * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser
+ * CS 151 - Object Oriented Design
+ * Google Calendar Project
+ * Due: December 2, 2013
+ */
 import java.util.Date;
 
 public class DayEvents {

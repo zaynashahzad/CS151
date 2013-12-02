@@ -1,9 +1,8 @@
 /**
- * Created with IntelliJ IDEA.
- * User: maopeiyi
- * Date: 11/29/13
- * Time: 11:56 PM
- * To change this template use File | Settings | File Templates.
+ * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser
+ * CS 151 - Object Oriented Design
+ * Google Calendar Project
+ * Due: December 2, 2013
  */
 public interface CalendarView {
     public void showNext();
