@@ -221,6 +221,10 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         date = new Date(2014 - 1900, 3, 14);
         tempEvent = new DayEvents("Dinner with Teresa", 16, 17, date);
         events.addEvent(date, tempEvent);
+        
+        date = new Date(2014 - 1900, 3, 18);
+        tempEvent = new DayEvents("Final Exam", 16, 17, date);
+        events.addEvent(date, tempEvent);
     }
     
     public void stateChanged(ChangeEvent e) {
