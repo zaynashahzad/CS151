@@ -1,19 +1,16 @@
-
+/**
+ * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser
+ * CS 151 - Object Oriented Design
+ * Google Calendar Project
+ * Due: December 2, 2013
+ */
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.*;
 import java.util.*;
 import javax.swing.border.Border;
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Buser
- */
 public class AgendaView extends JPanel implements CalendarView {
 
     Border blackline = BorderFactory.createLineBorder(Color.black);

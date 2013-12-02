@@ -1,4 +1,9 @@
-
+/**
+ * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser
+ * CS 151 - Object Oriented Design
+ * Google Calendar Project
+ * Due: December 2, 2013
+ */
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -167,9 +172,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
                 frame.add(jl);
                 frame.add(fileName);
                 frame.add(useFile);
-                
-                
-                
             }
         });
         rightButtons.add(fromFileButton);
@@ -184,7 +186,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
     }
 
     /*
-     * For testing purposes only, populate
+     * For testing purposes only... populate
      * the events treemap with events to display in calendar.
      */
     private void testEvents() {
@@ -202,9 +204,6 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         
         tempEvent = new DayEvents("Zayna's surprise party", 15, 17, date);
         events.addEvent(date, tempEvent);
-
-//        tempEvent = new DayEvents("Test duplicate", 11, 12, date);
-//        events.addEvent(date, tempEvent);
 
         date = new Date(2013 - 1900, 10, 30);
         tempEvent = new DayEvents("Concert w/ Robert", 12, 13, date);
@@ -224,6 +223,10 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         
         date = new Date(2014 - 1900, 3, 18);
         tempEvent = new DayEvents("Final Exam", 16, 17, date);
+        events.addEvent(date, tempEvent);
+        
+        date = new Date(2014 - 1900, 3, 20);
+        tempEvent = new DayEvents("Some event with a really long name", 11, 14, date);
         events.addEvent(date, tempEvent);
     }
     
