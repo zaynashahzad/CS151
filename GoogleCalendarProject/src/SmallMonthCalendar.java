@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface{    //model and controller of small month calendar
+public class SmallMonthCalendar extends JPanel {    //model and controller of small month calendar
 
     private Controller controller;
     private JPanel monthCal;
@@ -42,7 +42,7 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
         createEvent.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CreateEvent ce = new CreateEvent(events);
-                ce.setSize(250, 400);
+                ce.setSize(250, 350);
                 ce.setVisible(true);
             }
         });
@@ -84,6 +84,7 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
 
         daysLabels.clear();
         monthCal.removeAll();
+
 
         for (String s : days) {
             if (s.contains("*")) {
@@ -190,7 +191,6 @@ public class SmallMonthCalendar extends JPanel implements SmallCalendarInterface
     /**
      * Attaches mouse clicked listener to daysLabel.
      */
-    @Override
     public void addDaysLabelListener() {
 
         JLabel prevDay = null;

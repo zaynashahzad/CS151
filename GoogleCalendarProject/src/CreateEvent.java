@@ -9,7 +9,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,20 +22,40 @@ class CreateEvent extends JFrame implements ActionListener {
     private Events events;
     private JPanel innerPanel;
     private JTextField eventNameTf;
+    private JComboBox monthsPicker, daysPicker, yearsPicker;
     private JComboBox startHourPicker, endHourPicker;
     private JLabel errorMsg;
-    SmallMonthPicker datePicker ;
 
     CreateEvent(Events event) {
         events = event;
         innerPanel = new JPanel();
-        innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
+        innerPanel.setLayout(new GridLayout(0, 1));
+        JLabel instrucLabel = new JLabel("Enter all details below");
 
         JLabel eventNameLab = new JLabel("Event Name");
         eventNameTf = new JTextField();
 
         JLabel eventDateLab = new JLabel("Event Date");
 
+        String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        monthsPicker = new JComboBox(months);
+        monthsPicker.setSelectedIndex(0);
+
+        String[] days = new String[31];
+        for (int i = 0; i < days.length; i++) {
+            days[i] = (i + 1) + "";
+        }
+
+        daysPicker = new JComboBox(days);
+        daysPicker.setSelectedIndex(0);
+
+        String[] years = new String[120];
+        for (int i = 0; i < years.length; i++) {
+            years[i] = (i + 1900) + "";
+        }
+
+        yearsPicker = new JComboBox(years);
+        yearsPicker.setSelectedIndex(years.length - 6);
 
 
         String[] hours = {"00", "01", "02", "03", "04", "05", "06", "07", "08",
@@ -56,15 +75,16 @@ class CreateEvent extends JFrame implements ActionListener {
         errorMsg = new JLabel();
         errorMsg.setForeground(Color.red);
 
-        datePicker = new SmallMonthPicker();
-        
         JButton submitButton = new JButton("Submit!");
         submitButton.addActionListener(this);
 
+        innerPanel.add(instrucLabel);
         innerPanel.add(eventNameLab);
         innerPanel.add(eventNameTf);
         innerPanel.add(eventDateLab);
-        innerPanel.add(datePicker);
+        innerPanel.add(monthsPicker);
+        innerPanel.add(daysPicker);
+        innerPanel.add(yearsPicker);
         innerPanel.add(startHourLab);
         innerPanel.add(startHourPicker);
         innerPanel.add(endHourLab);
@@ -82,9 +102,9 @@ class CreateEvent extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         errorMsg.setText("");
         String eventName = eventNameTf.getText();
-        int eventYear = datePicker.getYear() - 1900;
-        int eventMon = datePicker.getMonth() - 1;
-        int eventDay = datePicker.getDay();
+        int eventYear = Integer.parseInt((String) yearsPicker.getSelectedItem()) - 1900;
+        int eventMon = Integer.parseInt((String) monthsPicker.getSelectedItem()) - 1;
+        int eventDay = Integer.parseInt((String) daysPicker.getSelectedItem());
 
         Date eventDate = new Date(eventYear, eventMon, eventDay);
         int eventStartHour = Integer.parseInt((String) startHourPicker.getSelectedItem());
