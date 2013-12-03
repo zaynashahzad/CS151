@@ -277,3 +277,6 @@ public class AgendaView extends JPanel implements CalendarView {
 
 
 }
+
+class AgendaController extends Controller{
+}
