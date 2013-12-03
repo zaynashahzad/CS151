@@ -93,7 +93,7 @@ public class AgendaView extends JPanel implements CalendarView {
     }
 
     /**
-     *
+     * Makes a left side of table that houses all dates in the range specified
      */
     private void setLeftTable() {
         Object[][] obj = new Object[eventsList.size()][1];
@@ -142,6 +142,10 @@ public class AgendaView extends JPanel implements CalendarView {
         leftTable.setEnabled(false);
     }
 
+    /**
+     * Makes a right-hand side of table that houses all the events in the date
+     * range, and displays them by their names
+     */
     private void setRightTable() {
         Object[][] obj = new Object[eventsList.size()][1];
         Object[] temp = {""};
@@ -164,6 +168,10 @@ public class AgendaView extends JPanel implements CalendarView {
         rightTable.setEnabled(false);
     }
 
+    /**
+     * Shows the events in a date range in tabular format with left and right
+     * columns. Shows only scheduled events in the range
+     */
     public void showAgendaView() {
         this.invalidate();
         panel.removeAll();
@@ -181,6 +189,9 @@ public class AgendaView extends JPanel implements CalendarView {
 
     }
 
+    /**
+     * Asks the user for the date range to view agenda
+     */
     class AgendaViewFrame extends JFrame implements ActionListener {
 
         private JPanel innerPanel;
@@ -244,6 +255,17 @@ public class AgendaView extends JPanel implements CalendarView {
             setVisible(true);
         }
 
+        /**
+         * Checks if the date inputted was of a valid format
+         *
+         * @param sYear the start date year
+         * @param sMonth the start date month
+         * @param sDay the start date day
+         * @param eYear the end date year
+         * @param eMonth the end date month
+         * @param eDay the end date day
+         * @return true if date range is valid, false otherwise
+         */
         private boolean validateInput(int sYear, int sMonth, int sDay, int eYear, int eMonth, int eDay) {
             if (sYear > eYear) {
                 return false;
@@ -257,6 +279,10 @@ public class AgendaView extends JPanel implements CalendarView {
         }
 
         @Override
+        /**
+         * Upon click "search", checks if inputted date range is valid and then
+         * changes the agenda view accordingly
+         */
         public void actionPerformed(ActionEvent e) {
             errorMsg.setText("");
             int startYear = Integer.parseInt((String) startYearPicker.getSelectedItem());// - 1900;
@@ -278,6 +304,13 @@ public class AgendaView extends JPanel implements CalendarView {
         }
     }
 
+    /**
+     * Sets the start date range to the specified date
+     *
+     * @param y the year
+     * @param m the month
+     * @param d the day
+     */
     private void setStartDate(int y, int m, int d) {
         sYear = y;
         sMonth = m;
@@ -287,6 +320,13 @@ public class AgendaView extends JPanel implements CalendarView {
         agendaController.setDayOfMonth(d);
     }
 
+    /**
+     * Sets the end date range to the specified date
+     *
+     * @param y the year
+     * @param m the month
+     * @param d the day
+     */
     private void setEndDate(int y, int m, int d) {
         eYear = y;
         eMonth = m;
@@ -294,6 +334,9 @@ public class AgendaView extends JPanel implements CalendarView {
     }
 
     @Override
+    /**
+     * Shows the agenda for the next day
+     */
     public void showNext() {
         agendaController.setDayOfMonth(eDay);
         agendaController.setMonth(eMonth);
@@ -309,6 +352,9 @@ public class AgendaView extends JPanel implements CalendarView {
     }
 
     @Override
+    /**
+     * Shows the agenda for the previous day
+     */
     public void showPrev() {
         prev++;
         for (int i = 0; i < prev; i++) {
@@ -329,6 +375,9 @@ public class AgendaView extends JPanel implements CalendarView {
     }
 
     @Override
+    /**
+     * Shows the agenda view for the date specified
+     */
     public void showView(int year, int month, int day) {
         agendaController.setYear(year);
         agendaController.setMonth(month);
@@ -340,6 +389,10 @@ public class AgendaView extends JPanel implements CalendarView {
     }
 }
 
+/**
+ *
+ * Implements extra functionality in Controller that is needed by the day view
+ */
 class AgendaController extends Controller {
 
     public AgendaController() {
