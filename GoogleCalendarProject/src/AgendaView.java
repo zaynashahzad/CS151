@@ -7,6 +7,7 @@
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,13 +17,17 @@ import java.util.Date;
 public class AgendaView extends JPanel implements CalendarView {
 
     Events events;
-//    Date startDate, endDate;
-    int sYear, sMonth, sDay, eYear, eMonth, eDay;
+    int sYear, sMonth, sDay;
+    int eYear, eMonth, eDay;
     ArrayList<DayEvents> eventsList;
     AgendaController agendaController;
     JTable leftTable, rightTable;
     JPanel panel;
     JScrollPane scrollPane;
+    ColorInterface color;
+    boolean highLight;
+    Date today;
+    int next, prev;
 
     public final static String[] months = {
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -34,13 +39,18 @@ public class AgendaView extends JPanel implements CalendarView {
 
     public AgendaView(Events event) {
 
+        next = 0;
+        prev = 0;
+        highLight = false;
+        color = new AgendaColorConcrete();
         agendaController = new AgendaController();
+        today = agendaController.getDate();
         eventsList = new ArrayList<DayEvents>();
         panel = new JPanel(new BorderLayout());
         scrollPane = new JScrollPane(panel);
         this.events = event;
         this.setLayout(new BorderLayout());
-        new AgendaViewFrame(events);
+        new AgendaViewFrame();
     }
 
     private void getEventsList() {
@@ -67,12 +77,17 @@ public class AgendaView extends JPanel implements CalendarView {
             }
         }
 
-        agendaController.todayDate();
+        agendaController.setYear(today.getYear() + 1900);
+        agendaController.setMonth(today.getMonth());
+        agendaController.setDayOfMonth(today.getDate());
     }
 
     private void setLeftTable() {
         Object[][] obj = new Object[eventsList.size()][1];
-        Object[] temp = {""};
+        Object[] tempTitle = {""};
+
+        boolean flag = true;
+        final int[] temp = new int[eventsList.size()];
 
         int i = 0;
         Date date = new Date();
@@ -80,6 +95,10 @@ public class AgendaView extends JPanel implements CalendarView {
             if (de.getDate().equals(date)) {
                 obj[i][0] = "";
             } else {
+                if (de.getDate().equals(today) && flag) {
+                    temp[i] = 1;
+                    flag = false;
+                }
                 date = de.getDate();
                 String s = daysOfWeek[de.getDate().getDay()]
                         + " " + months[de.getDate().getMonth()]
@@ -89,7 +108,18 @@ public class AgendaView extends JPanel implements CalendarView {
             i++;
         }
 
-        leftTable = new JTable(obj, temp);
+        leftTable = new JTable(obj, tempTitle){
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int Index_row, int Index_col) {
+                Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
+                if (temp[Index_row] == 1 && highLight == true) {
+                    comp.setBackground(color.getColor());
+                } else {
+                    comp.setBackground(Color.white);
+                }
+                return comp;
+            }
+        };
         leftTable.setTableHeader(null);
         leftTable.setRowHeight(40);
         leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -99,7 +129,7 @@ public class AgendaView extends JPanel implements CalendarView {
     }
 
     private void setRightTable() {
-        Object[][] obj = new Object[24][1];
+        Object[][] obj = new Object[eventsList.size()][1];
         Object[] temp = {""};
 
         int i = 0;
@@ -109,7 +139,6 @@ public class AgendaView extends JPanel implements CalendarView {
         }
         rightTable = new JTable(obj, temp);
         if (eventsList.size() == 0) {
-            obj[0][0] = "None";
             rightTable.setShowGrid(false);
         }
         else
@@ -144,38 +173,38 @@ public class AgendaView extends JPanel implements CalendarView {
         private JComboBox startMonthsPicker, startDaysPicker, startYearPicker;
         private JComboBox endMonthPicker, endDayPicker, endYearPicker;
         private JLabel errorMsg;
-        private Events events;
 
-        AgendaViewFrame(Events event) {
+        AgendaViewFrame() {
 
-            this.events = event;
             innerPanel  = new JPanel(new GridLayout(1, 9));
 
-            JLabel toLabel = new JLabel("to");
+            JLabel toLabel = new JLabel("to", JLabel.CENTER);
+            JPanel toPanel = new JPanel(new BorderLayout());
+            toPanel.add(toLabel, BorderLayout.CENTER);
 
             String[] months = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
             startMonthsPicker = new JComboBox(months);
-            startMonthsPicker.setSelectedIndex(0);
+            startMonthsPicker.setSelectedIndex(agendaController.getCurMonth());
             endMonthPicker = new JComboBox(months);
-            endMonthPicker.setSelectedIndex(0);
+            endMonthPicker.setSelectedIndex(agendaController.getCurMonth());
 
             String[] days = new String[31];
             for (int i = 0; i < days.length; i++) {
                 days[i] = (i + 1) + "";
             }
             startDaysPicker = new JComboBox(days);
-            startDaysPicker.setSelectedIndex(0);
+            startDaysPicker.setSelectedIndex(agendaController.getCurDay() - 1);
             endDayPicker = new JComboBox(days);
-            endDayPicker.setSelectedIndex(0);
+            endDayPicker.setSelectedIndex(agendaController.getCurDay() - 1);
 
             String[] years = new String[120];
             for (int i = 0; i < years.length; i++) {
                 years[i] = (i + 1900) + "";
             }
             startYearPicker = new JComboBox(years);
-            startYearPicker.setSelectedIndex(years.length - 6);
+            startYearPicker.setSelectedIndex(years.length - 7);
             endYearPicker = new JComboBox(years);
-            endYearPicker.setSelectedIndex(years.length - 6);
+            endYearPicker.setSelectedIndex(years.length - 7);
 
             errorMsg = new JLabel("   ", JLabel.CENTER);
             errorMsg.setForeground(Color.red);
@@ -186,7 +215,7 @@ public class AgendaView extends JPanel implements CalendarView {
             innerPanel.add(startMonthsPicker);
             innerPanel.add(startDaysPicker);
             innerPanel.add(startYearPicker);
-            innerPanel.add(toLabel);
+            innerPanel.add(toPanel);
             innerPanel.add(endMonthPicker);
             innerPanel.add(endDayPicker);
             innerPanel.add(endYearPicker);
@@ -205,9 +234,9 @@ public class AgendaView extends JPanel implements CalendarView {
             System.out.println("in validateInput " + sMonth + "/" + sDay + " " + sYear + " to " + eMonth + "/" + eDay + " " + eYear);
             if (sYear > eYear)
                 return false;
-            else if (sMonth > eMonth)
+            else if (sYear == eYear && sMonth > eMonth)
                 return false;
-            else if (sDay > eDay)
+            else if (sYear == eYear && sMonth == eMonth && sDay > eDay)
                 return false;
             else
                 return true;
@@ -257,17 +286,47 @@ public class AgendaView extends JPanel implements CalendarView {
 
     @Override
     public void showNext() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("before: " + agendaController.getCurMonth() + "/" + agendaController.getCurDay() + " " + agendaController.getCurYear());
+        agendaController.setDayOfMonth(eDay);
+        agendaController.setMonth(eMonth);
+        agendaController.setYear(eYear);
+
+
+        next++;
+        for (int i = 0; i < next; i++)
+            agendaController.nextWeek();
+        setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
+        setStartDate(sYear, sMonth, sDay);
+
+        System.out.println("after: " + agendaController.getCurMonth() + "/" + agendaController.getCurDay() + " " + agendaController.getCurYear());
+        showAgendaView();
     }
 
     @Override
     public void showPrev() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        prev++;
+        for (int i = 0; i < prev; i++)
+            agendaController.prevWeek();
+        setStartDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
+        showAgendaView();
+
     }
 
     @Override
     public void showToday() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        agendaController.todayDate();
+        Date todayDate = agendaController.getDate();
+        Date startDate = new Date(agendaController.getCurYear() - 1900, agendaController.getCurMonth(), agendaController.getCurDay());
+        Date endDate = new Date(eYear - 1900, eMonth, eDay);
+        if (todayDate.before(startDate)) {
+            setStartDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
+        }
+        else if (todayDate.after(endDate)) {
+            setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurYear());
+        }
+        else {}
+        highLight = true;
+        showAgendaView();
     }
 
     @Override

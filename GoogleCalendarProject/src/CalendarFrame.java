@@ -201,7 +201,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
     private void testEvents() {
 
         // year is from 0 to 8099. Month is from 0 to 11. Day is from 1 to 31
-        Date date = new Date(2013 - 1900, 11, 3);
+        Date date = new Date(2013 - 1900, 10, 3);
         DayEvents tempEvent = new DayEvents("Dentist Appointment", 8, 10, date);
         events.addEvent(date, tempEvent);
 
@@ -238,8 +238,10 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         tempEvent = new DayEvents("Some event with a really long name", 11, 14, date);
         events.addEvent(date, tempEvent);
 
+        date = new Date(2013 - 1900, 11, 2);
+        events.addEvent(date, new DayEvents("test today", 1, 2, date));
+
         date = new Date(2014 - 1900, 0, 1);
-        //tempEvent = new DayEvents("test agenda view 1", 1, 2, date);
         for (int i = 0; i < 23; i++) {
             events.addEvent(date, new DayEvents("test " + i, i, i + 1, date));
         }

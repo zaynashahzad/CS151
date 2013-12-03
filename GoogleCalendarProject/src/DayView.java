@@ -132,10 +132,10 @@ public class DayView extends JPanel implements CalendarView {
 
     @Override
     public void showView(int year, int month, int day) {
-        System.out.println("dayview" + year + month + day);
         dayController.setMonth(month);
         dayController.setDayOfMonth(day);
         dayController.setYear(year);
+        showDayView(events.getEventsForDate(dayController.getDate()));
     }
 }
 
