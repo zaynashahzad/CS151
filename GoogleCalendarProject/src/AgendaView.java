@@ -1,10 +1,8 @@
-/**
- * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser
- * CS 151 - Object Oriented Design
- * Google Calendar Project
- * Due: December 2, 2013
- */
 
+/**
+ * Authors: Peiyi Mao, Zayna Shahzad, Robert Buser CS 151 - Object Oriented
+ * Design Google Calendar Project Due: December 2, 2013
+ */
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableCellRenderer;
@@ -13,24 +11,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
+
 /**
- * The AgendaView class houses all the events to be displayed during a given date range
+ * The AgendaView class houses all the events to be displayed during a given
+ * date range
  */
 public class AgendaView extends JPanel implements CalendarView {
 
-    Events events;
-    int sYear, sMonth, sDay;
-    int eYear, eMonth, eDay;
-    ArrayList<DayEvents> eventsList;
-    AgendaController agendaController;
-    JTable leftTable, rightTable;
-    JPanel panel;
-    JScrollPane scrollPane;
-    ColorInterface color;
-    boolean highLight;
-    Date today;
-    int next, prev;
-
+    private Events events;
+    private int sYear, sMonth, sDay;
+    private int eYear, eMonth, eDay;
+    private ArrayList<DayEvents> eventsList;
+    private AgendaController agendaController;
+    private JTable leftTable, rightTable;
+    private JPanel panel;
+    private JScrollPane scrollPane;
+    private ColorInterface color;
+    private boolean highLight;
+    private Date today;
+    private int next, prev;
     public final static String[] months = {
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -41,6 +40,7 @@ public class AgendaView extends JPanel implements CalendarView {
 
     /**
      * Sets up and displays all the events for a given period of time
+     *
      * @param event A treemap of all the events currently in the calendar
      */
     public AgendaView(Events event) {
@@ -64,9 +64,9 @@ public class AgendaView extends JPanel implements CalendarView {
      */
     private void getEventsList() {
         eventsList.clear();
-        while (agendaController.getCurYear() != eYear ||
-                agendaController.getCurMonth() != eMonth ||
-                agendaController.getCurDay() != eDay) {
+        while (agendaController.getCurYear() != eYear
+                || agendaController.getCurMonth() != eMonth
+                || agendaController.getCurDay() != eDay) {
 
             ArrayList<DayEvents> tempList = events.getEventsForDate(agendaController.getDate());
             if (tempList != null) { // found events for this day
@@ -90,7 +90,7 @@ public class AgendaView extends JPanel implements CalendarView {
     }
 
     /**
-     * 
+     *
      */
     private void setLeftTable() {
         Object[][] obj = new Object[eventsList.size()][1];
@@ -118,7 +118,7 @@ public class AgendaView extends JPanel implements CalendarView {
             i++;
         }
 
-        leftTable = new JTable(obj, tempTitle){
+        leftTable = new JTable(obj, tempTitle) {
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int Index_row, int Index_col) {
                 Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
@@ -151,9 +151,9 @@ public class AgendaView extends JPanel implements CalendarView {
         rightTable = new JTable(obj, temp);
         if (eventsList.size() == 0) {
             rightTable.setShowGrid(false);
-        }
-        else
+        } else {
             rightTable.setShowGrid(true);
+        }
 
         rightTable.setTableHeader(null);
         rightTable.setRowHeight(40);
@@ -187,7 +187,7 @@ public class AgendaView extends JPanel implements CalendarView {
 
         AgendaViewFrame() {
 
-            innerPanel  = new JPanel(new GridLayout(1, 9));
+            innerPanel = new JPanel(new GridLayout(1, 9));
 
             JLabel toLabel = new JLabel("to", JLabel.CENTER);
             JPanel toPanel = new JPanel(new BorderLayout());
@@ -242,14 +242,15 @@ public class AgendaView extends JPanel implements CalendarView {
         }
 
         private boolean validateInput(int sYear, int sMonth, int sDay, int eYear, int eMonth, int eDay) {
-            if (sYear > eYear)
+            if (sYear > eYear) {
                 return false;
-            else if (sYear == eYear && sMonth > eMonth)
+            } else if (sYear == eYear && sMonth > eMonth) {
                 return false;
-            else if (sYear == eYear && sMonth == eMonth && sDay > eDay)
+            } else if (sYear == eYear && sMonth == eMonth && sDay > eDay) {
                 return false;
-            else
+            } else {
                 return true;
+            }
         }
 
         @Override
@@ -271,8 +272,7 @@ public class AgendaView extends JPanel implements CalendarView {
                 showAgendaView();
                 this.setVisible(false);
                 this.dispose();
-            }
-            else {
+            } else {
                 errorMsg.setText("Invalid period! Try again!");
             }
 
@@ -301,8 +301,9 @@ public class AgendaView extends JPanel implements CalendarView {
         agendaController.setYear(eYear);
 
         next++;
-        for (int i = 0; i < next; i++)
+        for (int i = 0; i < next; i++) {
             agendaController.nextWeek();
+        }
         setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
         setStartDate(sYear, sMonth, sDay);
         showAgendaView();
@@ -311,8 +312,9 @@ public class AgendaView extends JPanel implements CalendarView {
     @Override
     public void showPrev() {
         prev++;
-        for (int i = 0; i < prev; i++)
+        for (int i = 0; i < prev; i++) {
             agendaController.prevWeek();
+        }
         setStartDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
         showAgendaView();
     }
@@ -338,10 +340,10 @@ public class AgendaView extends JPanel implements CalendarView {
         setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
         showAgendaView();
     }
-
 }
 
-class AgendaController extends Controller{
+class AgendaController extends Controller {
 
-    public AgendaController() {}
+    public AgendaController() {
+    }
 }
