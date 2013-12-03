@@ -19,12 +19,7 @@ import java.util.Date;
 public class AgendaView extends JPanel implements CalendarView {
 
     Events events;
-<<<<<<< HEAD
-    int sYear, sMonth, sDay;
-    int eYear, eMonth, eDay;
-=======
     int sYear, sMonth, sDay, eYear, eMonth, eDay;
->>>>>>> 3bcf80f401c0b63adf2d9966db9ef394eb498772
     ArrayList<DayEvents> eventsList;
     AgendaController agendaController;
     JTable leftTable, rightTable;
@@ -48,14 +43,11 @@ public class AgendaView extends JPanel implements CalendarView {
      * @param event A treemap of all the events currently in the calendar
      */
     public AgendaView(Events event) {
-<<<<<<< HEAD
 
         next = 0;
         prev = 0;
         highLight = false;
         color = new AgendaColorConcrete();
-=======
->>>>>>> 3bcf80f401c0b63adf2d9966db9ef394eb498772
         agendaController = new AgendaController();
         today = agendaController.getDate();
         eventsList = new ArrayList<DayEvents>();
@@ -81,7 +73,6 @@ public class AgendaView extends JPanel implements CalendarView {
                     eventsList.add(de);
                 }
             }
-
             agendaController.nextDay();
         }
         // get events for the last date in time frame
@@ -132,6 +123,7 @@ public class AgendaView extends JPanel implements CalendarView {
                 Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
                 if (temp[Index_row] == 1 && highLight == true) {
                     comp.setBackground(color.getColor());
+                    highLight = false;
                 } else {
                     comp.setBackground(Color.white);
                 }
@@ -249,7 +241,6 @@ public class AgendaView extends JPanel implements CalendarView {
         }
 
         private boolean validateInput(int sYear, int sMonth, int sDay, int eYear, int eMonth, int eDay) {
-            System.out.println("in validateInput " + sMonth + "/" + sDay + " " + sYear + " to " + eMonth + "/" + eDay + " " + eYear);
             if (sYear > eYear)
                 return false;
             else if (sYear == eYear && sMonth > eMonth)
@@ -304,19 +295,15 @@ public class AgendaView extends JPanel implements CalendarView {
 
     @Override
     public void showNext() {
-        System.out.println("before: " + agendaController.getCurMonth() + "/" + agendaController.getCurDay() + " " + agendaController.getCurYear());
         agendaController.setDayOfMonth(eDay);
         agendaController.setMonth(eMonth);
         agendaController.setYear(eYear);
-
 
         next++;
         for (int i = 0; i < next; i++)
             agendaController.nextWeek();
         setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
         setStartDate(sYear, sMonth, sDay);
-
-        System.out.println("after: " + agendaController.getCurMonth() + "/" + agendaController.getCurDay() + " " + agendaController.getCurYear());
         showAgendaView();
     }
 
@@ -327,32 +314,33 @@ public class AgendaView extends JPanel implements CalendarView {
             agendaController.prevWeek();
         setStartDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
         showAgendaView();
-
     }
 
     @Override
     public void showToday() {
         agendaController.todayDate();
-        Date todayDate = agendaController.getDate();
-        Date startDate = new Date(agendaController.getCurYear() - 1900, agendaController.getCurMonth(), agendaController.getCurDay());
-        Date endDate = new Date(eYear - 1900, eMonth, eDay);
-        if (todayDate.before(startDate)) {
-            setStartDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
-        }
-        else if (todayDate.after(endDate)) {
-            setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurYear());
-        }
-        else {}
+        today = agendaController.getDate();
+        setStartDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
+        setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
         highLight = true;
         showAgendaView();
     }
 
     @Override
     public void showView(int year, int month, int day) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        agendaController.setYear(year);
+        agendaController.setMonth(month);
+        agendaController.setDayOfMonth(day);
+
+        today = agendaController.getDate();
+        setStartDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
+        setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
+        showAgendaView();
     }
 
 }
 
 class AgendaController extends Controller{
+
+    public AgendaController() {}
 }
