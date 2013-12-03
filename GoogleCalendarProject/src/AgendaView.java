@@ -12,11 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * The AgendaView class houses all the events to be displayed during a given date range
+ */
 public class AgendaView extends JPanel implements CalendarView {
 
     Events events;
-//    Date startDate, endDate;
     int sYear, sMonth, sDay, eYear, eMonth, eDay;
     ArrayList<DayEvents> eventsList;
     AgendaController agendaController;
@@ -32,8 +33,11 @@ public class AgendaView extends JPanel implements CalendarView {
         "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
     };
 
+    /**
+     * Sets up and displays all the events for a given period of time
+     * @param event A treemap of all the events currently in the calendar
+     */
     public AgendaView(Events event) {
-
         agendaController = new AgendaController();
         eventsList = new ArrayList<DayEvents>();
         panel = new JPanel(new BorderLayout());
@@ -43,16 +47,17 @@ public class AgendaView extends JPanel implements CalendarView {
         new AgendaViewFrame(events);
     }
 
+    /**
+     * Puts all the events in the time frame into eventsList arrayList
+     */
     private void getEventsList() {
-
         eventsList.clear();
-
         while (agendaController.getCurYear() != eYear ||
                 agendaController.getCurMonth() != eMonth ||
                 agendaController.getCurDay() != eDay) {
 
             ArrayList<DayEvents> tempList = events.getEventsForDate(agendaController.getDate());
-            if (tempList != null) {
+            if (tempList != null) { // found events for this day
                 for (DayEvents de : tempList) {
                     eventsList.add(de);
                 }
@@ -60,6 +65,7 @@ public class AgendaView extends JPanel implements CalendarView {
 
             agendaController.nextDay();
         }
+        // get events for the last date in time frame
         ArrayList<DayEvents> tempList = events.getEventsForDate(agendaController.getDate());
         if (tempList != null) {
             for (DayEvents de : tempList) {
@@ -70,6 +76,9 @@ public class AgendaView extends JPanel implements CalendarView {
         agendaController.todayDate();
     }
 
+    /**
+     * 
+     */
     private void setLeftTable() {
         Object[][] obj = new Object[eventsList.size()][1];
         Object[] temp = {""};
