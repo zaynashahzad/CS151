@@ -6,27 +6,24 @@
  */
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.TreeMap;
 
 public class AgendaView extends JPanel implements CalendarView {
 
-    Border blackline = BorderFactory.createLineBorder(Color.black);
-    JLabel dayTitle;
-    JScrollPane scrollPane;
-    JTable leftTable, rightTable, jTable;
-    JPanel panel;
-    TreeMap eventTree;
-    Controller controller;
     Events events;
-    ArrayList<DayEvents> eventList;
-    Date date;
+//    Date startDate, endDate;
+    int sYear, sMonth, sDay, eYear, eMonth, eDay;
+    ArrayList<DayEvents> eventsList;
+    AgendaController agendaController;
+    JTable leftTable, rightTable;
+    JPanel panel;
+    JScrollPane scrollPane;
+
     public final static String[] months = {
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -36,17 +33,108 @@ public class AgendaView extends JPanel implements CalendarView {
     };
 
     public AgendaView(Events event) {
-//        eventTree = x.getTree();
-//        dayTitle = new JLabel();
-//        panel = new JPanel(new GridLayout(0, 1));
-//        scrollPane = new JScrollPane(panel);
-//        controller = new Controller();
-//        this.events = x;
-//
-//        this.setLayout(new BorderLayout());
-//        setUpAgenda();
-        events = event;
-        AgendaViewFrame newFrame = new AgendaViewFrame(events);
+
+        agendaController = new AgendaController();
+        eventsList = new ArrayList<DayEvents>();
+        panel = new JPanel(new BorderLayout());
+        scrollPane = new JScrollPane(panel);
+        this.events = event;
+        this.setLayout(new BorderLayout());
+        new AgendaViewFrame(events);
+    }
+
+    private void getEventsList() {
+
+        eventsList.clear();
+
+        while (agendaController.getCurYear() != eYear ||
+                agendaController.getCurMonth() != eMonth ||
+                agendaController.getCurDay() != eDay) {
+
+            ArrayList<DayEvents> tempList = events.getEventsForDate(agendaController.getDate());
+            if (tempList != null) {
+                for (DayEvents de : tempList) {
+                    eventsList.add(de);
+                }
+            }
+
+            agendaController.nextDay();
+        }
+        ArrayList<DayEvents> tempList = events.getEventsForDate(agendaController.getDate());
+        if (tempList != null) {
+            for (DayEvents de : tempList) {
+                eventsList.add(de);
+            }
+        }
+
+        agendaController.todayDate();
+    }
+
+    private void setLeftTable() {
+        Object[][] obj = new Object[eventsList.size()][1];
+        Object[] temp = {""};
+
+        int i = 0;
+        Date date = new Date();
+        for (DayEvents de : eventsList) {
+            if (de.getDate().equals(date)) {
+                obj[i][0] = "";
+            } else {
+                date = de.getDate();
+                String s = daysOfWeek[de.getDate().getDay()]
+                        + " " + months[de.getDate().getMonth()]
+                        + " " + de.getDate().getDate();
+                obj[i][0] = s;
+            }
+            i++;
+        }
+
+        leftTable = new JTable(obj, temp);
+        leftTable.setTableHeader(null);
+        leftTable.setRowHeight(40);
+        leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        leftTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+        leftTable.setShowGrid(false);
+        leftTable.setEnabled(false);
+    }
+
+    private void setRightTable() {
+        Object[][] obj = new Object[24][1];
+        Object[] temp = {""};
+
+        int i = 0;
+        for (DayEvents de : eventsList) {
+            obj[i][0] = de.getName();
+            i++;
+        }
+        rightTable = new JTable(obj, temp);
+        if (eventsList.size() == 0) {
+            obj[0][0] = "None";
+            rightTable.setShowGrid(false);
+        }
+        else
+            rightTable.setShowGrid(true);
+
+        rightTable.setTableHeader(null);
+        rightTable.setRowHeight(40);
+        rightTable.setGridColor(Color.lightGray);
+        rightTable.setEnabled(false);
+    }
+
+    public void showAgendaView() {
+        this.invalidate();
+        panel.removeAll();
+
+        getEventsList();
+        setLeftTable();
+        setRightTable();
+
+        panel.add(leftTable, BorderLayout.WEST);
+        panel.add(rightTable, BorderLayout.CENTER);
+
+        this.add(scrollPane, BorderLayout.CENTER);
+        this.validate();
+        this.repaint();
 
     }
 
@@ -89,7 +177,7 @@ public class AgendaView extends JPanel implements CalendarView {
             endYearPicker = new JComboBox(years);
             endYearPicker.setSelectedIndex(years.length - 6);
 
-            errorMsg = new JLabel("error", JLabel.CENTER);
+            errorMsg = new JLabel("   ", JLabel.CENTER);
             errorMsg.setForeground(Color.red);
 
             JButton submitButton = new JButton("Search");
@@ -113,7 +201,8 @@ public class AgendaView extends JPanel implements CalendarView {
             setVisible(true);
         }
 
-        private boolean validateInputDates(int sYear, int sMonth, int sDay, int eYear, int eMonth, int eDay) {
+        private boolean validateInput(int sYear, int sMonth, int sDay, int eYear, int eMonth, int eDay) {
+            System.out.println("in validateInput " + sMonth + "/" + sDay + " " + sYear + " to " + eMonth + "/" + eDay + " " + eYear);
             if (sYear > eYear)
                 return false;
             else if (sMonth > eMonth)
@@ -127,80 +216,44 @@ public class AgendaView extends JPanel implements CalendarView {
         @Override
         public void actionPerformed(ActionEvent e) {
             errorMsg.setText("");
-    //        String eventName = eventNameTf.getText();
-            int startYear = Integer.parseInt((String) startYearPicker.getSelectedItem()) - 1900;
+            int startYear = Integer.parseInt((String) startYearPicker.getSelectedItem());// - 1900;
             int startMonth = Integer.parseInt((String) startMonthsPicker.getSelectedItem()) - 1;
             int startDay = Integer.parseInt((String) startDaysPicker.getSelectedItem());
-            int endYear = Integer.parseInt((String) endYearPicker.getSelectedItem()) - 1900;
+            int endYear = Integer.parseInt((String) endYearPicker.getSelectedItem());// - 1900;
             int endMonth = Integer.parseInt((String) endMonthPicker.getSelectedItem()) - 1;
             int endDay = Integer.parseInt((String) endDayPicker.getSelectedItem());
 
             System.out.println(startMonth + "/" + startDay + " " + startYear + " to " + endMonth + "/" + endDay + " " + endYear);
 
-
-
-//            Date eventDate = new Date(eventYear, eventMon, eventDay);
-    //        int eventStartHour = Integer.parseInt((String) startHourPicker.getSelectedItem());
-    //        int eventEndHour = Integer.parseInt((String) endHourPicker.getSelectedItem());
-
-    //        DayEvents newEvent = new DayEvents(eventName, eventStartHour, eventEndHour, eventDate);
-
-    //        if (events.addEvent(eventDate, newEvent)) {
-    //            errorMsg.setText("Success! New event created!");
-    //            this.setVisible(false);
-    //            this.dispose();
-    //        } else {
-    //            errorMsg.setText("A conflict exists! Try again!");
-    //        }
+            if (validateInput(startYear, startMonth, startDay, endYear, endMonth, endDay)) {
+                System.out.println(validateInput(startYear, startMonth, startDay, endYear, endMonth, endDay));
+                setStartDate(startYear, startMonth, startDay);
+                setEndDate(endYear, endMonth, endDay);
+                showAgendaView();
+                this.setVisible(false);
+                this.dispose();
+            }
+            else {
+                errorMsg.setText("Invalid period! Try again!");
+            }
 
         }
     }
 
-//    private void setUpAgenda() {
-//
-//        if (!eventTree.isEmpty()) {
-//
-//            Set keys = eventTree.keySet();
-//            for (Iterator i = keys.iterator(); i.hasNext();) {
-//                date = (Date) i.next();
-//                eventList = (ArrayList<DayEvents>) eventTree.get(date);
-//                System.out.println(date + " = ");
-//
-//                System.out.print(date.toString());
-//                JPanel day = new JPanel(new BorderLayout());
-//                String label = daysOfWeek[date.getDay()] + " " + months[date.getMonth()] + " " + date.getDay();
-//                JButton dayLabel = new JButton(label);
-//                day.add(dayLabel, BorderLayout.WEST);
-//
-//                day.setBorder(blackline);
-//                JPanel eventView = new JPanel(new GridLayout(eventList.size(), 1));
-//                eventView.setBorder(blackline);
-//                for (DayEvents de : eventList) {
-//                    JPanel thisEvent = new JPanel(new BorderLayout());
-//                    thisEvent.setBorder(blackline);
-//                    String timeLabel = de.getStartHour() + "-" + de.getEndHour() + "       ";
-//                    JLabel time = new JLabel(timeLabel);
-//                    thisEvent.add(time, BorderLayout.WEST);
-//                    JLabel descript = new JLabel(de.getName());
-//                    thisEvent.add(descript);
-//                    eventView.add(thisEvent, BorderLayout.EAST);
-//                    //day.add(eventView,BorderLayout.CENTER);
-//                }
-//                day.add(eventView, BorderLayout.CENTER);
-//                panel.add(day);
-//            }
-//            JScrollPane scroll = new JScrollPane(panel);
-//            scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-//            scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//            this.add(scroll, BorderLayout.CENTER);
-//
-//        }
-//
-//    }
+    private void setStartDate(int y, int m, int d) {
+        sYear = y;
+        sMonth = m;
+        sDay = d;
+        agendaController.setYear(y);
+        agendaController.setMonth(m);
+        agendaController.setDayOfMonth(d);
+    }
 
-    private void setStartDate(Date date) {}
-
-    private void setEndDate(Date date) {}
+    private void setEndDate(int y, int m, int d) {
+        eYear = y;
+        eMonth = m;
+        eDay = d;
+    }
 
     @Override
     public void showNext() {

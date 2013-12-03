@@ -106,17 +106,13 @@ public class Controller {
         calendar.set(GregorianCalendar.DAY_OF_MONTH, Calendar.getInstance().get(GregorianCalendar.DAY_OF_MONTH));
     }
     
-    public void setCurDay(int day_of_month) {
-        calendar.set(GregorianCalendar.DAY_OF_MONTH, day_of_month);
-    }
+//    public void setDayOfMonth(int day_of_month) {
+//        calendar.set(GregorianCalendar.DAY_OF_MONTH, day_of_month);
+//    }
     
     public String getDayOfWeek() {
 //        System.out.println(calendar.get(GregorianCalendar.DAY_OF_WEEK));
         return dayOfWeek[calendar.get(GregorianCalendar.DAY_OF_WEEK)];
-    }
-    
-    public Events getEvents() {
-        return events;
     }
     
     public Date getDate() {

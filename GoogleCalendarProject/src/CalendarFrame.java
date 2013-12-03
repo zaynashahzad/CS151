@@ -146,9 +146,9 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         JButton agendaButton = new JButton("Agenda");
         agendaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                curView = agendaView;
-//                controller.setCurView(agendaView);
                 AgendaView av = new AgendaView(events);
+                curView = av;
+                controller.setCurView(av);
                 rightPanel.removeAll();
                 rightPanel.invalidate();
                 rightPanel.add(buttonsPanel, BorderLayout.NORTH);
@@ -237,6 +237,17 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         date = new Date(2014 - 1900, 3, 20);
         tempEvent = new DayEvents("Some event with a really long name", 11, 14, date);
         events.addEvent(date, tempEvent);
+
+        date = new Date(2014 - 1900, 0, 1);
+        //tempEvent = new DayEvents("test agenda view 1", 1, 2, date);
+        for (int i = 0; i < 23; i++) {
+            events.addEvent(date, new DayEvents("test " + i, i, i + 1, date));
+        }
+        date = new Date(2014 - 1900, 0, 2);
+        for (int i = 0; i < 23; i++) {
+            events.addEvent(date, new DayEvents("test " + i + 1, i, i + 1, date));
+        }
+
     }
 /**
  * This method changes the state and stuuuuff

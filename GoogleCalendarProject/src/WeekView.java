@@ -140,7 +140,7 @@ public class WeekView extends JPanel implements CalendarView {
     @Override
     public void showView(int year, int month, int day) {
         weekController.setMonth(month);
-        weekController.setCurDay(day);
+        weekController.setDayOfMonth(day);
         weekController.setYear(year);
         showWeekView();
     }
