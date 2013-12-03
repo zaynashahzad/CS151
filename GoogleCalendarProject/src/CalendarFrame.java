@@ -73,7 +73,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
                 controller.getCurView().showToday();
             }
         });
-        
+
         // < button action depends on current view
         JButton preMonthButton = new JButton("<");
         preMonthButton.addActionListener(new ActionListener() {
@@ -82,7 +82,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
                 controller.getCurView().showPrev();
             }
         });
-        
+
         // > button action depends on current view
         JButton nextMonthButton = new JButton(">");
         nextMonthButton.addActionListener(new ActionListener() {
@@ -91,7 +91,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
                 controller.getCurView().showNext();
             }
         });
-        
+
         leftButtons.add(todayButton);
         leftButtons.add(preMonthButton);
         leftButtons.add(nextMonthButton);
@@ -174,19 +174,29 @@ public class CalendarFrame extends JFrame implements ChangeListener {
                 frame.setLayout(new GridLayout(0, 1));
                 frame.setVisible(true);
                 frame.setSize(250, 100);
-
+                final JLabel errMsg = new JLabel();
                 JLabel jl = new JLabel("Enter the filename to use below.");
                 final JTextField fileName = new JTextField();
                 JButton useFile = new JButton("OK");
                 useFile.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        controller.createRecurringEvents(fileName.getText());
-                        frame.dispose();
+                        try {
+                            controller.createRecurringEvents(fileName.getText());
+                            frame.dispose();
+                        } catch (Exception ex) {
+                            errMsg.setText("Error: " + ex.getMessage());
+                        }
+
+
                     }
                 });
 
+                errMsg.setForeground(Color.red);
+
                 frame.add(jl);
                 frame.add(fileName);
+                frame.add(errMsg);
+
                 frame.add(useFile);
             }
         });
@@ -258,9 +268,9 @@ public class CalendarFrame extends JFrame implements ChangeListener {
 
     }
 
-    
     /**
      * If new events are added to model, refresh the current view automatically
+     *
      * @param e The event that changed the state
      */
     public void stateChanged(ChangeEvent e) {

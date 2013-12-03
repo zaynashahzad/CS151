@@ -7,12 +7,16 @@
  * @version 1.01 2013/12/02
  */
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
+/**
+ * The main controller class; handles operations needed by views that are common to every view. 
+ * Views that require additional features will extend this class
+ */
 public class Controller {
     
     private CalendarView curView;
@@ -22,6 +26,10 @@ public class Controller {
         "", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
     };
     
+    /**
+     * Makes new Controller object
+     * @param events contains underlying treemap that holds all scheduled calendar events
+     */
     Controller(Events events) {
         this.events = events;
         calendar = new GregorianCalendar();
@@ -131,9 +139,9 @@ public class Controller {
         }
     }
     
-    public void createRecurringEvents(String fileName) {
+    public void createRecurringEvents(String fileName) throws Exception {
         BufferedReader br = null;
-        try {
+        
             br = new BufferedReader(new FileReader(fileName));
             String strLine;
             //Read File Line By Line
@@ -202,9 +210,7 @@ public class Controller {
                 
                 
             }
-        } catch (Exception e) {//Catch exception if any
-            System.err.println("Error: " + e.getMessage());
-        }
+        
     }
     
     public void setDayOfMonth(int day) {
