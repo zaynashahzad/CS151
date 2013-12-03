@@ -169,7 +169,7 @@ public class DayView extends JPanel implements CalendarView {
      * Shows the day view for a specified date
      * @param year the year to display
      * @param month the month to display
-     * @param day  the day to display
+     * @param day the day to display
      */
     @Override
     public void showView(int year, int month, int day) {

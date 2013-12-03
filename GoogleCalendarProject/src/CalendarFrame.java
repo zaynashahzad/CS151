@@ -276,9 +276,10 @@ public class CalendarFrame extends JFrame implements ChangeListener {
      * @param e The event that changed the state
      */
     public void stateChanged(ChangeEvent e) {
-        controller.getCurView().showNext();
-        controller.getCurView().showPrev();
-
+        if (!controller.getCurView().getClass().equals(AgendaView.class)) {
+            controller.getCurView().showNext();
+            controller.getCurView().showPrev();
+        }
         rightPanel.removeAll();
         rightPanel.invalidate();
         rightPanel.add(buttonsPanel, BorderLayout.NORTH);

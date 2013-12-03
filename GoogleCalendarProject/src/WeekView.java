@@ -12,8 +12,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 /**
- * 
+ * Displays all the events scheduled for a certain week
  */
 public class WeekView extends JPanel implements CalendarView {
 
@@ -27,6 +28,11 @@ public class WeekView extends JPanel implements CalendarView {
         "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
     };
 
+    /**
+     * Sets up the GUI needed to display the events for a given week
+     *
+     * @param events contains all the events currently in the calendar
+     */
     public WeekView(Events events) {
 
         panel = new JPanel(new BorderLayout());
@@ -38,6 +44,9 @@ public class WeekView extends JPanel implements CalendarView {
         showWeekView();
     }
 
+    /**
+     * Makes a left side of table that houses all the hours of one day
+     */
     private void setLeftTable() {
         Object[][] obj = new Object[24][1];
         for (int i = 0; i < 24; i++) {
@@ -52,11 +61,18 @@ public class WeekView extends JPanel implements CalendarView {
         leftTable.setEnabled(false);
     }
 
+    /**
+     * Makes a right-hand side of table that houses all the events for one week,
+     * and displays them in a graphical way as blocks of time
+     *
+     * @param list the list of events for the given day to display in panel
+     */
     private void setRightTable() {
         Object[][] obj = new Object[24][7];
         String[] header = new String[7];
         boolean hasEvents = false;
 
+        // set the calendar to the closest sunday for displaying
         Calendar cal = weekController.getCalendar();
         for (int i = cal.get(GregorianCalendar.DAY_OF_WEEK); i > 1; i--) {
             weekController.prevDay();
@@ -103,6 +119,11 @@ public class WeekView extends JPanel implements CalendarView {
         rightTable.setEnabled(false);
     }
 
+    /**
+     * Shows the events in a week in tabular format with left and right columns
+     *
+     * @param list the list of events for the given day to display in panel
+     */
     private void showWeekView() {
         panel.removeAll();
         headerPanel.removeAll();
@@ -121,24 +142,40 @@ public class WeekView extends JPanel implements CalendarView {
         this.repaint();
     }
 
+    /**
+     * Shows the next week, and it's events
+     */
     @Override
     public void showNext() {
         weekController.nextWeek();
         showWeekView();
     }
 
+    /**
+     * Shows the previous week, and its events
+     */
     @Override
     public void showPrev() {
         weekController.prevWeek();
         showWeekView();
     }
 
+    /**
+     * Shows today's week and its events
+     */
     @Override
     public void showToday() {
         weekController.todayDate();
         showWeekView();
     }
 
+    /**
+     * Shows the week view for a specified date
+     *
+     * @param year the year to display
+     * @param month the month to display
+     * @param day the day to display
+     */
     @Override
     public void showView(int year, int month, int day) {
         weekController.setMonth(month);
@@ -148,8 +185,11 @@ public class WeekView extends JPanel implements CalendarView {
     }
 }
 
-class WeekController extends Controller{
+/**
+ * Implements extra functionality in Controller that is needed by the week view
+ */
+class WeekController extends Controller {
 
-    public WeekController() {}
-
+    public WeekController() {
+    }
 }

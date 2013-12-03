@@ -14,8 +14,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
 /**
- * 
+ * Small calendar that is always shown on left side of screen
  */
 public class SmallMonthCalendar extends JPanel {    //model and controller of small month calendar
 
@@ -30,6 +31,14 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         "July", "August", "September", "October", "November", "December"
     };
 
+    /**
+     * Sets up the GUI needed for user to interact with the small calendar on
+     * left
+     *
+     * @param c the controller that contains all functionality needed to make
+     * calendar scroll
+     * @param events all the events scheduled in the calendar
+     */
     SmallMonthCalendar(Controller c, final Events events) {
         controller = c;
         monthCal = new JPanel();
@@ -43,6 +52,7 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         rightArrow.setBorder(null);
         createEvent = new JButton("CREATE");
 
+        // create a new event button 
         createEvent.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CreateEvent ce = new CreateEvent(events);
@@ -53,6 +63,7 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
 
         createEvent.setForeground(Color.red);
 
+        // behavior of left and right arrow clicks
         addButtonActionListener(leftArrow);
         addButtonActionListener(rightArrow);
 
@@ -82,6 +93,11 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         showSmallMonthCal();
     }
 
+    /**
+     * Gets all the days of the current month, and displays them in
+     * tabular/calendar format. Each day is click-able and changes the view on
+     * right side of screen depending on which view is being used
+     */
     public void showSmallMonthCal() {
         ArrayList<String> days = showSmallCalendar();
         GregorianCalendar todaysDate = new GregorianCalendar();
@@ -130,6 +146,12 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
         monthCal.repaint();
     }
 
+    /**
+     * Gets all the days in current month, along with some days of the next and
+     * previous months to fill in calendar table
+     *
+     * @return an arraylist of all dates in the current month
+     */
     private ArrayList<String> showSmallCalendar() {
 
         ArrayList<String> arr = new ArrayList();
@@ -186,10 +208,13 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
             }
         });
     }
-    
-    public void showToday(){
+
+    /**
+     * Changes the current month view to today's month
+     */
+    public void showToday() {
         controller.todayDate();
-         showSmallMonthCal();
+        showSmallMonthCal();
     }
 
     /**
@@ -206,18 +231,20 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
             if (tempMonth == -1) {
                 tempMonth = 11;
             }
-        }
-        else {
-            if (controller.getCurMonth() == 0)
+        } else {
+            if (controller.getCurMonth() == 0) {
                 tempYear--;
+            }
         }
 
         for (final JLabel jl : daysLabels) {
             if (prevDay != null) {
                 if (Integer.parseInt(jl.getText()) < Integer.parseInt(prevDay.getText())) {
                     tempMonth = (tempMonth + 1) % 12;
-                    if (tempMonth == 0)  //changing from Dec to Jan
+                    if (tempMonth == 0) //changing from Dec to Jan
+                    {
                         tempYear++;
+                    }
                 }
             }
             prevDay = jl;
@@ -226,17 +253,26 @@ public class SmallMonthCalendar extends JPanel {    //model and controller of sm
             final int tempYearCopy = tempYear;
             jl.addMouseListener(
                     new MouseAdapter() {
+                /**
+                 * Changes the current view to the day that was clicked on
+                 */
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     controller.getCurView().showView(tempYearCopy, tempMonthCopy, Integer.parseInt(jl.getText()));
                 }
 
+                /**
+                 * Highlight the day that is under mouse cursor
+                 */
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     jl.setBackground(new Color(222, 222, 222));
                     jl.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 }
 
+                /**
+                 * Unhighlight the day when mouse is no longer hovering over it
+                 */
                 @Override
                 public void mouseExited(MouseEvent e) {
                     jl.setBackground(Color.white);

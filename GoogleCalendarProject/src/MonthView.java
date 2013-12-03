@@ -185,6 +185,8 @@ public class MonthView extends JPanel implements CalendarView {
 class MonthController extends Controller {
 
     /**
+     * Gets all the days in current month, along with some days of the next and
+     * previous months to fill in calendar table
      *
      * @return an arraylist of all dates in the current month
      */
