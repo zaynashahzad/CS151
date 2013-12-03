@@ -15,32 +15,29 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 /**
- * CalendarFrame
+ * CalendarFrame is the main JFrame that holds all views and main buttons
  *
  */
 public class CalendarFrame extends JFrame implements ChangeListener {
 
     private Controller controller;
-    private Events events;
+    private Events events;  // all the events currently scheduled
     private JPanel curView;
     private DayView dayView;
     private WeekView weekView;
     private MonthView monthView;
     private AgendaView agendaView;
     final JPanel rightPanel, buttonsPanel;
-/**
 
-*/
     public CalendarFrame() {
-
         events = new Events();
         testEvents();
 
         dayView = new DayView(events);
         weekView = new WeekView(events);
         monthView = new MonthView(events);
-//        agendaView = new AgendaView(events);
 
+        // register this file as a listener for when events are added and removed
         events.registerListener(this);
 
         controller = new Controller(events);
@@ -67,6 +64,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         JPanel leftButtons = new JPanel();
         leftButtons.setLayout(new GridLayout(1, 3));
 
+        //today button action depends on the current view
         JButton todayButton = new JButton("Today");
         todayButton.addActionListener(new ActionListener() {
             @Override
@@ -75,6 +73,8 @@ public class CalendarFrame extends JFrame implements ChangeListener {
                 controller.getCurView().showToday();
             }
         });
+        
+        // < button action depends on current view
         JButton preMonthButton = new JButton("<");
         preMonthButton.addActionListener(new ActionListener() {
             @Override
@@ -82,6 +82,8 @@ public class CalendarFrame extends JFrame implements ChangeListener {
                 controller.getCurView().showPrev();
             }
         });
+        
+        // > button action depends on current view
         JButton nextMonthButton = new JButton(">");
         nextMonthButton.addActionListener(new ActionListener() {
             @Override
@@ -89,6 +91,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
                 controller.getCurView().showNext();
             }
         });
+        
         leftButtons.add(todayButton);
         leftButtons.add(preMonthButton);
         leftButtons.add(nextMonthButton);
@@ -97,6 +100,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         buttonsPanel.add(leftButtons, BorderLayout.WEST);
         buttonsPanel.add(rightButtons, BorderLayout.EAST);
 
+        // change the current view to day -- default
         JButton dayButton = new JButton("Day");
         dayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -112,6 +116,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         });
         rightButtons.add(dayButton);
 
+        // change the current view to week
         JButton weekButton = new JButton("Week");
         weekButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -127,6 +132,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         });
         rightButtons.add(weekButton);
 
+        // change the current view to month
         JButton monthButton = new JButton("Month");
         monthButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -142,6 +148,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         });
         rightButtons.add(monthButton);
 
+        // change the current view to agenda
         JButton agendaButton = new JButton("Agenda");
         agendaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -159,7 +166,8 @@ public class CalendarFrame extends JFrame implements ChangeListener {
 
         rightButtons.add(agendaButton);
 
-        JButton fromFileButton = new JButton("From File");
+        // allow the user to import recurring events from file
+        final JButton fromFileButton = new JButton("From File");
         fromFileButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 final JFrame frame = new JFrame();
@@ -187,6 +195,7 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         rightPanel.add(buttonsPanel, BorderLayout.NORTH);
         rightPanel.add(curView, BorderLayout.CENTER);
 
+        // add everything to current panel for viewing
         setLayout(new BorderLayout());
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.CENTER);
@@ -248,8 +257,12 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         }
 
     }
-/**
- */
+
+    
+    /**
+     * If new events are added to model, refresh the current view automatically
+     * @param e The event that changed the state
+     */
     public void stateChanged(ChangeEvent e) {
         controller.getCurView().showNext();
         controller.getCurView().showPrev();

@@ -275,7 +275,6 @@ public class AgendaView extends JPanel implements CalendarView {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-
 }
 
 class AgendaController extends Controller{
