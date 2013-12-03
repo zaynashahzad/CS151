@@ -19,12 +19,8 @@ import java.util.Date;
 public class AgendaView extends JPanel implements CalendarView {
 
     Events events;
-<<<<<<< HEAD
-    int sYear, sMonth, sDay, eYear, eMonth, eDay;
-=======
     int sYear, sMonth, sDay;
     int eYear, eMonth, eDay;
->>>>>>> 73aa6653fc4848fa9e05ba2216b96ae0486068e5
     ArrayList<DayEvents> eventsList;
     AgendaController agendaController;
     JTable leftTable, rightTable;
