@@ -19,12 +19,8 @@ import java.util.Date;
 public class AgendaView extends JPanel implements CalendarView {
 
     Events events;
-<<<<<<< HEAD
-    int sYear, sMonth, sDay, eYear, eMonth, eDay;
-=======
     int sYear, sMonth, sDay;
     int eYear, eMonth, eDay;
->>>>>>> 73aa6653fc4848fa9e05ba2216b96ae0486068e5
     ArrayList<DayEvents> eventsList;
     AgendaController agendaController;
     JTable leftTable, rightTable;
@@ -266,10 +262,7 @@ public class AgendaView extends JPanel implements CalendarView {
             int endMonth = Integer.parseInt((String) endMonthPicker.getSelectedItem()) - 1;
             int endDay = Integer.parseInt((String) endDayPicker.getSelectedItem());
 
-            System.out.println(startMonth + "/" + startDay + " " + startYear + " to " + endMonth + "/" + endDay + " " + endYear);
-
             if (validateInput(startYear, startMonth, startDay, endYear, endMonth, endDay)) {
-                System.out.println(validateInput(startYear, startMonth, startDay, endYear, endMonth, endDay));
                 setStartDate(startYear, startMonth, startDay);
                 setEndDate(endYear, endMonth, endDay);
                 showAgendaView();
@@ -279,7 +272,6 @@ public class AgendaView extends JPanel implements CalendarView {
             else {
                 errorMsg.setText("Invalid period! Try again!");
             }
-
         }
     }
 
@@ -336,7 +328,6 @@ public class AgendaView extends JPanel implements CalendarView {
         agendaController.setYear(year);
         agendaController.setMonth(month);
         agendaController.setDayOfMonth(day);
-
         today = agendaController.getDate();
         setStartDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
         setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
