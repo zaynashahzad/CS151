@@ -19,6 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * CreateEvent class asks the user for event details and creates a new event in
+ * the calendar with that information
+ */
 class CreateEvent extends JFrame implements ActionListener {
 
     private Events events;
@@ -28,6 +32,12 @@ class CreateEvent extends JFrame implements ActionListener {
     private JComboBox startHourPicker, endHourPicker;
     private JLabel errorMsg;
 
+    /**
+     * Sets up the GUI for user to enter all event details
+     *
+     * @param event underlying treemap that contains all the current events in
+     * calendar
+     */
     CreateEvent(Events event) {
         events = event;
         innerPanel = new JPanel();
@@ -101,6 +111,13 @@ class CreateEvent extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Invoked when user presses the submit button. Takes all details, creates a
+     * new event and attempts to add event to calendar. Closes the window if
+     * successful, remains open otherwise.
+     *
+     * @param e the object that makes this event occur
+     */
     public void actionPerformed(ActionEvent e) {
         errorMsg.setText("");
         String eventName = eventNameTf.getText();

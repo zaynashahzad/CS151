@@ -13,12 +13,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * The AgendaView class houses all the events to be displayed during a given date range
+ */
 public class AgendaView extends JPanel implements CalendarView {
 
     Events events;
+<<<<<<< HEAD
     int sYear, sMonth, sDay;
     int eYear, eMonth, eDay;
+=======
+    int sYear, sMonth, sDay, eYear, eMonth, eDay;
+>>>>>>> 3bcf80f401c0b63adf2d9966db9ef394eb498772
     ArrayList<DayEvents> eventsList;
     AgendaController agendaController;
     JTable leftTable, rightTable;
@@ -37,12 +43,19 @@ public class AgendaView extends JPanel implements CalendarView {
         "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
     };
 
+    /**
+     * Sets up and displays all the events for a given period of time
+     * @param event A treemap of all the events currently in the calendar
+     */
     public AgendaView(Events event) {
+<<<<<<< HEAD
 
         next = 0;
         prev = 0;
         highLight = false;
         color = new AgendaColorConcrete();
+=======
+>>>>>>> 3bcf80f401c0b63adf2d9966db9ef394eb498772
         agendaController = new AgendaController();
         today = agendaController.getDate();
         eventsList = new ArrayList<DayEvents>();
@@ -53,16 +66,17 @@ public class AgendaView extends JPanel implements CalendarView {
         new AgendaViewFrame();
     }
 
+    /**
+     * Puts all the events in the time frame into eventsList arrayList
+     */
     private void getEventsList() {
-
         eventsList.clear();
-
         while (agendaController.getCurYear() != eYear ||
                 agendaController.getCurMonth() != eMonth ||
                 agendaController.getCurDay() != eDay) {
 
             ArrayList<DayEvents> tempList = events.getEventsForDate(agendaController.getDate());
-            if (tempList != null) {
+            if (tempList != null) { // found events for this day
                 for (DayEvents de : tempList) {
                     eventsList.add(de);
                 }
@@ -70,6 +84,7 @@ public class AgendaView extends JPanel implements CalendarView {
 
             agendaController.nextDay();
         }
+        // get events for the last date in time frame
         ArrayList<DayEvents> tempList = events.getEventsForDate(agendaController.getDate());
         if (tempList != null) {
             for (DayEvents de : tempList) {
@@ -82,6 +97,9 @@ public class AgendaView extends JPanel implements CalendarView {
         agendaController.setDayOfMonth(today.getDate());
     }
 
+    /**
+     * 
+     */
     private void setLeftTable() {
         Object[][] obj = new Object[eventsList.size()][1];
         Object[] tempTitle = {""};
@@ -334,5 +352,7 @@ public class AgendaView extends JPanel implements CalendarView {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+}
 
+class AgendaController extends Controller{
 }

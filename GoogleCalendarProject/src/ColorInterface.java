@@ -8,7 +8,9 @@
  */
 import java.awt.Color;
 
-
+/**
+ * ColorInterface guarantees the basic operations needed by views to use label colors 
+ */
 public interface ColorInterface {
 
     public void pickColor();
