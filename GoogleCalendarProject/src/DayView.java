@@ -11,6 +11,9 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Displays all the events scheduled for a certain day
+ */
 public class DayView extends JPanel implements CalendarView {
 
     JLabel dateTitle;
@@ -25,6 +28,11 @@ public class DayView extends JPanel implements CalendarView {
         "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"
     };
 
+    /**
+     * Sets up the GUI needed to display the events for a given day
+     *
+     * @param events contains all the events currently in the calendar
+     */
     public DayView(Events events) {
         dateTitle = new JLabel();
         color = new DayColorConcrete();
@@ -37,6 +45,9 @@ public class DayView extends JPanel implements CalendarView {
 
     }
 
+    /**
+     * Makes a left side of table that houses all the hours of the day
+     */
     private void setLeftTable() {
         Object[][] obj = new Object[24][1];
         for (int i = 0; i < 24; i++) {
@@ -52,6 +63,12 @@ public class DayView extends JPanel implements CalendarView {
         leftTable.setEnabled(false);
     }
 
+    /**
+     * Makes a right-hand side of table that houses all the events on the day,
+     * and displays them in a graphical way as blocks of time
+     *
+     * @param list the list of events for the given day to display in panel
+     */
     private void setRightTable(ArrayList<DayEvents> list) {
         Object[][] obj = new Object[24][1];
         Object[] temp = {""};
@@ -73,6 +90,7 @@ public class DayView extends JPanel implements CalendarView {
                 @Override
                 public Component prepareRenderer(TableCellRenderer renderer, int Index_row, int Index_col) {
                     Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
+                    // if event at the given hour, color it in. Otherwise leave it white
                     if (hrs[Index_row] == 1) {
                         comp.setBackground(color.getColor());
                     } else {
@@ -91,6 +109,10 @@ public class DayView extends JPanel implements CalendarView {
         rightTable.setEnabled(false);
     }
 
+    /**
+     * Shows the events on a day in tabular format with left and right columns; sets the current date at the top
+     * @param list the list of events for the given day to display in panel
+     */
     private void showDayView(ArrayList<DayEvents> list) {
         this.invalidate();
         panel.removeAll();
@@ -108,28 +130,47 @@ public class DayView extends JPanel implements CalendarView {
         this.repaint();
     }
 
+    /**
+     * Sets the date to be displayed at the top of screen
+     * @param date The date to display at the top of day view
+     */
     private void setDateTitle(String date) {
         this.dateTitle.setText(date);
     }
 
     @Override
+    /**
+     * Shows the next day, and it's events
+     */
     public void showNext() {
         dayController.nextDay();
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
     @Override
+    /**
+     * Shows the previous day, and its events
+     */
     public void showPrev() {
         dayController.prevDay();
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
     @Override
+    /**
+     * Shows today's date and its events
+     */
     public void showToday() {
         dayController.todayDate();
         showDayView(events.getEventsForDate(dayController.getDate()));
     }
 
+    /**
+     * Shows the day view for a specified date
+     * @param year the year to display
+     * @param month the month to display
+     * @param day  the day to display
+     */
     @Override
     public void showView(int year, int month, int day) {
         dayController.setMonth(month);
@@ -139,6 +180,9 @@ public class DayView extends JPanel implements CalendarView {
     }
 }
 
+/**
+ * Implements extra functionality in Controller that is needed by the day view
+ */
 class DayController extends Controller {
 
     public DayController() {

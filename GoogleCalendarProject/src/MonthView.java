@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * Displays all the events scheduled for a certain month
+ */
 public class MonthView extends JPanel implements CalendarView {
 
     private ArrayList<JLabel> weeksTitle;
@@ -19,12 +22,17 @@ public class MonthView extends JPanel implements CalendarView {
     private MonthController controller;
     private JPanel monthCal;
     private JLabel monthTitle;
-    private ColorInterface color; 
+    private ColorInterface color;
     public final static String[] months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     };
 
+    /**
+     * Sets up the GUI needed to display the events for a given month
+     *
+     * @param events contains all the events currently in the calendar
+     */
     public MonthView(Events events) {
         this.events = events;
         color = new MonthColorConcrete();
@@ -52,6 +60,10 @@ public class MonthView extends JPanel implements CalendarView {
         showMonthCal();
     }
 
+    /**
+     * Displays the current month of the calendar, with blocks for events if
+     * they are scheduled a day in the month
+     */
     private void showMonthCal() {
 
         final int STRLEN_DEFAULT = 15;
@@ -92,6 +104,7 @@ public class MonthView extends JPanel implements CalendarView {
                 eventsForOneDay = events.getEventsForDate(d);
                 if (eventsForOneDay != null && eventsForOneDay.size() > 0) {
 
+                    // if more than 3 events for the day, use only the first 3.
                     if (eventsForOneDay.size() >= 3) {
                         for (int i = 0; i < eventLabels.length; i++) {
                             eventLabels[i].setText(eventsForOneDay.get(i).getName());
@@ -127,21 +140,37 @@ public class MonthView extends JPanel implements CalendarView {
         monthCal.repaint();
     }
 
+    /**
+     * Show the calendar for the next month
+     */
     public void showNext() {
         controller.nextMonth();
         showMonthCal();
     }
 
+    /**
+     * Show the calendar for the previous month
+     */
     public void showPrev() {
         controller.prevMonth();
         showMonthCal();
     }
 
+    /**
+     * Show the calendar for the current month
+     */
     public void showToday() {
         controller.todayDate();
         showMonthCal();
     }
 
+    /**
+     * Set the current month view to a specific date
+     *
+     * @param year the year to set calendar to
+     * @param month the month to set calendar to
+     * @param day the day to set calendar to
+     */
     public void showView(int year, int month, int day) {
         controller.setYear(year);
         controller.setMonth(month);
@@ -150,8 +179,15 @@ public class MonthView extends JPanel implements CalendarView {
     }
 }
 
+/**
+ * Implements extra functionality in Controller that is needed by the month view
+ */
 class MonthController extends Controller {
 
+    /**
+     *
+     * @return an arraylist of all dates in the current month
+     */
     public ArrayList<String> showCalendar() {
 
         ArrayList<String> arr = new ArrayList();
@@ -169,7 +205,6 @@ class MonthController extends Controller {
                 i++) {
             arr.add(" ");
         }
-
 
         /**
          * append days from current month
@@ -191,8 +226,6 @@ class MonthController extends Controller {
 
         calendar.add(GregorianCalendar.MONTH, -1);
         calendar.set(GregorianCalendar.DAY_OF_MONTH, current);
-
-
         return arr;
     }
 }
