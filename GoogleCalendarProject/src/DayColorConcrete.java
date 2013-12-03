@@ -22,7 +22,7 @@ public class DayColorConcrete implements ColorInterface {
      * Set the color to a blue-ish tint
      */
     public void pickColor() {
-        c = new Color(135, 206, 250);
+        c = new Color(204, 255, 204);
     }
     
     /**

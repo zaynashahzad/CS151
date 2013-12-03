@@ -25,7 +25,7 @@ public class MonthColorConcrete implements ColorInterface {
      */
     @Override
     public void pickColor() {
-        c = Color.red;
+        c = new Color(255, 204, 229);
     }
 
     /**

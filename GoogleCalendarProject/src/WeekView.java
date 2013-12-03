@@ -64,8 +64,6 @@ public class WeekView extends JPanel implements CalendarView {
     /**
      * Makes a right-hand side of table that houses all the events for one week,
      * and displays them in a graphical way as blocks of time
-     *
-     * @param list the list of events for the given day to display in panel
      */
     private void setRightTable() {
         Object[][] obj = new Object[24][7];
@@ -103,7 +101,7 @@ public class WeekView extends JPanel implements CalendarView {
                 public Component prepareRenderer(TableCellRenderer renderer, int Index_row, int Index_col) {
                     Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
                     if (hrs[Index_row][Index_col] == 1) {
-                        comp.setBackground(new Color(135, 206, 250));
+                        comp.setBackground(new Color(204, 229, 255));
                     } else {
                         comp.setBackground(Color.white);
                     }
@@ -122,7 +120,6 @@ public class WeekView extends JPanel implements CalendarView {
     /**
      * Shows the events in a week in tabular format with left and right columns
      *
-     * @param list the list of events for the given day to display in panel
      */
     private void showWeekView() {
         panel.removeAll();

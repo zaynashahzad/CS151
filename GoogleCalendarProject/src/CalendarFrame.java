@@ -6,6 +6,7 @@
  * @author Peiyi Mao, Zayna Shahzad, Robert Buser
  * @version 1.01 2013/12/02
  */
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * CalendarFrame is the main JFrame that holds all views and main buttons
@@ -257,15 +259,46 @@ public class CalendarFrame extends JFrame implements ChangeListener {
         events.addEvent(date, tempEvent);
 
         date = new Date(2013 - 1900, 11, 2);
+        events.addEvent(date, new DayEvents("test yesterday", 1, 2, date));
+
+        date = new Date(2013 - 1900, 11, 3);
         events.addEvent(date, new DayEvents("test today", 1, 2, date));
 
-        date = new Date(2014 - 1900, 0, 1);
+        date = new Date(2013 - 1900, 11, 30);
         for (int i = 0; i < 23; i++) {
-            events.addEvent(date, new DayEvents("test " + i, i, i + 1, date));
+            events.addEvent(date, new DayEvents("test agenda view " + i, i, i + 1, date));
         }
-        date = new Date(2014 - 1900, 0, 2);
+        date = new Date(2013 - 1900, 11, 31);
         for (int i = 0; i < 23; i++) {
-            events.addEvent(date, new DayEvents("test " + i + 1, i, i + 1, date));
+            events.addEvent(date, new DayEvents("test more agenda view " + i + 1, i, i + 1, date));
+        }
+
+        Random rand = new Random();
+        for (int i = 1; i <= 31; i++) {
+            int num = rand.nextInt(5) + 0;
+            for (int j = 0, n = 0; j < num; j++) {
+                date = new Date(2014 - 1900, 0, i);
+                events.addEvent(date, new DayEvents("random event " + j, n, n + 1, date));
+                n += 2;
+            }
+        }
+
+        for (int i = 1; i <= 31; i++) {
+            int num = rand.nextInt(5) + 0;
+            for (int j = 0, n = 0; j < num; j++) {
+                date = new Date(2013 - 1900, 10, i);
+                events.addEvent(date, new DayEvents("random event " + j, n, n + 1, date));
+                n += 2;
+            }
+        }
+
+        for (int i = 1; i <= 31; i++) {
+            int num = rand.nextInt(3) + 0;
+            for (int j = 0, n = 0; j < num; j++) {
+                date = new Date(2013 - 1900, 11, i);
+                events.addEvent(date, new DayEvents("random event " + j, n, n + 1, date));
+                n += 2;
+            }
         }
 
     }

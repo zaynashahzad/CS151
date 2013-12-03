@@ -127,7 +127,6 @@ public class AgendaView extends JPanel implements CalendarView {
                 Component comp = super.prepareRenderer(renderer, Index_row, Index_col);
                 if (temp[Index_row] == 1 && highLight == true) {
                     comp.setBackground(color.getColor());
-                    highLight = false;
                 } else {
                     comp.setBackground(Color.white);
                 }
@@ -342,10 +341,10 @@ public class AgendaView extends JPanel implements CalendarView {
         agendaController.setMonth(eMonth);
         agendaController.setYear(eYear);
 
-        next++;
-        for (int i = 0; i < next; i++) {
+//        next++;
+//        for (int i = 0; i < next; i++) {
             agendaController.nextWeek();
-        }
+//        }
         setEndDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
         setStartDate(sYear, sMonth, sDay);
         showAgendaView();
@@ -366,6 +365,8 @@ public class AgendaView extends JPanel implements CalendarView {
 
     @Override
     public void showToday() {
+        prev = 0;
+        next = 0;
         agendaController.todayDate();
         today = agendaController.getDate();
         setStartDate(agendaController.getCurYear(), agendaController.getCurMonth(), agendaController.getCurDay());
