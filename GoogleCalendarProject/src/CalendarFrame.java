@@ -29,9 +29,8 @@ public class CalendarFrame extends JFrame implements ChangeListener {
     private AgendaView agendaView;
     final JPanel rightPanel, buttonsPanel;
 /**
- * This is the frame that the calendar lives in.
- * The calendar's home if you will... you will
- */
+
+*/
     public CalendarFrame() {
 
         events = new Events();
@@ -250,13 +249,11 @@ public class CalendarFrame extends JFrame implements ChangeListener {
 
     }
 /**
- * This method changes the state and stuuuuff
- * @param e The changeEvent, duh?
  */
     public void stateChanged(ChangeEvent e) {
         controller.getCurView().showNext();
         controller.getCurView().showPrev();
-        // NEED THIS TO WORK. :(
+
         rightPanel.removeAll();
         rightPanel.invalidate();
         rightPanel.add(buttonsPanel, BorderLayout.NORTH);
