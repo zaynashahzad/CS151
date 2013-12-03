@@ -8,6 +8,10 @@
  */
 import java.awt.Color;
 
+/**
+ * MonthColorConcrete is used by MonthView to determine what color to paint
+ * jlabels
+ */
 public class MonthColorConcrete implements ColorInterface {
 
     private Color c = null;
@@ -16,11 +20,19 @@ public class MonthColorConcrete implements ColorInterface {
         pickColor();
     }
 
+    /**
+     * Set the color to a red
+     */
     @Override
     public void pickColor() {
         c = Color.red;
     }
 
+    /**
+     * Gets the current color to use
+     *
+     * @return the current color
+     */
     @Override
     public Color getColor() {
         return c;
