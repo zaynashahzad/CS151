@@ -9,6 +9,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The entry point of Google Calendar application
+ */
 public class GoogleCalendar {
 
     public static void main(String[] args) {
