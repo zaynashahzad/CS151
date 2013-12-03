@@ -12,7 +12,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+/**
+ * 
+ */
 public class WeekView extends JPanel implements CalendarView {
 
     JPanel panel, headerPanel;
